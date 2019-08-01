@@ -1,8 +1,8 @@
 ##### Set-up #####
 tic()
 # specify number of samples to take, length of warm-up period, and number of chains
-n_samples <- 2
-n_warmup <- 1
+n_samples <- 100
+n_warmup <- 50
 n_chains <- 1
 
 # import libraries
@@ -15,7 +15,7 @@ source(here("models", "stan", "stan_model_library.R"))
 
 # specify model to sample (as specified in model library)
 models <- list(
-  model_challenge
+  model1_pgrl
 )
 
 # load data
