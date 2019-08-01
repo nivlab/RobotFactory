@@ -106,7 +106,6 @@ venv.bak/
 
 # project specific
 .DS_Store
-*.csv
 *.pkl
 .Rproj.user
 .Rhistory
