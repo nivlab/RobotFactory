@@ -1,25 +1,29 @@
 ##### Set-up #####
-tic()
-# specify number of samples to take, length of warm-up period, and number of chains
-n_samples <- 100
-n_warmup <- 50
-n_chains <- 1
 
 # import libraries
 library(here)                                                                                       # for specifying relative paths
 library(tictoc)                                                                                     # for timing
 library(rstan)
 
+tic()
+# specify number of samples to take, length of warm-up period, and number of chains
+n_samples <- 100
+n_warmup <- 50
+n_chains <- 2
+
 # source stan utilities and model summaries
 source(here("models", "stan", "stan_model_library.R"))
 
 # specify model to sample (as specified in model library)
 models <- list(
-  model1_pgrl
+  # model1_pgrl
+  # model2_gobias
+  model3_pgrl_gobias
 )
 
 # load data
 pid_data <- read.csv(here("dan_data.csv"))
+pid_data <- subset(pid_data, pid_data$id %in% unique(pid_data$id)[1:10])
 ids <- unique(pid_data$id)
 
 # rework data for stan
