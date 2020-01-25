@@ -1,6 +1,7 @@
 import os
 import numpy as np
-from pandas import read_csv, concat
+from pandas import DataFrame, concat, read_csv
+from scipy.io import loadmat
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
 ### Define functions.
@@ -38,6 +39,7 @@ def preprocess_2016albrecht(data_dir = '2016albrecht'):
 
     data['Study'] = data_dir
     return data
+
 
 def preprocess_2017mkrtchian(data_dir = '2017mkrtchian'):
     """Load and prepare data from Mkrtchian et al. (2017)."""
@@ -138,6 +140,65 @@ def preprocess_2018millner(data_dir = '2018millner'):
     return data
 
 
+def preprocess_2018swart(data_dir = '2018swart'):
+    
+    ## Locate files.
+    files = sorted([f for f in os.listdir(data_dir) if f.endswith('mat')])
+
+    ## Main loop.
+    data = []
+    for i, f in enumerate(files):
+
+        ## Load mat file.
+        mat = loadmat(os.path.join(data_dir, f), squeeze_me=True)
+
+        ## Extract cue information.
+        par, _, seq, _ = mat['prep'].tolist()    # params, dir, sequence, timing
+        seq, _ = seq.tolist()
+        stim, feedback, resp, iti = seq.tolist()
+
+        cue = np.concatenate(stim)
+        cue_id = par.tolist()[7][cue - 1]
+
+        ## Extract behavior. 
+        results = mat['results']
+        session_1, session_2 = [sess.tolist() for sess in results.tolist()[1].tolist()]
+        rt = np.concatenate([session_1[0], session_2[0]])
+        accuracy = np.concatenate([session_1[1], session_2[1]])
+        response = np.concatenate([session_1[2], session_2[2]])
+        outcome = np.concatenate([session_1[3], session_2[3]])
+
+        ## Convert to DataFrame
+        df = DataFrame(dict(Cue=cue, X=cue_id, RT=rt, Accuracy=accuracy, 
+                            Choice=response, Outcome=outcome))
+
+        ## Update subject info.
+        df['Subject'] = i + 1
+        df['Diagnosis'] = 'HC'
+
+        ## Update condition info.
+        df['Valence'] = df.X.apply(lambda x: 'Positive' if 'win' in x else 'Negative')
+        df['Action'] = df.X.apply(lambda x: 'No-Go' if 'NoGo' in x else 'Go')
+
+         ## Update trial info.
+        tally = lambda arr: np.arange(arr.size) + 1
+        df['Trial'] = np.concatenate([np.arange(320),np.arange(320)])+1
+        df['Condition'] = np.repeat([1,2],320)
+        df['Exposure'] = df.groupby(['Condition','Cue']).Trial.transform(tally)
+
+        ## Update response info.
+        df['Choice'] = df.Choice.replace({0:0, 97:1, 101:2})
+        
+        ## Append.
+        data.append(df)
+        
+    ## Concatenate data.    
+    data = concat(data)
+    
+    data['Study'] = data_dir
+    return data
+
+
 def preprocess_2019csifcsal(data_dir = '2019csifcsal'):
     """Load and prepare data from Csifcsal et al. (2019)."""
 
@@ -197,6 +258,7 @@ data = concat([
     preprocess_2016albrecht(),
     preprocess_2017mkrtchian(), 
     preprocess_2018millner(), 
+    preprocess_2018swart(), 
     preprocess_2019csifcsal()
 ], sort=False)
 
@@ -207,4 +269,5 @@ data = data[['Study','Subject','Diagnosis','Condition','Trial','Valence','Action
 ## Re-sort rows.
 data = data.sort_values(['Study','Subject','Condition','Trial'])
 
-data.to_csv('test.csv', index=False)
+## Save data.
+data.to_csv('data.csv', index=False)
