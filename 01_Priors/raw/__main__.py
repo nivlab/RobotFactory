@@ -2,6 +2,7 @@ import os
 import numpy as np
 from pandas import DataFrame, concat, read_csv
 from scipy.io import loadmat
+ROOT_DIR = os.path.dirname(os.path.realpath(__file__))
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
 ### Define functions.
@@ -17,32 +18,50 @@ def preprocess_2016albrecht(data_dir = '2016albrecht'):
     data = data.query('group=="HC"')
 
     ## Restrict and rename columns.
-    data = data[['sidx','group','trial','IdealOutcome','TrialType','ttOut',
+    data = data[['sidx','trial','IdealOutcome','TrialType','ttOut',
                  'Respond','Target.RT','Accuracy','MoneyEarned']]
-    data.columns = ('Subject','Diagnosis','Trial','Valence','Action','Cue','Choice','RT','Accuracy','Outcome')
+    data.columns = ('Subject','Trial','Valence','Action','Cue','Choice','RT','Accuracy','Outcome')
 
-    ## Update subject.
+    ## Update subject info.
     data['Subject'] = np.unique(data.Subject, return_inverse=True)[-1] + 1
 
     ## Update condition info.
-    data['Valence'] = data.Valence.replace({'Win':'Positive', 'Avoid-loss':'Negative'})
+    data['Valence'] = data.Valence.replace({'Win':'Win', 'Avoid-loss':'Lose'})
     data['Action']  = data.Action.replace({'Go':'Go', 'No-go':'No-Go'})
     data['Cue'] = data.Cue.replace({'Go.Win':1, 'Go.Avoid-loss':2, 'No-go.Win':3, 'No-go.Avoid-loss':4})
 
     ## Update trial info.
     tally = lambda arr: np.arange(arr.size) + 1
+    data['Block'] = 1
     data['Exposure'] = data.groupby(['Subject','Cue']).Trial.transform(tally)
 
     ## Update response info.
     data['Choice'] = data['Choice'].astype(int)
     data['RT'] = data.RT.replace({0:np.nan}) / 1000.
+    
+    ## Update outcome info.
+    delta = data.groupby('Subject').Outcome.diff()
+    data['Outcome'] = np.where(np.isnan(delta), data.Outcome, delta)
+    data['Outcome'] = np.sign(data.Outcome).astype(int)
 
     data['Study'] = data_dir
     return data
 
 
 def preprocess_2017mkrtchian(data_dir = '2017mkrtchian'):
-    """Load and prepare data from Mkrtchian et al. (2017)."""
+    """Load and prepare data from Mkrtchian et al. (2017).
+    
+    Notes
+    -----
+    - The task involves a target detection sub-task, wherein participants must identify
+      and indicate the spatial location of a visual target. On a rare minority of trials,
+      this results in erroneous responses on Go trials (e.g. participant correctly responds
+      but incorrectly identifies the correct location of the target). Because on these 
+      trials the participant has successfuly learned the Go-rule, but has made a simple
+      motor error (press wrong side button), we set these trials to NaNs. This should
+      affect the overwhelming minority of participants in the sample.
+    
+    """
 
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
     ### Load and prepare data.
@@ -63,21 +82,27 @@ def preprocess_2017mkrtchian(data_dir = '2017mkrtchian'):
                       'OutcomeCorrect','OutcomeIncorrect','OutcomeNoPress',
                       'Outcome','','Choice','Accuracy','RT','')
 
-        ## Update subject.
-        df['Subject'] = i + 1
+        ## Update subject info.
+        df['Subject'] = int(''.join([s for s in f if s.isnumeric()]))
 
         ## Update condition info.
-        df['Condition'] = np.where(df.Condition==1, 'Threat', 'Safe')
-        df['Valence'] = df.Cue.replace({1:'Positive', 2:'Negative', 3:'Positive', 4:'Negative'})
+        df['Condition'] = np.where(df.Condition==1, 'Threat', 'Control')
+        df['Valence'] = df.Cue.replace({1:'Win', 2:'Lose', 3:'Win', 4:'Lose'})
         df['Action'] = df.Cue.replace({1:'Go', 2:'Go', 3:'No-Go', 4:'No-Go'})
 
         ## Update trial info.
         tally = lambda arr: np.arange(arr.size) + 1
+        df['Block'] = 1
         df['Trial'] = df.groupby('Condition').Trial.transform(tally)
         df['Exposure'] = df.groupby(['Condition','Cue']).Trial.transform(tally)
-
+        
+        ## Filter error trials.
+        ix = df.query('Action=="Go" and RT > 0 and Accuracy==0').index
+        df.loc[ix,['Choice','Accuracy','RT','Outcome']] = np.nan
+        df['Choice'] = df.Choice.replace({0:0, 1:1, 2:1})
+        
         ## Restrict to columns of interest.
-        df = df[['Subject','Condition','Trial','Exposure','Cue','Valence','Action',
+        df = df[['Subject','Condition','Block','Trial','Exposure','Cue','Valence','Action',
                  'Choice','Accuracy','RT','Outcome']]
 
         ## Append.
@@ -94,7 +119,7 @@ def preprocess_2017mkrtchian(data_dir = '2017mkrtchian'):
     metadata = read_csv(os.path.join(data_dir,'STAIData.csv'))
 
     ## Update diagnostic category.
-    metadata['Diagnosis'] = metadata.Diagnosis.replace({'HC':'HC','patient':'Anx'})
+    metadata['Diagnosis'] = metadata.Diagnosis.replace({'HC':np.nan,'patient':'Anxious'})
 
     ## Update subject info.
     to_numeric = lambda label: int(''.join([s for s in label if s.isnumeric()]))
@@ -102,6 +127,9 @@ def preprocess_2017mkrtchian(data_dir = '2017mkrtchian'):
 
     ## Merge with data.
     data = data.merge(metadata[['Diagnosis','Subject']], on='Subject')
+    
+    ## Update subject info.
+    data['Subject'] = np.unique(data.Subject, return_inverse=True)[-1] + 1
     data['Study'] = data_dir
     
     return data
@@ -117,23 +145,23 @@ def preprocess_2018millner(data_dir = '2018millner'):
     data.columns = ('Trial','Valence','Action','Choice','Outcome','Accuracy',
                     'RT','Subject','','')
 
-    ## Update subject.
+    ## Update subject info.
     data['Subject'] = np.unique(data.Subject, return_inverse=True)[-1] + 1
-    data['Diagnosis'] = 'HC'
     
     ## Update condition info.
-    data['Valence'] = data.Valence.replace(dict(Avoid='Positive',Escape='Negative'))
+    data['Valence'] = data.Valence.replace(dict(Avoid='Win',Escape='Lose'))
     data['Action'] = data.Action.replace(dict(Go='Go',NoGo='No-Go'))
     data['Cue'] = data[['Valence','Action']].apply(lambda x: f'{x.values[0]}-{x.values[1]}', 1)
-    data['Cue'] = data.Cue.replace({'Positive-Go':1, 'Positive-No-Go':2, 'Negative-Go':3, 'Negative-No-Go':4})
+    data['Cue'] = data.Cue.replace({'Win-Go':1, 'Win-No-Go':2, 'Lose-Go':3, 'Lose-No-Go':4})
 
     ## Update trial info.
     tally = lambda arr: np.arange(arr.size) + 1
+    data['Block'] = 1
     data['Trial'] += 1
     data['Exposure'] = data.groupby(['Subject','Cue']).Trial.transform(tally)
-
+    
     ## Restrict to columns of interest.
-    data = data[['Subject','Diagnosis','Trial','Exposure','Cue','Valence','Action',
+    data = data[['Subject','Block','Trial','Exposure','Cue','Valence','Action',
                  'Choice','Accuracy','RT','Outcome']]
     data['Study'] = data_dir
     
@@ -141,7 +169,17 @@ def preprocess_2018millner(data_dir = '2018millner'):
 
 
 def preprocess_2018swart(data_dir = '2018swart'):
+    """Load and prepare data from Swart et al. (2018).
     
+    Notes
+    -----
+    - Two participants had a few (1-2) missing outcomes. These were set 
+      to the most likely outcome.
+    - 43 trials had errors in keypress coding, i.e. not in [0, 97, 101]. The 
+      majority of these trials are too slow responses (>1300ms). These trials 
+      have their response values set to NaN. 
+    """
+        
     ## Locate files.
     files = sorted([f for f in os.listdir(data_dir) if f.endswith('mat')])
 
@@ -174,20 +212,27 @@ def preprocess_2018swart(data_dir = '2018swart'):
 
         ## Update subject info.
         df['Subject'] = i + 1
-        df['Diagnosis'] = 'HC'
 
         ## Update condition info.
-        df['Valence'] = df.X.apply(lambda x: 'Positive' if 'win' in x else 'Negative')
+        df['Valence'] = df.X.apply(lambda x: 'Win' if 'win' in x else 'Lose')
         df['Action'] = df.X.apply(lambda x: 'No-Go' if 'NoGo' in x else 'Go')
 
          ## Update trial info.
         tally = lambda arr: np.arange(arr.size) + 1
+        df['Block'] = np.repeat([1,2],320)
         df['Trial'] = np.concatenate([np.arange(320),np.arange(320)])+1
-        df['Condition'] = np.repeat([1,2],320)
-        df['Exposure'] = df.groupby(['Condition','Cue']).Trial.transform(tally)
+        df['Exposure'] = df.groupby(['Block','Cue']).Trial.transform(tally)
 
         ## Update response info.
         df['Choice'] = df.Choice.replace({0:0, 97:1, 101:2})
+        
+        ## Filter "error" trials. 
+        df.loc[np.in1d(df.Choice, [65,69,99]), ('Choice','RT','Accuracy','Outcome')] = np.nan
+        
+        ## Update outcome info.
+        f = lambda x: x['X']-(1-x['Accuracy']) if np.isnan(x['Outcome']) else x['Outcome']
+        df['X'] = df.Valence.replace({'Win':1,'Lose':0})
+        df['Outcome'] = df.apply(f, axis=1)
         
         ## Append.
         data.append(df)
@@ -218,26 +263,84 @@ def preprocess_2019csifcsal(data_dir = '2019csifcsal'):
         i += 1
 
         ## Restrict and rename columns.
-        df = df[['subj','trial','cardnumber','trial_type','reward_type','response','RT','reward']]
-        df.columns = ('Subject','Trial','Cue','Action','Valence','Choice','RT','Outcome')
+        df = df[['subj','session_index','trial','cardnumber','trial_type',
+                 'reward_type','response','RT','RT_in_frames']]
+        df.columns = ('Subject','Block','Trial','Cue','Action','Valence','Choice','RT','Outcome')
 
-        ## Update subject.
+        ## Update subject info.
         df['Subject'] = i
-        df['Diagnosis'] = 'HC'
 
         ## Update condition info.
-        df['Valence'] = df.Valence.replace({'win':'Positive', 'avoid':'Negative'})
+        df['Valence'] = df.Valence.replace({'win':'Win', 'avoid':'Lose'})
         df['Action'] = df.Action.replace({'go':'Go', 'nogo':'No-Go'})
 
         ## Update trial info.
         tally = lambda arr: np.arange(arr.size) + 1
         df['Trial'] += 1
-        df['Exposure'] = df.groupby('Cue').Trial.transform(tally)
+        df['Exposure'] = df.groupby(['Block','Cue']).Trial.transform(tally)
 
         ## Update response info.
         df['RT'] = df.RT.replace({-1:np.nan})
         df['Accuracy'] = np.logical_or((df.Action=="Go")&(df.Choice==1),
                                        (df.Action=="No-Go")&(df.Choice==0)).astype(int)
+        
+        ## Update outcome info.
+        df['Outcome'] /= 10
+
+        ## Append.
+        data.append(df)
+
+    ## Concatenate data.    
+    data = concat(data)
+
+    data['Study'] = data_dir
+    return data
+
+
+def preprocess_201Xcsifcsal(data_dir = '202Xcsifcsal'):
+    """Load and prepare data from Csifcsal et al. (unpublished)."""
+
+    ## Locate files.
+    files = sorted([f for f in os.listdir(data_dir) if f.endswith('csv')])
+
+    ## Main loop.
+    data = []
+    i = 0
+    for f in files:
+
+        ## Load data.
+        df = read_csv(os.path.join(data_dir,f), comment="#")
+
+        ## Skip yoked condition.
+        if df.condition.isin(['yoked']).any(): continue
+        elif df.shape[0] < 160: continue
+        i += 1
+
+        ## Restrict and rename columns.
+        df = df[['subj','session_index','trial','cardnumber','trial_type',
+                 'reward_type','response','RT','RT_in_frames']]
+        df.columns = ('Subject','Block','Trial','Cue','Action','Valence','Choice','RT','Outcome')
+
+        ## Update subject info.
+        df['Subject'] = i
+        df['Condition'] = 'tDCS'
+
+        ## Update condition info.
+        df['Valence'] = df.Valence.replace({'win':'Win', 'avoid':'Lose'})
+        df['Action'] = df.Action.replace({'go':'Go', 'nogo':'No-Go'})
+
+        ## Update trial info.
+        tally = lambda arr: np.arange(arr.size) + 1
+        df['Trial'] += 1
+        df['Exposure'] = df.groupby(['Block','Cue']).Trial.transform(tally)
+
+        ## Update response info.
+        df['RT'] = df.RT.replace({-1:np.nan})
+        df['Accuracy'] = np.logical_or((df.Action=="Go")&(df.Choice==1),
+                                       (df.Action=="No-Go")&(df.Choice==0)).astype(int)
+        
+        ## Update outcome info.
+        df['Outcome'] /= 10
 
         ## Append.
         data.append(df)
@@ -259,15 +362,21 @@ data = concat([
     preprocess_2017mkrtchian(), 
     preprocess_2018millner(), 
     preprocess_2018swart(), 
-    preprocess_2019csifcsal()
+    preprocess_2019csifcsal(),
+    preprocess_201Xcsifcsal()
 ], sort=False)
 
 ## Reorder columns.
-data = data[['Study','Subject','Diagnosis','Condition','Trial','Valence','Action','Cue',
+data = data[['Study','Subject','Diagnosis','Condition','Block','Trial','Valence','Action','Cue',
              'Exposure','Choice','RT','Accuracy','Outcome']]
 
 ## Re-sort rows.
-data = data.sort_values(['Study','Subject','Condition','Trial'])
+data = data.sort_values(['Study','Subject','Condition','Block','Trial'])
+
+## Format data.
+data['Diagnosis'] = data.Diagnosis.fillna('Healthy')
+data['Condition'] = data.Condition.fillna('Control')
+data['RT'] = data.RT.round(3)
 
 ## Save data.
-data.to_csv('data.csv', index=False)
+data.to_csv(os.path.join(os.path.dirname(ROOT_DIR),'data.csv'), index=False)
