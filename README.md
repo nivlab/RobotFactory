@@ -6,7 +6,7 @@
 - Codebook
 
 #### Empirical priors
-- Evaluate exclusion criteria
+- Swart exclusion for NGAL needs to be more leniant
 
 #### Modeling
 - Model-agnostic approaches

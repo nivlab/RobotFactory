@@ -168,6 +168,65 @@ def preprocess_2018millner(data_dir = '2018millner'):
     return data
 
 
+def preprocess_2018moutoussis(data_dir = '2018moutoussis'):
+    """Load and prepare data from Moutoussis et al. (2018)."""
+    
+    ## Locate files.
+    files = sorted([f for f in os.listdir('2018moutoussis') if f.endswith('mat')])
+
+    ## Main loop.
+    data = []
+    for f in files:
+
+        ## Gather metadata.
+        subject = f.split('_')[0]
+        session = 'Retest' if '_mk2GNG1_' in f else 'Control'
+
+        ## Load mat file.
+        mat = loadmat(os.path.join('2018moutoussis',f))
+
+        ## Convert to DataFrame.
+        df = DataFrame(mat['LearnVerData'], columns=np.arange(17)+1)[[2,12,17]]
+        df.columns = ['Cue','RT','Outcome']
+
+        ## Insert metadata.
+        df.insert(0, 'Subject', subject)
+        df.insert(1, 'Condition', session)
+        df.insert(2, 'Block', 1)
+        df.insert(3, 'Trial', np.arange(df.shape[0])+1)
+
+        ## Append.
+        data.append(df)
+
+    ## Concatenate data.
+    data = concat(data)
+    data.insert(0, 'Study', '2018moutoussis')
+
+    ## Update cue information.
+    data['Cue'] = data.Cue.astype(int)
+
+    ## Insert valence information.
+    f = lambda x: np.where(np.any(x > 0), 'Win', 'Lose')
+    data.insert(5, 'Valence', data.groupby('Cue').Outcome.transform(f))
+
+    ## Insert action information.
+    data.insert(6, 'Action', data.Cue.replace({1:'Go', 2:'Go', 3:'No-Go', 4:'No-Go'}))
+
+    ## Insert exposure information.
+    tally = lambda arr: np.arange(arr.size) + 1
+    data.insert(8, 'Exposure', data.groupby(['Subject','Condition','Cue']).Trial.transform(tally))
+
+    ## Update RT information.
+    data['RT'] = np.where(data.RT > 0, data.RT / 1000., np.nan)
+
+    ## Insert choice information.
+    data.insert(9, 'Choice', data.RT.notnull().astype(int))
+
+    ## Insert accuracy.
+    data.insert(11, 'Accuracy', ((data.Action=='Go') == (data.Choice)).astype(int))
+    
+    return data
+
 def preprocess_2018swart(data_dir = '2018swart'):
     """Load and prepare data from Swart et al. (2018).
     
@@ -361,6 +420,7 @@ data = concat([
     preprocess_2016albrecht(),
     preprocess_2017mkrtchian(), 
     preprocess_2018millner(), 
+    preprocess_2018moutoussis(), 
     preprocess_2018swart(), 
     preprocess_2019csifcsal(),
     preprocess_201Xcsifcsal()
