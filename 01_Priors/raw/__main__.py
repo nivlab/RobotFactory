@@ -202,6 +202,9 @@ def preprocess_2018moutoussis(data_dir = '2018moutoussis'):
     data = concat(data)
     data.insert(0, 'Study', '2018moutoussis')
 
+    ## Update subject information.
+    data['Subject'] = np.unique(data['Subject'], return_inverse=True)[-1] + 1
+    
     ## Update cue information.
     data['Cue'] = data.Cue.astype(int)
 
