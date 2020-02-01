@@ -1,8 +1,8 @@
 data {
 
     // Metadata
-    int  N;
-    int  T;
+    int  N;                         // Number of participants
+    int  T;                         // Number of trials
     
     // Data
     int  Y[N,T];                    // Choices (Go = 1, No-Go = 0)
