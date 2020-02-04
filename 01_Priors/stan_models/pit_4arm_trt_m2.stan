@@ -12,6 +12,11 @@ data {
 }
 parameters {
 
+    // Group-level parameters
+    matrix[5,2]           mu_pr;
+    vector<lower=0>[5]    sigma_c;
+    vector<lower=0>[5]    sigma_d;
+
     // Individual-level parameters
     vector[N]  rho_c_pr;            // Reward scale (common)
     vector[N]  rho_d_pr;            // Reward scale (deviation)
@@ -33,28 +38,33 @@ transformed parameters {
 
     matrix<lower= 0, upper=20>[N,2]  rho;
     matrix<lower= 0, upper= 1>[N,2]  eta;
-    matrix<lower=-20, upper=20>[N,2]  tau;
+    matrix<lower=-5, upper= 5>[N,2]  tau;
     matrix<lower=-1, upper= 1>[N,2]  nu;
     matrix<lower= 0, upper= 1>[N,2]  xi;
 
     // Session 1 parameters
-    rho[:,1] = Phi_approx( rho_c_pr - rho_d_pr ) * 20;
-    eta[:,1] = Phi_approx( eta_c_pr - eta_d_pr );
-    tau[:,1] = tanh( tau_c_pr - tau_d_pr ) .* rho[:,1];
-    nu[:,1]  = tanh(  nu_c_pr -  nu_d_pr );
-    xi[:,1]  = Phi_approx( -1.645 + xi_c_pr - xi_d_pr );
+    rho[:,1] = Phi_approx( mu_pr[1,1] + rho_c_pr*sigma_c[1] - rho_d_pr*sigma_d[1] ) * 20;
+    eta[:,1] = Phi_approx( mu_pr[2,1] + eta_c_pr*sigma_c[2] - eta_d_pr*sigma_d[2] );
+    tau[:,1] = tanh( mu_pr[3,1] + tau_c_pr*sigma_c[3] - tau_d_pr*sigma_d[3] ) * 5;
+    nu[:,1]  = tanh( mu_pr[4,1] + nu_c_pr*sigma_c[4] -  nu_d_pr*sigma_d[4] );
+    xi[:,1]  = Phi_approx( -1.645 + mu_pr[5,1] + xi_c_pr*sigma_c[5] - xi_d_pr*sigma_d[5] );
 
     // Session 2 parameters
-    rho[:,2] = Phi_approx( rho_c_pr + rho_d_pr ) * 20;
-    eta[:,2] = Phi_approx( eta_c_pr + eta_d_pr );
-    tau[:,2] = tanh( tau_c_pr + tau_d_pr ) .* rho[:,2];
-    nu[:,2]  = tanh(  nu_c_pr +  nu_d_pr );
-    xi[:,2]  = Phi_approx( -1.645 + xi_c_pr + xi_d_pr );
+    rho[:,2] = Phi_approx( mu_pr[1,2] + rho_c_pr*sigma_c[1] + rho_d_pr*sigma_d[1] ) * 20;
+    eta[:,2] = Phi_approx( mu_pr[2,2] + eta_c_pr*sigma_c[2] + eta_d_pr*sigma_d[2] );
+    tau[:,2] = tanh( mu_pr[3,2] + tau_c_pr*sigma_c[3] + tau_d_pr*sigma_d[3] ) * 5;
+    nu[:,2]  = tanh( mu_pr[4,2] + nu_c_pr*sigma_c[4] +  nu_d_pr*sigma_d[4] );
+    xi[:,2]  = Phi_approx( -1.645 + mu_pr[5,2] + xi_c_pr*sigma_c[5] + xi_d_pr*sigma_d[5] );
 
 }
 model {
 
-    // Individial-level priors
+    // Group-level priors
+    to_vector(mu_pr) ~ normal(0,1);
+    sigma_c ~ gamma(1,0.5);
+    sigma_d ~ gamma(1,0.5);
+
+    // Individual-level priors
     rho_c_pr ~ normal(0, 1.0);
     rho_d_pr ~ normal(0, 0.5);
 
@@ -107,34 +117,31 @@ model {
 }
 generated quantities {
 
-    // Variances
-    vector[5] sigma_c;
-    vector[5] sigma_d;
+    matrix[5,2] mu;
     vector[5] TRT;
 
+    // Group-level means
+    for (i in 1:2) {
+      mu[1,i] = Phi_approx( mu_pr[1,i] ) * 20;
+      mu[2,i] = Phi_approx( mu_pr[2,i] );
+      mu[3,i] = tanh( mu_pr[3,i] ) * 5;
+      mu[4,i] = tanh( mu_pr[4,i] );
+      mu[5,i] = Phi_approx( -1.645 + mu_pr[5,i] );
+    }
+
     // Test-retest reliability: Reward scale
-    sigma_c[1] = variance(rho_c_pr);
-    sigma_d[1] = variance(rho_d_pr);
     TRT[1] = (sigma_c[1] - sigma_d[1]) / (sigma_c[1] + sigma_d[1]);
 
     // Test-retest reliability: Learning rate
-    sigma_c[2] = variance(eta_c_pr);
-    sigma_d[2] = variance(eta_d_pr);
     TRT[2] = (sigma_c[2] - sigma_d[2]) / (sigma_c[2] + sigma_d[2]);
 
     // Test-retest reliability: Go bias
-    sigma_c[3] = variance(tau_c_pr);
-    sigma_d[3] = variance(tau_d_pr);
     TRT[3] = (sigma_c[3] - sigma_d[3]) / (sigma_c[3] + sigma_d[3]);
 
     // Test-retest reliability: Pavlovian bias
-    sigma_c[4] = variance(nu_c_pr);
-    sigma_d[4] = variance(nu_d_pr);
     TRT[4] = (sigma_c[4] - sigma_d[4]) / (sigma_c[4] + sigma_d[4]);
 
     // Test-retest reliability: Pavlovian bias
-    sigma_c[5] = variance(xi_c_pr);
-    sigma_d[5] = variance(xi_d_pr);
     TRT[5] = (sigma_c[5] - sigma_d[5]) / (sigma_c[5] + sigma_d[5]);
 
 }
