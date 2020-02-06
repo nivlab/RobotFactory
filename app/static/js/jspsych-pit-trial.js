@@ -44,6 +44,17 @@ jsPsych.plugins["pit-trial"] = (function() {
         <div class="machine-back"></div>
         <div class="conveyor"></div>
         <div class="shadows"></div>
+
+        <div class="robot">
+          <div class="antenna"></div>
+          <div class="head"></div>
+          <div class="torso">
+            <div class="left"></div>
+            <div class="right"></div>
+          </div>
+          <div class="foot"></div>
+        </div>
+
         <div class="window"></div>
         <div class="machine-front"></div>
         <div class="machine-top"></div>
