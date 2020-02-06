@@ -8,6 +8,7 @@ body {
   height: 100vh;
   max-height: 100vh;
   overflow: hidden;
+  position: fixed;
 }
 
 .wrap {
@@ -29,9 +30,22 @@ body {
   transform: translate3d(-50%, -50%, 0);
   width: 39vh;
   height: 52vh;
-  background: linear-gradient(-35deg, rgba(82, 153, 224, 0.8), rgba(125, 232, 232, 0.6));
+  background: rgba(232, 125, 179, 0.6);
   mix-blend-mode: soft-light;
+  -webkit-animation: pavlovian 1.5s;
+  animation: pavlovian 1.5s;
 }
+@-webkit-keyframes pavlovian {
+  0%    {background: rgba(0, 0, 0, 0);}
+  90%   {background: rgba(0, 0, 0, 0);}
+  100%  {background-color: rgba(232, 125, 179, 0.6);}
+}
+@keyframes pavlovian {
+  0%    {background: rgba(0, 0, 0, 0);}
+  90%   {background: rgba(0, 0, 0, 0);}
+  100%  {background-color: rgba(232, 125, 179, 0.6);}
+}
+
 .machine-front {
   position: absolute;
   top: 50%;
@@ -204,8 +218,8 @@ body {
     animation-timing-function: linear;
   }
   100% {
-    -webkit-transform: translatex(11.10vw);
-    transform: translatex(11.10vw);
+    -webkit-transform: translatex(22.20vw);
+    transform: translatex(22.20vw);
     -webkit-animation-timing-function: linear;
     animation-timing-function: linear;
   }
@@ -215,11 +229,11 @@ body {
     -webkit-transform: translatex(0vw);
     transform: translatex(0vw);
     -webkit-animation-timing-function: linear;
-    animation-timing-function: ease-out;
+    animation-timing-function: linear;
   }
   100% {
-    -webkit-transform: translatex(11.10vw);
-    transform: translatex(11.10vw);
+    -webkit-transform: translatex(22.20vw);
+    transform: translatex(22.20vw);
     -webkit-animation-timing-function: linear;
     animation-timing-function: linear;
   }
@@ -249,8 +263,8 @@ body {
   left: 50%;
   width: 20vw;
   height: 20vw;
-  -webkit-transform: translate3d(-50%, -55%, 0);
-  transform: translate3d(-50%, -55%, 0);
+  -webkit-transform: translate3d(-50%, -57.5%, 0);
+  transform: translate3d(-50%, -57.5%, 0);
   -webkit-animation: convey 1s;
   animation: convey 1s;
 }
@@ -316,28 +330,28 @@ body {
 
 @-webkit-keyframes convey {
   0% {
-    -webkit-transform: translate3d(-50%, -55%, 0);
-    transform: translate3d(-50%, -55%, 0);
+    -webkit-transform: translate3d(-50%, -57.5%, 0);
+    transform: translate3d(-50%, -57.5%, 0);
     -webkit-animation-timing-function: linear;
     animation-timing-function: linear;
   }
   100% {
-    -webkit-transform: translate3d(-50%, -55%, 0);
-    transform: translate3d(100%, -55%, 0);
+    -webkit-transform: translate3d(-50%, -57.5%, 0);
+    transform: translate3d(100%, -57.5%, 0);
     -webkit-animation-timing-function: linear;
     animation-timing-function: linear;
   }
 }
 @keyframes convey {
   0% {
-    -webkit-transform: translate3d(-50%, -55%, 0);
-    transform: translate3d(-50%, -55%, 0);
+    -webkit-transform: translate3d(-50%, -57.5%, 0);
+    transform: translate3d(-50%, -57.5%, 0);
     -webkit-animation-timing-function: linear;
     animation-timing-function: linear;
   }
   100% {
-    -webkit-transform: translate3d(-50%, -55%, 0);
-    transform: translate3d(100%, -55%, 0);
+    -webkit-transform: translate3d(-50%, -57.5%, 0);
+    transform: translate3d(100%, -57.5%, 0);
     -webkit-animation-timing-function: linear;
     animation-timing-function: linear;
   }

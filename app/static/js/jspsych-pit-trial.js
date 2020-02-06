@@ -161,13 +161,18 @@ jsPsych.plugins["pit-trial"] = (function() {
 
     // start the response listener
     if (trial.choices != jsPsych.NO_KEYS) {
-      var keyboardListener = jsPsych.pluginAPI.getKeyboardResponse({
-        callback_function: after_response,
-        valid_responses: trial.choices,
-        rt_method: 'performance',
-        persist: false,
-        allow_held_key: false
-      });
+
+      var keyboardListener = "";
+      setTimeout(function() {
+        keyboardListener = jsPsych.pluginAPI.getKeyboardResponse({
+          callback_function: after_response,
+          valid_responses: trial.choices,
+          rt_method: 'performance',
+          persist: false,
+          allow_held_key: false
+        });
+      }, 1000);
+
     }
 
     // end trial if trial_duration is set
