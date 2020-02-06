@@ -36,7 +36,16 @@ jsPsych.plugins["pit-trial"] = (function() {
 
   plugin.trial = function(display_element, trial) {
 
+    // Define current score.
+    var score = ("00" + trial.score).slice(-3);
+
     var new_html = `
+    <!-- Display Score -->
+    <div class="score-container">
+      <div class="score">Score:</div>
+      <div class="points" id="points">${score}</div>
+    </div>
+
     <div id="jspsych-pit-trial-stimulus">
 
       <div class="wrap">
@@ -132,9 +141,10 @@ jsPsych.plugins["pit-trial"] = (function() {
       var trial_data = {
         "rt": response.rt,
         "stimulus": trial.stimulus,
-        "key_press": response.key
+        "key_press": response.key,
+        "score": trial.score + 1
       };
-
+      
       // clear the display
       display_element.innerHTML = '';
 
@@ -171,7 +181,7 @@ jsPsych.plugins["pit-trial"] = (function() {
           persist: false,
           allow_held_key: false
         });
-      }, 1000);
+      }, 1500);
 
     }
 

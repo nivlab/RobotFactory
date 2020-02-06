@@ -20,15 +20,30 @@
     <body></body>
     <script>
 
+    //------------------------------------//
+    // Section 0: Task Set-up
+    //------------------------------------//
+
+    var score = 0;
+
+    //------------------------------------//
+    // Section 1: Prepare instructions
+    //------------------------------------//
+
+    //------------------------------------//
+    // Section 2: Prepare Task
+    //------------------------------------//
 
     var trial = {
       type: 'pit-trial',
       choices: [32],
+      trial_duration: 3500,
+      response_ends_trial: false,
+      on_start: function(trial) { trial.score = score; },
+      on_finish: function(trial) { score = jsPsych.data.getLastTrialData().values()[0].score; }
     }
 
-    var timeline = [trial, trial, trial, trial, trial, trial, trial, trial, trial,
-                    trial, trial, trial, trial, trial, trial, trial, trial, trial];
-
+    var timeline = [trial, trial, trial, trial, trial, trial, trial, trial];
 
     jsPsych.init({
         timeline: timeline,
