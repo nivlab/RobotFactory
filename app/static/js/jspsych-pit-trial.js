@@ -45,7 +45,52 @@ jsPsych.plugins["pit-trial"] = (function() {
         <div class="conveyor"></div>
         <div class="shadows"></div>
 
-        <div class="robot">
+        <!-- Robot 1 -->
+        <div class="robot" style="left: -10vw">
+          <div class="antenna"></div>
+          <div class="head"></div>
+          <div class="torso">
+            <div class="left"></div>
+            <div class="right"></div>
+          </div>
+          <div class="foot"></div>
+        </div>
+
+        <!-- Robot 2 -->
+        <div class="robot" style="left: 20vw">
+          <div class="antenna"></div>
+          <div class="head"></div>
+          <div class="torso">
+            <div class="left"></div>
+            <div class="right"></div>
+          </div>
+          <div class="foot"></div>
+        </div>
+
+        <!-- Robot 3 -->
+        <div class="robot" style="left: 50vw">
+          <div class="antenna"></div>
+          <div class="head"></div>
+          <div class="torso">
+            <div class="left"></div>
+            <div class="right"></div>
+          </div>
+          <div class="foot"></div>
+        </div>
+
+        <!-- Robot 4 -->
+        <div class="robot" style="left: 80vw">
+          <div class="antenna"></div>
+          <div class="head"></div>
+          <div class="torso">
+            <div class="left"></div>
+            <div class="right"></div>
+          </div>
+          <div class="foot"></div>
+        </div>
+
+        <!-- Robot 5 -->
+        <div class="robot" style="left: 110vw">
           <div class="antenna"></div>
           <div class="head"></div>
           <div class="torso">
