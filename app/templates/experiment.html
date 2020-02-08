@@ -27,17 +27,24 @@
     // Section 0: Task Set-up
     //------------------------------------//
 
-    // Initialize score.
-    var score = 100;
-
-    // Initialize scanner colors.
-    const scanner_green = '#7ee87d99';
-    const scanner_red = '#e87db399';
-
     // Define runes.
     var runes = ['../static/img/rune01.png', '../static/img/rune02.png', '../static/img/rune03.png',
                  '../static/img/rune04.png', '../static/img/rune05.png', '../static/img/rune06.png'];
     runes = jsPsych.randomization.sampleWithoutReplacement(runes, runes.length);
+
+    // Define scanner colors.
+    const scanner_green = '#7ee87d99';
+    const scanner_red = '#e87db399';
+
+    // Define valid key responses.
+    const valid_responses = [32,37,39];
+
+    // Define timings.
+    const trial_duration = 2000;
+    const feedback_duration = 500;
+
+    // Initialize score.
+    var score = 0;
 
     //------------------------------------//
     // Section 1: Prepare instructions
@@ -70,8 +77,8 @@
             scanner_color: scanner_color,
             robot_rune: runes[trial.Robot-1],
             correct: trial.Correct,
-            choices: [32,37,39],
-            trial_duration: null,
+            valid_responses: valid_responses,
+            trial_duration: trial_duration + 1500,
             response_ends_trial: true,
             on_start: function(trial) {
               trial.score = score;
@@ -84,8 +91,9 @@
           // Feedback phase
           {
             type: 'pit-feedback',
-            trial_duration: 1000,
+            feedback_duration: feedback_duration,
             on_start: function(trial) {
+              trial.feedback_duration = feedback_duration + (trial_duration - (jsPsych.data.getLastTrialData().values()[0].RT || trial_duration));
               trial.outcome = jsPsych.data.getLastTrialData().values()[0].Outcome;
             },
           }

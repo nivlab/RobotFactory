@@ -10,11 +10,11 @@ jsPsych.plugins["pit-feedback"] = (function() {
     name: 'pit-feedback',
     description: '',
     parameters: {
-      trial_duration: {
+      feedback_duration: {
         type: jsPsych.plugins.parameterType.INT,
-        pretty_name: 'Trial duration',
-        default: 200,
-        description: 'How long to show trial before it ends.'
+        pretty_name: 'Feedback duration',
+        default: 1000,
+        description: 'How long to show feedback before it ends.'
       },
       response_ends_trial: {
         type: jsPsych.plugins.parameterType.BOOL,
@@ -79,7 +79,7 @@ jsPsych.plugins["pit-feedback"] = (function() {
 
       // gather the data to store for the trial
       var trial_data = {
-        "Duration": trial.duration,
+        "Duration": trial.feedback_duration,
         "Score": trial.score_post
       };
 
@@ -90,11 +90,11 @@ jsPsych.plugins["pit-feedback"] = (function() {
       jsPsych.finishTrial(trial_data);
     };
 
-    // end trial if trial_duration is set
-    if (trial.trial_duration !== null) {
+    // end trial if feedback_duration is set
+    if (trial.feedback_duration !== null) {
       jsPsych.pluginAPI.setTimeout(function() {
         end_trial();
-      }, trial.trial_duration);
+      }, trial.feedback_duration);
     }
 
   };
