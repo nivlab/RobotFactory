@@ -64,6 +64,14 @@ jsPsych.plugins["pit-trial"] = (function() {
 
     // Insert CSS (window animation).
     new_html += `<style>
+    body {
+      background: -webkit-gradient(linear, left bottom, left top, from(#808080), color-stop(50%, #606060), color-stop(50%, rgba(28, 25, 23, 0.5)), to(rgba(179, 230, 230, 0.5)));
+      background: linear-gradient(0deg, #808080 0%, #606060 50%, #A0A0A0 50%, #D3D3D3 100%);
+      height: 100vh;
+      max-height: 100vh;
+      overflow: hidden;
+      position: fixed;
+    }
     @-webkit-keyframes pavlovian {
       0%    {background: rgba(0, 0, 0, 0);}
       90%   {background: rgba(0, 0, 0, 0);}
