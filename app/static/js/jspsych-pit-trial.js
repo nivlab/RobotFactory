@@ -2,7 +2,6 @@
  * jspsych-pit-trial
  **/
 
-
 jsPsych.plugins["pit-trial"] = (function() {
 
   var plugin = {};
@@ -81,7 +80,9 @@ jsPsych.plugins["pit-trial"] = (function() {
     new_html += '<div id="jspsych-pit-trial-stimulus"><div class="wrap">';
 
     // Add factory machine parts (back).
-    new_html += '<div class="machine-back"></div><div class="conveyor"></div><div class="shadows"></div>';
+    new_html += '<div class="machine-back"></div>';
+    new_html += '<div class="conveyor"></div>';
+    new_html += '<div class="shadows"></div>';
 
     // Add robot 1 (active).
     new_html += '<div class="robot" style="left: 50vw; -webkit-animation: enter 1s; animation: enter 1s;">';
@@ -107,12 +108,9 @@ jsPsych.plugins["pit-trial"] = (function() {
     new_html += `<div class="window" style="background: ${trial.scanner_color}"></div>`;
 
     // Add factory machine parts (front).
-    new_html += '<div class="machine-front"></div>';
-    new_html += '<div class="machine-top"></div></div></div>';
-
-    // Add user score.
-    const score_pre_txt = ("00" + trial.score).slice(-3);
-    new_html += `<div class="score-container"><div class="score">Score:</div><div class="points" id="points">${score_pre_txt}</div></div>`
+    new_html += '<div class="machine-front"><div class="score-container"></div></div>';
+    new_html += '<div class="machine-top"></div>';
+    new_html += '</div></div>';
 
     // Display HTML
     display_element.innerHTML = new_html;
@@ -162,9 +160,6 @@ jsPsych.plugins["pit-trial"] = (function() {
 
       // define new score.
       const score_post = trial.score + trial.outcome;
-      console.log(trial.valence)
-      console.log(trial.outcome)
-      console.log(score_post)
 
       // gather the data to store for the trial
       var trial_data = {

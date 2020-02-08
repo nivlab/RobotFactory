@@ -5,7 +5,6 @@ This is the jsPsych experiment branch for the optimized PIT task.
 ## TO DO
 - Cover story / instructions
 - break screen
-- Response feedback (point change + symbol disappear + light turn off)
 
 ## Attributions
 
