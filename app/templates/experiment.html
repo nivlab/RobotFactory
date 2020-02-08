@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
+
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Robot Factory</title>
 
@@ -9,8 +10,9 @@
         <script src="../static/lib/jspsych-6.1.0/jspsych.js"></script>
 
         <!-- Load jsPsych plug-ins -->
-        <script src="../static/js/jspsych-pit-trial.js" type="text/javascript"></script>
         <script src="../static/js/jspsych-return-data.js" type="text/javascript"></script>
+        <script src="../static/js/jspsych-pit-trial.js" type="text/javascript"></script>
+        <script src="../static/js/pit-trials.js" type="text/javascript"></script>
 
         <!-- Load CSS styles -->
         <link href="../static/lib/jspsych-6.1.0/css/jspsych.css" rel="stylesheet" type="text/css"></link>
@@ -24,7 +26,17 @@
     // Section 0: Task Set-up
     //------------------------------------//
 
-    var score = 0;
+    // Initialize score.
+    var score = 100;
+
+    // Initialize scanner colors.
+    const scanner_green = '#7ee87d99';
+    const scanner_red = '#e87db399';
+
+    // Define runes.
+    var runes = ['../static/img/rune01.png', '../static/img/rune02.png', '../static/img/rune03.png',
+                 '../static/img/rune04.png', '../static/img/rune05.png', '../static/img/rune06.png'];
+    runes = jsPsych.randomization.sampleWithoutReplacement(runes, runes.length);
 
     //------------------------------------//
     // Section 1: Prepare instructions
@@ -34,19 +46,54 @@
     // Section 2: Prepare Task
     //------------------------------------//
 
-    var trial = {
-      type: 'pit-trial',
-      choices: [32],
-      trial_duration: 3500,
-      response_ends_trial: false,
-      on_start: function(trial) { trial.score = score; },
-      on_finish: function(trial) { score = jsPsych.data.getLastTrialData().values()[0].score; }
-    }
+    // Iteratively initialize trials.
+    var trials = [];
+    ROBOTS.forEach(function (trial) {
 
-    var timeline = [trial, trial, trial, trial, trial, trial, trial, trial];
+      // Define scanner color.
+      if (trial.Valence == 'Win') {
+        var scanner_color = scanner_green;
+      } else {
+        var scanner_color = scanner_red;
+      };
+
+      // Define single trial of experiment.
+      var pit_trial = {
+
+        // Trial type.
+        type: 'pit-trial',
+
+        // Trial details.
+        valence: trial.Valence,
+        scanner_color: scanner_color,
+        robot_rune: runes[trial.Robot-1],
+        correct: trial.Correct,
+
+        // Trial mechanics.
+        choices: [32,37,39],
+        trial_duration: 3500,
+        response_ends_trial: false,
+
+        // Trial metadata.
+        data: { Trial: trial.Trial, Valence: trial.Valence, Action: trial.Action },
+
+        // Update score.
+        on_start: function(trial) { trial.score = score; },
+        on_finish: function(trial) { score = jsPsych.data.getLastTrialData().values()[0].Score; }
+
+      };
+
+      // Push to trial list.
+      trials.push(pit_trial);
+
+    });
+
+    // Define timeline.
+    var timeline = trials;
 
     jsPsych.init({
         timeline: timeline,
+        preload_images: runes,
         on_finish: function() {
 
           jsPsych.data.displayData();

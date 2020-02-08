@@ -11,11 +11,31 @@ jsPsych.plugins["pit-trial"] = (function() {
     name: 'pit-trial',
     description: '',
     parameters: {
-      choices: {
+      valence: {
+        type: jsPsych.plugins.parameterType.STRING,
+        pretty_name: 'Valence',
+        description: 'Valence of trial (win or loss).'
+      },
+      scanner_color: {
+        type: jsPsych.plugins.parameterType.STRING,
+        pretty_name: 'Scanner color',
+        description: 'Color of factory scanner light.'
+      },
+      robot_rune: {
+        type: jsPsych.plugins.parameterType.STRING,
+        pretty_name: 'Robot rune',
+        description: 'Rune to display on robot.'
+      },
+      correct: {
+        type: jsPsych.plugins.parameterType.KEYCODE,
+        pretty_name: 'Correct response',
+        description: 'Correct response for trial.'
+      },
+      valid_responses: {
         type: jsPsych.plugins.parameterType.KEYCODE,
         array: true,
         pretty_name: 'Choices',
-        default: jsPsych.ALL_KEYS,
+        default: [32, 37, 39],
         description: 'The keys the subject is allowed to press to respond to the stimulus.'
       },
       trial_duration: {
@@ -27,7 +47,7 @@ jsPsych.plugins["pit-trial"] = (function() {
       response_ends_trial: {
         type: jsPsych.plugins.parameterType.BOOL,
         pretty_name: 'Response ends trial',
-        default: true,
+        default: false,
         description: 'If true, trial will end when subject makes a response.'
       },
 
@@ -36,89 +56,70 @@ jsPsych.plugins["pit-trial"] = (function() {
 
   plugin.trial = function(display_element, trial) {
 
-    // Define current score.
-    var score = ("00" + trial.score).slice(-3);
+    //---------------------------------------//
+    // Define HTML.
+    //---------------------------------------//
 
-    var new_html = `
-    <!-- Display Score -->
-    <div class="score-container">
-      <div class="score">Score:</div>
-      <div class="points" id="points">${score}</div>
-    </div>
+    // Initialize HTML.
+    var new_html = '';
 
-    <div id="jspsych-pit-trial-stimulus">
+    // Insert CSS (window animation).
+    new_html += `<style>
+    @-webkit-keyframes pavlovian {
+      0%    {background: rgba(0, 0, 0, 0);}
+      90%   {background: rgba(0, 0, 0, 0);}
+      100%  {background-color: ${trial.scanner_color};}
+    }
+    @keyframes pavlovian {
+      0%    {background: rgba(0, 0, 0, 0);}
+      90%   {background: rgba(0, 0, 0, 0);}
+      100%  {background-color: ${trial.scanner_color};}
+    }
+     </style>`;
 
-      <div class="wrap">
+    // Add robot factor wrapper.
+    new_html += '<div id="jspsych-pit-trial-stimulus"><div class="wrap">';
 
-        <div class="machine-back"></div>
-        <div class="conveyor"></div>
-        <div class="shadows"></div>
+    // Add factory machine parts (back).
+    new_html += '<div class="machine-back"></div><div class="conveyor"></div><div class="shadows"></div>';
 
-        <!-- Robot 1 -->
-        <div class="robot" style="left: -10vw">
-          <div class="antenna"></div>
-          <div class="head"></div>
-          <div class="torso">
-            <div class="left"></div>
-            <div class="right"></div>
-          </div>
-          <div class="foot"></div>
-        </div>
+    // Add robot 1 (active).
+    new_html += '<div class="robot" style="left: 50vw; -webkit-animation: enter 1s; animation: enter 1s;">';
+    new_html += '<div class="antenna"></div>';
+    new_html += '<div class="head"></div>';
+    new_html += '<div class="torso">';
+    new_html += '<div class="left"></div>';
+    new_html += '<div class="right"></div>';
+    new_html += `<div class="rune"><img src="${trial.robot_rune}" style="height: 100%; width: 100%; object-fit: contain"></div></div>`;
+    new_html += '<div class="foot"></div></div>';
 
-        <!-- Robot 2 -->
-        <div class="robot" style="left: 20vw">
-          <div class="antenna"></div>
-          <div class="head"></div>
-          <div class="torso">
-            <div class="left"></div>
-            <div class="right"></div>
-          </div>
-          <div class="foot"></div>
-        </div>
+    // Add robot 2 (hidden).
+    new_html += '<div class="robot" style="left: 100vw; -webkit-animation: exit 1s; animation: exit 1s;">';
+    new_html += '<div class="antenna"></div>';
+    new_html += '<div class="head"></div>';
+    new_html += '<div class="torso">';
+    new_html += '<div class="left"></div>';
+    new_html += '<div class="right"></div>';
+    new_html += `<div class="rune"></div></div>`;
+    new_html += '<div class="foot"></div></div>';
 
-        <!-- Robot 3 -->
-        <div class="robot" style="left: 50vw">
-          <div class="antenna"></div>
-          <div class="head"></div>
-          <div class="torso">
-            <div class="left"></div>
-            <div class="right"></div>
-          </div>
-          <div class="foot"></div>
-        </div>
+    // Add factory window.
+    new_html += `<div class="window" style="background: ${trial.scanner_color}"></div>`;
 
-        <!-- Robot 4 -->
-        <div class="robot" style="left: 80vw">
-          <div class="antenna"></div>
-          <div class="head"></div>
-          <div class="torso">
-            <div class="left"></div>
-            <div class="right"></div>
-          </div>
-          <div class="foot"></div>
-        </div>
+    // Add factory machine parts (front).
+    new_html += '<div class="machine-front"></div>';
+    new_html += '<div class="machine-top"></div></div></div>';
 
-        <!-- Robot 5 -->
-        <div class="robot" style="left: 110vw">
-          <div class="antenna"></div>
-          <div class="head"></div>
-          <div class="torso">
-            <div class="left"></div>
-            <div class="right"></div>
-          </div>
-          <div class="foot"></div>
-        </div>
+    // Add user score.
+    const score_pre_txt = ("00" + trial.score).slice(-3);
+    new_html += `<div class="score-container"><div class="score">Score:</div><div class="points" id="points">${score_pre_txt}</div></div>`
 
-        <div class="window"></div>
-        <div class="machine-front"></div>
-        <div class="machine-top"></div>
-
-      </div>
-
-    </div>`;
-
-    // draw
+    // Display HTML
     display_element.innerHTML = new_html;
+
+    //---------------------------------------//
+    // Response handling.
+    //---------------------------------------//
 
     // store response
     var response = {
@@ -137,14 +138,44 @@ jsPsych.plugins["pit-trial"] = (function() {
         jsPsych.pluginAPI.cancelKeyboardResponse(keyboardListener);
       }
 
+      // check accuracy
+      if (trial.correct == -1 && response.key == null) {
+        response.accuracy = 1;
+      } else if (trial.correct == 32 && response.key == 32) {
+        response.accuracy = 1;
+      } else if (trial.correct == 37 && response.key == 37) {
+        response.accuracy = 1;
+      } else if (trial.correct == 39 && response.key == 39) {
+        response.accuracy = 1;
+      } else {
+        response.accuracy = 0;
+      };
+
+      // define outcome
+      if (trial.valence == "Win" && response.accuracy == 1) {
+        trial.outcome = 1;
+      } else if (trial.valence == "Lose" && response.accuracy == 0) {
+        trial.outcome = -1;
+      } else {
+        trial.outcome = 0;
+      }
+
+      // define new score.
+      const score_post = trial.score + trial.outcome;
+      console.log(trial.valence)
+      console.log(trial.outcome)
+      console.log(score_post)
+
       // gather the data to store for the trial
       var trial_data = {
-        "rt": response.rt,
-        "stimulus": trial.stimulus,
-        "key_press": response.key,
-        "score": trial.score + 1
+        "Correct": trial.correct,
+        "Choice": response.key,
+        "RT": response.rt,
+        "Accuracy": response.accuracy,
+        "Outcome": trial.outcome,
+        "Score": score_post
       };
-      
+
       // clear the display
       display_element.innerHTML = '';
 
@@ -170,13 +201,13 @@ jsPsych.plugins["pit-trial"] = (function() {
     };
 
     // start the response listener
-    if (trial.choices != jsPsych.NO_KEYS) {
+    if (trial.valid_responses != jsPsych.NO_KEYS) {
 
       var keyboardListener = "";
       setTimeout(function() {
         keyboardListener = jsPsych.pluginAPI.getKeyboardResponse({
           callback_function: after_response,
-          valid_responses: trial.choices,
+          valid_responses: trial.valid_responses,
           rt_method: 'performance',
           persist: false,
           allow_held_key: false

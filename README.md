@@ -3,12 +3,9 @@
 This is the jsPsych experiment branch for the optimized PIT task.
 
 ## TO DO
-- Cover story
-- Go signal
-- Trial loading
-- Point scoring
-- Rescale display(?)
-- Points animation(?) or response feedback
+- Cover story / instructions
+- break screen
+- Response feedback (point change + symbol disappear + light turn off)
 
 ## Attributions
 
