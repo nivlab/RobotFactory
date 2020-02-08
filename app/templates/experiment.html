@@ -13,6 +13,7 @@
         <script src="../static/js/jspsych-return-data.js" type="text/javascript"></script>
         <script src="../static/js/jspsych-pit-trial.js" type="text/javascript"></script>
         <script src="../static/js/jspsych-pit-feedback.js" type="text/javascript"></script>
+        <script src="../static/js/jspsych-pit-pause.js" type="text/javascript"></script>
         <script src="../static/js/pit-trials.js" type="text/javascript"></script>
 
         <!-- Load CSS styles -->
@@ -113,8 +114,21 @@
 
     });
 
+    // Define pause trials.
+    var pause = {
+      type: 'pit-pause',
+      on_start: function(trial) {
+        trial.score = score;
+      },
+    };
+
+    //------------------------------------//
+    // Section 3: Present experiment
+    //------------------------------------//
+
     // Define timeline.
     var timeline = trials;
+    timeline.push(pause);
 
     jsPsych.init({
         timeline: timeline,

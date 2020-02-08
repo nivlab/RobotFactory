@@ -444,3 +444,27 @@ body {
     animation-timing-function: linear;
   }
 }
+
+/* ---------------------------------- */
+/* Pause screen                       */
+/* ---------------------------------- */
+
+.pause-container {
+  position: absolute;
+  height: 100vh;
+  width: 100vw;
+  top: 0;
+  left: 0;
+  background-color: rgba(32,32,32,0.9);
+  line-height: 6vh;
+  text-align: center;
+}
+
+.pause-container .pause-message {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 4vh;
+  color: #F8F8F8;
+}

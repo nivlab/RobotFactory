@@ -4,7 +4,7 @@ This is the jsPsych experiment branch for the optimized PIT task.
 
 ## TO DO
 - Cover story / instructions
-- break screen
+- Probabilistic feedback
 
 ## Attributions
 
