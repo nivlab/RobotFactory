@@ -10,6 +10,21 @@ jsPsych.plugins["pit-feedback"] = (function() {
     name: 'pit-feedback',
     description: '',
     parameters: {
+      valence: {
+        type: jsPsych.plugins.parameterType.STRING,
+        pretty_name: 'Valence',
+        description: 'Valence of trial (win or loss).'
+      },
+      scanner_color: {
+        type: jsPsych.plugins.parameterType.STRING,
+        pretty_name: 'Scanner color',
+        description: 'Color of factory scanner light.'
+      },
+      robot_rune: {
+        type: jsPsych.plugins.parameterType.STRING,
+        pretty_name: 'Robot rune',
+        description: 'Rune to display on robot.'
+      },
       feedback_duration: {
         type: jsPsych.plugins.parameterType.INT,
         pretty_name: 'Feedback duration',
@@ -46,6 +61,8 @@ jsPsych.plugins["pit-feedback"] = (function() {
       position: fixed;
     }
     .conveyor:after {-webkit-animation: none; animation: none;}
+    .torso .rune { -webkit-animation: none; animation: action-cue none; }
+    .window { -webkit-animation: none; animation: action-cue none; }
     </style>`;
 
     // Add robot factor wrapper.
@@ -63,11 +80,11 @@ jsPsych.plugins["pit-feedback"] = (function() {
     new_html += '<div class="torso">';
     new_html += '<div class="left"></div>';
     new_html += '<div class="right"></div>';
-    new_html += `<div class="rune"></div></div>`;
+    new_html += `<div class="rune"><img src="${trial.robot_rune}" style="height: 100%; width: 100%; object-fit: contain"></div></div>`;
     new_html += '<div class="foot"></div></div>';
 
-    // Do not add factory window.
-    // new_html += `<div class="window" style="background: ${trial.scanner_color}"></div>`;
+    // Add factory window.
+    new_html += `<div class="window" style="background: ${trial.scanner_color}"></div>`;
 
     // Add factory machine parts (front).
     new_html += `<div class="machine-front"><div class="score-container"><div class="score">${trial.outcome}</div></div></div>`;

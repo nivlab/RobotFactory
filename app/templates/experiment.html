@@ -92,6 +92,9 @@
           // Feedback phase
           {
             type: 'pit-feedback',
+            valence: trial.Valence,
+            scanner_color: scanner_color,
+            robot_rune: runes[trial.Robot-1],
             feedback_duration: feedback_duration,
             on_start: function(trial) {
               trial.feedback_duration = feedback_duration + (trial_duration - (jsPsych.data.getLastTrialData().values()[0].RT || trial_duration));
