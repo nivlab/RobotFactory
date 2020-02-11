@@ -29,8 +29,7 @@ def datadump():
 
     ## Update participant metadata.
     session['complete'] = True
-    session['bonus'] = compute_bonus()
-    write_metadata(session, ['complete','bonus'], 'a')
+    write_metadata(session, ['complete'], 'a')
 
     ## DEV NOTE:
     ## To pass a custom completion code, include the following line of code:
