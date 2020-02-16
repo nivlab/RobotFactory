@@ -1,0 +1,11 @@
+## Numerical computing libraries
+numpy
+pandas
+numba
+
+## Probabilistic programming libraries
+pystan
+
+## Visualization libraries
+matplotlib
+seaborn
