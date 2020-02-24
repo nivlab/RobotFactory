@@ -70,7 +70,7 @@ class AgentsPIT(object):
     def __repr__(self):
         return f'<PIT agents (N = {self.n_agents})>'
         
-    def train(self, R):
+    def train(self, R, pavlovian='Q'):
         """Train agents on Pavlovian Instrumental Transfer task.
         
         Parameters
@@ -95,8 +95,13 @@ class AgentsPIT(object):
         ## Main loop.
         for i in range(n_trials):
         
+            ## Extract state value.
+            if pavlovian == 'Q': pi = np.mean(self.Q, axis=1)
+            elif pavlovian == 'V':  pi = np.copy(self.V)
+            else: raise ValueError('Pavlovian must be "V" or "Q".')
+        
             ## Action selection.
-            dEV = self.Q[:,1] - self.Q[:,0] + self.tau + self.nu * np.mean(self.Q, axis=1)
+            dEV = self.Q[:,1] - self.Q[:,0] + self.tau + self.nu * pi
             theta = inv_logit( self.beta * dEV  )
             Y[:,i] = np.random.binomial(1, theta)
 
