@@ -12,7 +12,6 @@
         <!-- Load jsPsych plug-ins -->
         <script src="../static/js/jspsych-return-data.js" type="text/javascript"></script>
         <script src="../static/js/jspsych-pit-trial.js" type="text/javascript"></script>
-        <script src="../static/js/jspsych-pit-feedback.js" type="text/javascript"></script>
         <script src="../static/js/jspsych-pit-pause.js" type="text/javascript"></script>
         <script src="../static/js/jspsych-pit-instructions.js" type="text/javascript"></script>
         <script src="../static/js/pit-experiment.js" type="text/javascript"></script>
@@ -50,8 +49,12 @@
     var score = 0;
 
     // Define timeline.
-    var timeline = [INSTRUCTIONS_01];
-    timeline = timeline.concat(PRACTICE_01);
+    // var timeline = [INSTRUCTIONS_01];
+    // timeline = timeline.concat(PRACTICE_01);
+    // timeline = timeline.concat(PRACTICE_02);
+    timeline = PIT_01;
+    timeline = timeline.concat(PAUSE);
+    timeline = timeline.concat(PIT_02);
 
 
     jsPsych.init({
@@ -63,7 +66,7 @@
           jsPsych.data.displayData();
 
           // Dump data to disk.
-          return_data("{{workerId}}", "{{assignmentId}}", "{{hitId}}",  "{{a}}", "{{tp_a}}", "{{b}}", "{{tp_b}}", "{{c}}", "{{tp_c}}");
+          // return_data("{{workerId}}", "{{assignmentId}}", "{{hitId}}",  "{{a}}", "{{tp_a}}", "{{b}}", "{{tp_b}}", "{{c}}", "{{tp_c}}");
 
         }
 
