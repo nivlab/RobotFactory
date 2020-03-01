@@ -275,3 +275,37 @@ var PAUSE = {
     trial.score = score;
   },
 };
+
+//------------------------------------//
+// Define practice trials
+//------------------------------------//
+
+var PRACTICE_GO = [];
+for (var i=0; i<4; i++){
+  var trial = {
+    type: 'pit-trial',
+    valence: 'Win',
+    scanner_color: '#ffffcc80',
+    robot_rune: '../static/img/rune01.png',
+    correct: 32,
+    valid_responses: [32],
+    trial_duration: trial_duration,
+    feedback_duration: feedback_duration,
+  };
+  PRACTICE_GO.push(trial);
+}
+
+var PRACTICE_NO_GO = [];
+for (var i=0; i<4; i++){
+  var trial = {
+    type: 'pit-trial',
+    valence: 'Win',
+    scanner_color: '#ffffcc80',
+    robot_rune: '../static/img/rune02.png',
+    correct: -1,
+    valid_responses: [32],
+    trial_duration: trial_duration,
+    feedback_duration: feedback_duration,
+  };
+  PRACTICE_NO_GO.push(trial);
+}

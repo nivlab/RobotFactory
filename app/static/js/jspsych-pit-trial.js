@@ -161,11 +161,13 @@ jsPsych.plugins["pit-trial"] = (function() {
 
       // Define outcome
       if (trial.valence == "Win" && response.accuracy == 1) {
-        trial.outcome = 1;
-      } else if (trial.valence == "Lose" && response.accuracy == 0) {
-        trial.outcome = -1;
+        trial.outcome = jsPsych.randomization.sampleWithoutReplacement([1,1,1,1,0],1);
+      } else if (trial.valence == "Win" && response.accuracy == 0) {
+        trial.outcome = jsPsych.randomization.sampleWithoutReplacement([0,0,0,0,1],1);
+      } else if (trial.valence == "Lose" && response.accuracy == 1) {
+        trial.outcome = jsPsych.randomization.sampleWithoutReplacement([0,0,0,0,-1],1);
       } else {
-        trial.outcome = 0;
+        trial.outcome = jsPsych.randomization.sampleWithoutReplacement([-1,-1,-1,-1,0],1);
       }
 
       // Present outcome

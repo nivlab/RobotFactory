@@ -14,6 +14,7 @@
         <script src="../static/js/jspsych-pit-trial.js" type="text/javascript"></script>
         <script src="../static/js/jspsych-pit-pause.js" type="text/javascript"></script>
         <script src="../static/js/jspsych-pit-instructions.js" type="text/javascript"></script>
+        <script src="../static/js/jspsych-pit-comprehension.js" type="text/javascript"></script>
         <script src="../static/js/pit-experiment.js" type="text/javascript"></script>
         <script src="../static/js/pit-instructions.js" type="text/javascript"></script>
 
@@ -30,11 +31,15 @@
       "../static/img/instructions01.png",
       "../static/img/instructions02.png",
       "../static/img/instructions03.png",
-      "../static/img/instructions08.png",
+      "../static/img/instructions04.png",
       "../static/img/instructions05.png",
       "../static/img/instructions06.png",
       "../static/img/instructions07.png",
       "../static/img/instructions08.png",
+      "../static/img/instructions09.png",
+      "../static/img/instructions10.png",
+      "../static/img/instructions11.png",
+      "../static/img/instructions12.png",
       "../static/img/rune01.png",
       "../static/img/rune02.png",
       "../static/img/rune03.png",
@@ -43,19 +48,25 @@
       "../static/img/rune06.png",
       "../static/img/rune07.png",
       "../static/img/rune08.png",
+      "../static/img/rune09.png",
+      "../static/img/rune10.png",
     ];
 
     // Initialize score.
     var score = 0;
 
     // Define timeline.
-    // var timeline = [INSTRUCTIONS_01];
-    // timeline = timeline.concat(PRACTICE_01);
-    // timeline = timeline.concat(PRACTICE_02);
-    timeline = PIT_01;
+    var timeline = [];
+    timeline = timeline.concat(INSTRUCTIONS_01);
+    timeline = timeline.concat(PRACTICE_GO);
+    timeline = timeline.concat(INSTRUCTIONS_02);
+    timeline = timeline.concat(PRACTICE_NO_GO);
+    timeline = timeline.concat(INSTRUCTIONS_03);
+    timeline = timeline.concat(COMPREHENSION);
+    timeline = timeline.concat(INSTRUCTIONS_04);
+    timeline = timeline.concat(PIT_01);
     timeline = timeline.concat(PAUSE);
     timeline = timeline.concat(PIT_02);
-
 
     jsPsych.init({
         timeline: timeline,
