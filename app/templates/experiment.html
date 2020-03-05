@@ -66,7 +66,7 @@
     timeline = timeline.concat(INSTRUCTIONS_03);
     timeline = timeline.concat(COMPREHENSION);
     timeline = timeline.concat(INSTRUCTIONS_04);
-    timeline = timeline.concat(PIT_01.slice(0,2));
+    timeline = timeline.concat(PIT_01);
     timeline = timeline.concat(PAUSE);
     timeline = timeline.concat(PIT_02);
 
@@ -75,11 +75,15 @@
         preload_images: preload_images,
         on_finish: function() {
 
+          // add interactions to the data variable
+          var interaction_data = jsPsych.data.getInteractionData();
+          jsPsych.data.get().addToLast({interactions: interaction_data.json()});
+
           // TESTING
           jsPsych.data.displayData();
 
           // Dump data to disk.
-          // return_data("{{workerId}}", "{{assignmentId}}", "{{hitId}}",  "{{a}}", "{{tp_a}}", "{{b}}", "{{tp_b}}", "{{c}}", "{{tp_c}}");
+          return_data("{{workerId}}", "{{assignmentId}}", "{{hitId}}",  "{{a}}", "{{tp_a}}", "{{b}}", "{{tp_b}}", "{{c}}", "{{tp_c}}");
 
         }
 

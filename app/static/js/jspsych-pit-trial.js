@@ -30,6 +30,11 @@ jsPsych.plugins["pit-trial"] = (function() {
         pretty_name: 'Correct response',
         description: 'Correct response for trial.'
       },
+      sham: {
+        type: jsPsych.plugins.parameterType.INT,
+        pretty_name: 'Sham trial',
+        description: 'Denoting if trial is sham trial.'
+      },
       valid_responses: {
         type: jsPsych.plugins.parameterType.KEYCODE,
         array: true,
@@ -160,14 +165,22 @@ jsPsych.plugins["pit-trial"] = (function() {
       };
 
       // Define outcome
-      if (trial.valence == "Win" && response.accuracy == 1) {
-        trial.outcome = jsPsych.randomization.sampleWithoutReplacement([1,1,1,1,0],1);
-      } else if (trial.valence == "Win" && response.accuracy == 0) {
-        trial.outcome = jsPsych.randomization.sampleWithoutReplacement([0,0,0,0,1],1);
-      } else if (trial.valence == "Lose" && response.accuracy == 1) {
-        trial.outcome = jsPsych.randomization.sampleWithoutReplacement([0,0,0,0,-1],1);
-      } else {
-        trial.outcome = jsPsych.randomization.sampleWithoutReplacement([-1,-1,-1,-1,0],1);
+      if (trial.valence == "Win" && response.accuracy == 1 && trial.sham == 0) {
+        trial.outcome = 1;
+      } else if (trial.valence == "Win" && response.accuracy == 1 && trial.sham == 1) {
+        trial.outcome = 0;
+      } else if (trial.valence == "Win" && response.accuracy == 0 && trial.sham == 0) {
+        trial.outcome = 0;
+      } else if (trial.valence == "Win" && response.accuracy == 0 && trial.sham == 1) {
+        trial.outcome = 1;
+      } else if (trial.valence == "Lose" && response.accuracy == 1 && trial.sham == 0) {
+        trial.outcome = 0;
+      } else if (trial.valence == "Lose" && response.accuracy == 1 && trial.sham == 1) {
+        trial.outcome = -1;
+      } else if (trial.valence == "Lose" && response.accuracy == 0 && trial.sham == 0) {
+        trial.outcome = -1;
+      } else if (trial.valence == "Lose" && response.accuracy == 0 && trial.sham == 1) {
+        trial.outcome = 0;
       }
 
       // Present outcome
@@ -194,6 +207,7 @@ jsPsych.plugins["pit-trial"] = (function() {
         "Choice": response.key,
         "RT": response.rt,
         "Accuracy": response.accuracy,
+        "Sham": trial.sham,
         "Outcome": trial.outcome,
       };
 
