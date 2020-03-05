@@ -391,7 +391,7 @@ jsPsych.plugins['pit-comprehension'] = (function() {
 
     // Detect if all correct answers
     display_element.addEventListener('change', function(){
-      if (Q1.className === 'valid' && Q2.className === 'valid' && Q4.className === 'valid') {
+      if (Q1.className === 'valid' && Q2.className === 'valid' && Q3.className === 'valid' && Q4.className === 'valid') {
         document.getElementById("jspsych-survey-multi-choice-next").disabled = false;
       } else {
         document.getElementById("jspsych-survey-multi-choice-next").disabled = true;

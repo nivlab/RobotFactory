@@ -17,19 +17,6 @@ jsPsych.plugins["pit-pause"] = (function() {
         default: jsPsych.ALL_KEYS,
         description: 'The keys the subject is allowed to press to respond to the stimulus.'
       },
-      trial_duration: {
-        type: jsPsych.plugins.parameterType.INT,
-        pretty_name: 'Trial duration',
-        default: null,
-        description: 'How long to show trial before it ends.'
-      },
-      response_ends_trial: {
-        type: jsPsych.plugins.parameterType.BOOL,
-        pretty_name: 'Response ends trial',
-        default: true,
-        description: 'If true, trial will end when subject makes a response.'
-      },
-
     }
   }
 
@@ -41,6 +28,7 @@ jsPsych.plugins["pit-pause"] = (function() {
 
     // Initialize HTML.
     var new_html = '';
+    console.log(trial.score);
 
     // Insert CSS (turn off conveyor animation).
     new_html += `<style>
@@ -73,9 +61,6 @@ jsPsych.plugins["pit-pause"] = (function() {
     new_html += `<div class="rune"></div></div>`;
     new_html += '<div class="foot"></div></div>';
 
-    // Do not add factory window.
-    // new_html += `<div class="window" style="background: ${trial.scanner_color}"></div>`;
-
     // Add factory machine parts (front).
     new_html += '<div class="machine-front"><div class="score-container"></div></div>';
     new_html += '<div class="machine-top"></div>';
@@ -83,7 +68,7 @@ jsPsych.plugins["pit-pause"] = (function() {
 
     // Add pause screen.
     new_html += '<div class="pause-container"><div class="pause-message">';
-    new_html += `<p>Great job! You've earned ${trial.score} points.</p><p>Take a break for a few moments and press any button when you are ready to continue.</p>`;
+    new_html += `<p id='message'>Great job! You've earned ${trial.score} points.<br><br>Take a break for a few moments and press any button when you are ready to continue.</p>`;
     new_html += '</div></div>';
 
     // Display HTML
@@ -99,19 +84,41 @@ jsPsych.plugins["pit-pause"] = (function() {
       key: null
     };
 
+    // function to handle responses by the subject
+    var after_response = function(info) {
+
+      // Kill any timeout handlers / keyboard listeners
+      jsPsych.pluginAPI.clearAllTimeouts();
+      jsPsych.pluginAPI.cancelKeyboardResponse(keyboardListener);
+
+      // Record response (if any made)
+      if (info != null) {
+        response = info;
+      }
+
+      // Update HTML
+      display_element.querySelector('#message').innerHTML = "Get ready to learn a brand new set of robots.<br><br>Press any key to continue."; 
+
+      // Initialize second keyboard listener.
+      var keyboardListener = "";
+      setTimeout(function() {
+        keyboardListener = jsPsych.pluginAPI.getKeyboardResponse({
+          callback_function: end_trial,
+          valid_responses: trial.valid_responses,
+          rt_method: 'performance',
+          persist: false,
+          allow_held_key: false
+        });
+      }, 200);
+
+    };
+
     // function to end trial when it is time
     var end_trial = function() {
 
-      // kill any remaining setTimeout handlers
+      // Kill any timeout handlers / keyboard listeners
       jsPsych.pluginAPI.clearAllTimeouts();
-
-      // kill keyboard listeners
-      if (typeof keyboardListener !== 'undefined') {
-        jsPsych.pluginAPI.cancelKeyboardResponse(keyboardListener);
-      }
-
-      // define new score.
-      const score_post = trial.score + trial.outcome;
+      jsPsych.pluginAPI.cancelKeyboardResponse(keyboardListener);
 
       // gather the data to store for the trial
       var trial_data = {
@@ -125,45 +132,17 @@ jsPsych.plugins["pit-pause"] = (function() {
       jsPsych.finishTrial(trial_data);
     };
 
-    // function to handle responses by the subject
-    var after_response = function(info) {
-
-      // after a valid response, the stimulus will have the CSS class 'responded'
-      // which can be used to provide visual feedback that a response was recorded
-      display_element.querySelector('#jspsych-pit-pause-stimulus').className += ' responded';
-
-      // only record the first response
-      if (response.key == null) {
-        response = info;
-      }
-
-      if (trial.response_ends_trial) {
-        end_trial();
-      }
-    };
-
-    // start the response listener
-    if (trial.valid_responses != jsPsych.NO_KEYS) {
-
-      var keyboardListener = "";
-      setTimeout(function() {
-        keyboardListener = jsPsych.pluginAPI.getKeyboardResponse({
-          callback_function: after_response,
-          valid_responses: trial.valid_responses,
-          rt_method: 'performance',
-          persist: false,
-          allow_held_key: false
-        });
-      }, 3000);
-
-    }
-
-    // end trial if trial_duration is set
-    if (trial.trial_duration !== null) {
-      jsPsych.pluginAPI.setTimeout(function() {
-        end_trial();
-      }, trial.trial_duration);
-    }
+    // Initialize keyboard listener.
+    var keyboardListener = "";
+    setTimeout(function() {
+      keyboardListener = jsPsych.pluginAPI.getKeyboardResponse({
+        callback_function: after_response,
+        valid_responses: trial.valid_responses,
+        rt_method: 'performance',
+        persist: false,
+        allow_held_key: false
+      });
+    }, 500);
 
   };
 

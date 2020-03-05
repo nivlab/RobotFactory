@@ -126,7 +126,7 @@ BLOCK_01.forEach(function (trial) {
     trial_duration: trial_duration,
     feedback_duration: feedback_duration,
     on_finish: function(trial) {
-      score = score + jsPsych.data.getLastTrialData().values()[0].Outcome;
+      score = score + parseInt(jsPsych.data.getLastTrialData().values()[0].Outcome);
     },
     data: {
       Trial: trial.Trial,
