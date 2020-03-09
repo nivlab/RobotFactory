@@ -165,7 +165,7 @@ jsPsych.plugins['pit-comprehension'] = (function() {
     html += '<div id="jspsych-survey-multi-choice-1" class="jspsych-survey-multi-choice-question jspsych-survey-multi-choice-horizontal" data-name="probability">';
 
     // Add question text
-    html += '<p class="jspsych-survey-multi-choice-text survey-multi-choice">When the scanner light is <b><font color=#006600>green</font></b>, what is the best outcome?</p>';
+    html += '<p class="jspsych-survey-multi-choice-text survey-multi-choice">When the scanner light is <b><font color=#006600>green</font></b>, how many points will you earn for a correct judgment?</p>';
 
     // Option 1: More likely
     html += '<div id="jspsych-survey-multi-choice-option-1-0" class="jspsych-survey-multi-choice-option">';
@@ -197,7 +197,7 @@ jsPsych.plugins['pit-comprehension'] = (function() {
     html += '<div id="jspsych-survey-multi-choice-2" class="jspsych-survey-multi-choice-question jspsych-survey-multi-choice-horizontal" data-name="probability">';
 
     // Add question text
-    html += '<p class="jspsych-survey-multi-choice-text survey-multi-choice">When the scanner light is <b><font color=#b30000>red</font></b>, what is the best outcome?</p>';
+    html += '<p class="jspsych-survey-multi-choice-text survey-multi-choice">When the scanner light is <b><font color=#b30000>red</font></b>, how many points will you earn for a correct judgment?</p>';
 
     // Option 1: More likely
     html += '<div id="jspsych-survey-multi-choice-option-2-0" class="jspsych-survey-multi-choice-option">';

@@ -97,7 +97,7 @@ jsPsych.plugins["pit-pause"] = (function() {
       }
 
       // Update HTML
-      display_element.querySelector('#message').innerHTML = "Get ready to learn a brand new set of robots.<br><br>Press any key to continue."; 
+      display_element.querySelector('#message').innerHTML = "Get ready to judge a brand new set of robots.<br><br>Press any key to continue."; 
 
       // Initialize second keyboard listener.
       var keyboardListener = "";

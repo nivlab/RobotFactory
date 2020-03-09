@@ -32,6 +32,7 @@ var INSTRUCTIONS_03 = {
       "../static/img/instructions11.png",
       "../static/img/instructions12.png",
       "../static/img/instructions13.png",
+      "../static/img/instructions14.png",
     ],
     show_clickable_nav: true,
     button_label_previous: "Prev",
@@ -45,7 +46,7 @@ var COMPREHENSION = {
 var INSTRUCTIONS_04 = {
     type: 'pit-instructions',
     pages: [
-      "../static/img/instructions14.png",
+      "../static/img/instructions15.png",
     ],
     show_clickable_nav: true,
     button_label_previous: "Prev",
