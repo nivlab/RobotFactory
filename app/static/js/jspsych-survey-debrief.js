@@ -132,11 +132,11 @@ jsPsych.plugins['survey-debrief'] = (function() {
     html += '<div class="row">';
     html += '<div class="debrief-prompt"><label for="country">How difficult was the task?</label></div>';
     html += '<div class="debrief-resp">';
-    html += '<label><input type="radio" name="difficulty" value="1" required>Very easy</label><br>';
-    html += '<label><input type="radio" name="difficulty" value="2" required>Somewhat easy</label><br>';
+    html += '<label><input type="radio" name="difficulty" value="5" required>Very easy</label><br>';
+    html += '<label><input type="radio" name="difficulty" value="4" required>Somewhat easy</label><br>';
     html += '<label><input type="radio" name="difficulty" value="3" required>Neither easy nor hard</label><br>';
-    html += '<label><input type="radio" name="difficulty" value="4" required>Somewhat hard</label><br>';
-    html += '<label><input type="radio" name="difficulty" value="5" required>Very hard</label>';
+    html += '<label><input type="radio" name="difficulty" value="2" required>Somewhat hard</label><br>';
+    html += '<label><input type="radio" name="difficulty" value="1" required>Very hard</label>';
     html += '</div></div>';
     html += '<hr color="#fff">';
 
@@ -144,11 +144,11 @@ jsPsych.plugins['survey-debrief'] = (function() {
     html += '<div class="row">';
     html += '<div class="debrief-prompt"><label for="country">How fun was the task?</label></div>';
     html += '<div class="debrief-resp">';
-    html += '<label><input type="radio" name="fun" value="1" required>Very fun</label><br>';
-    html += '<label><input type="radio" name="fun" value="2" required>Somewhat fun</label><br>';
+    html += '<label><input type="radio" name="fun" value="5" required>Very fun</label><br>';
+    html += '<label><input type="radio" name="fun" value="4" required>Somewhat fun</label><br>';
     html += '<label><input type="radio" name="fun" value="3" required>Neither fun nor boring</label><br>';
-    html += '<label><input type="radio" name="fun" value="4" required>Somewhat boring</label><br>';
-    html += '<label><input type="radio" name="fun" value="5" required>Very boring</label>';
+    html += '<label><input type="radio" name="fun" value="2" required>Somewhat boring</label><br>';
+    html += '<label><input type="radio" name="fun" value="1" required>Very boring</label>';
     html += '</div></div>';
     html += '<hr color="#fff">';
 
@@ -156,11 +156,11 @@ jsPsych.plugins['survey-debrief'] = (function() {
     html += '<div class="row">';
     html += '<div class="debrief-prompt"><label for="country">How clear were the instructions?</label></div>';
     html += '<div class="debrief-resp">';
-    html += '<label><input type="radio" name="clarity" value="1" required>Very clear</label><br>';
-    html += '<label><input type="radio" name="clarity" value="2" required>Somewhat clear</label><br>';
+    html += '<label><input type="radio" name="clarity" value="5" required>Very clear</label><br>';
+    html += '<label><input type="radio" name="clarity" value="4" required>Somewhat clear</label><br>';
     html += '<label><input type="radio" name="clarity" value="3" required>Neither clear nor confusing</label><br>';
-    html += '<label><input type="radio" name="clarity" value="4" required>Somewhat confusing</label><br>';
-    html += '<label><input type="radio" name="clarity" value="5" required>Very confusing</label>';
+    html += '<label><input type="radio" name="clarity" value="2" required>Somewhat confusing</label><br>';
+    html += '<label><input type="radio" name="clarity" value="1" required>Very confusing</label>';
     html += '</div></div>';
     html += '<hr color="#fff">';
 

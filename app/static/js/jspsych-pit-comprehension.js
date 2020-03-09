@@ -6,7 +6,7 @@ jsPsych.plugins['pit-comprehension'] = (function() {
   var plugin = {};
 
   plugin.info = {
-    name: 'survey-multi-choice',
+    name: 'pit-comprehension',
     description: '',
     parameters: {
       button_label: {
@@ -51,7 +51,7 @@ jsPsych.plugins['pit-comprehension'] = (function() {
       -webkit-transform: translate3d(-50%, -65%, 0);
       transform: translate3d(-50%, -65%, 0);
       width: 70vh;
-      height: 45vh;
+      height: 50vh;
       background: #ffffff;
       border: 2px solid black;
       border-radius: 12px;
@@ -117,7 +117,7 @@ jsPsych.plugins['pit-comprehension'] = (function() {
 
     // Show preamble text
     html += '<div class="comprehension-box">'
-    html += '<div class="jspsych-survey-multi-choice-preamble"><h4 style="font-size: 2vh;">Please answer the questions below:</div>';
+    html += '<div class="jspsych-survey-multi-choice-preamble"><h4 style="font-size: 2vh; margin-block-start: 0.5em; margin-block-end: 0.5em">Please answer the questions below:</div>';
 
     // Initialize form element
     html += '<form id="jspsych-survey-multi-choice-form">';
@@ -229,22 +229,48 @@ jsPsych.plugins['pit-comprehension'] = (function() {
     html += '<div id="jspsych-survey-multi-choice-3" class="jspsych-survey-multi-choice-question jspsych-survey-multi-choice-horizontal" data-name="bonus">';
 
     // Add question text
-    html += '<p class="jspsych-survey-multi-choice-text survey-multi-choice">Will the number of points I earn affect performance bonus?</p>';
+    html += '<p class="jspsych-survey-multi-choice-text survey-multi-choice"><i>True</i> or <i>False</i>: the scanner will sometimes malfunction and provide incorrect feedback.</p>';
 
     // Option 1: Yes
     html += '<div id="jspsych-survey-multi-choice-option-3-0" class="jspsych-survey-multi-choice-option">';
-    html += '<input type="radio" name="jspsych-survey-multi-choice-response-3" id="jspsych-survey-multi-choice-response-3-0" value="Yes" required>';
-    html += '<label class="jspsych-survey-multi-choice-text" for="jspsych-survey-multi-choice-response-3-0">Yes</label>';
+    html += '<input type="radio" name="jspsych-survey-multi-choice-response-3" id="jspsych-survey-multi-choice-response-3-0" value="True" required>';
+    html += '<label class="jspsych-survey-multi-choice-text" for="jspsych-survey-multi-choice-response-3-0">True</label>';
     html += '</div>';
 
     // Option 2: No
     html += '<div id="jspsych-survey-multi-choice-option-3-1" class="jspsych-survey-multi-choice-option">';
-    html += '<input type="radio" name="jspsych-survey-multi-choice-response-3" id="jspsych-survey-multi-choice-response-3-1" value="No" required>';
-    html += '<label class="jspsych-survey-multi-choice-text" for="jspsych-survey-multi-choice-response-3-1">No</label>';
+    html += '<input type="radio" name="jspsych-survey-multi-choice-response-3" id="jspsych-survey-multi-choice-response-3-1" value="False" required>';
+    html += '<label class="jspsych-survey-multi-choice-text" for="jspsych-survey-multi-choice-response-3-1">False</label>';
     html += '</div>';
 
     // Close item
     html += '<br><p id="Q4-error"></p>'
+    html += '</div>';
+
+    // ---------------------------------- //
+    // Comprehension Question #5          //
+    // ---------------------------------- //
+
+    // Initialize item
+    html += '<div id="jspsych-survey-multi-choice-4" class="jspsych-survey-multi-choice-question jspsych-survey-multi-choice-horizontal" data-name="bonus">';
+
+    // Add question text
+    html += '<p class="jspsych-survey-multi-choice-text survey-multi-choice">Will the number of points I earn affect performance bonus?</p>';
+
+    // Option 1: Yes
+    html += '<div id="jspsych-survey-multi-choice-option-4-0" class="jspsych-survey-multi-choice-option">';
+    html += '<input type="radio" name="jspsych-survey-multi-choice-response-4" id="jspsych-survey-multi-choice-response-4-0" value="Yes" required>';
+    html += '<label class="jspsych-survey-multi-choice-text" for="jspsych-survey-multi-choice-response-4-0">Yes</label>';
+    html += '</div>';
+
+    // Option 2: No
+    html += '<div id="jspsych-survey-multi-choice-option-4-1" class="jspsych-survey-multi-choice-option">';
+    html += '<input type="radio" name="jspsych-survey-multi-choice-response-4" id="jspsych-survey-multi-choice-response-4-1" value="No" required>';
+    html += '<label class="jspsych-survey-multi-choice-text" for="jspsych-survey-multi-choice-response-4-1">No</label>';
+    html += '</div>';
+
+    // Close item
+    html += '<br><p id="Q5-error"></p>'
     html += '</div>';
 
     // End HTML
@@ -263,6 +289,7 @@ jsPsych.plugins['pit-comprehension'] = (function() {
     const Q2 = document.getElementById("Q2-error");
     const Q3 = document.getElementById("Q3-error");
     const Q4 = document.getElementById("Q4-error");
+    const Q5 = document.getElementById("Q5-error");
     var count = 0;
 
     // Detect changes on first comprehension item
@@ -365,7 +392,7 @@ jsPsych.plugins['pit-comprehension'] = (function() {
       var val = display_element.querySelector('#jspsych-survey-multi-choice-3 input:checked').value;
 
       // Validation
-      if (val === "Yes") {
+      if (val === "True") {
 
         // Update text
         Q4.innerHTML = "";
@@ -374,7 +401,7 @@ jsPsych.plugins['pit-comprehension'] = (function() {
       } else {
 
         // Update text
-        Q4.innerHTML = "That's incorrect. Your bonus will reflect your performance on the task.";
+        Q4.innerHTML = "That's incorrect. The scanner will sometimes provide incorrect feedback.";
         Q4.className = "invalid"
 
         // Restart animation
@@ -389,9 +416,41 @@ jsPsych.plugins['pit-comprehension'] = (function() {
 
     })
 
+
+    // Detect changes on third comprehension item
+    display_element.querySelector('#jspsych-survey-multi-choice-4').addEventListener('change', function(){
+
+      // On change, find which item is checked.
+      var val = display_element.querySelector('#jspsych-survey-multi-choice-4 input:checked').value;
+
+      // Validation
+      if (val === "Yes") {
+
+        // Update text
+        Q5.innerHTML = "";
+        Q5.className = "valid"
+
+      } else {
+
+        // Update text
+        Q5.innerHTML = "That's incorrect. Your bonus will reflect your performance on the task.";
+        Q5.className = "invalid"
+
+        // Restart animation
+        Q5.style.animation = 'none';
+        Q5.offsetHeight; /* trigger reflow */
+        Q5.style.animation = null;
+
+        // Increment error count
+        count += 1;
+
+      }
+
+    })
+
     // Detect if all correct answers
     display_element.addEventListener('change', function(){
-      if (Q1.className === 'valid' && Q2.className === 'valid' && Q3.className === 'valid' && Q4.className === 'valid') {
+      if (Q1.className === 'valid' && Q2.className === 'valid' && Q3.className === 'valid' && Q4.className === 'valid' && Q5.className === 'valid') {
         document.getElementById("jspsych-survey-multi-choice-next").disabled = false;
       } else {
         document.getElementById("jspsych-survey-multi-choice-next").disabled = true;
@@ -408,7 +467,7 @@ jsPsych.plugins['pit-comprehension'] = (function() {
 
       // Gather responses
       var question_data = {};
-      for (var i=0; i<3; i++) {
+      for (var i=0; i<4; i++) {
 
         // Find matching question.
         var match = display_element.querySelector('#jspsych-survey-multi-choice-'+i);

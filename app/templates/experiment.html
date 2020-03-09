@@ -71,19 +71,19 @@
 
     // Define timeline.
     var timeline = [];
-    timeline = timeline.concat(INSTRUCTIONS_01);
-    timeline = timeline.concat(PRACTICE_GO);
-    timeline = timeline.concat(INSTRUCTIONS_02);
-    timeline = timeline.concat(PRACTICE_NO_GO);
-    timeline = timeline.concat(INSTRUCTIONS_03);
-    timeline = timeline.concat(COMPREHENSION);
-    timeline = timeline.concat(INSTRUCTIONS_04);
-    timeline = timeline.concat(PIT_01);
-    timeline = timeline.concat(QUALITY_CHECK);
-    timeline = timeline.concat(PAUSE);
-    timeline = timeline.concat(PIT_02);
-    timeline = timeline.concat(DEMO);
-    timeline = timeline.concat(DEBRIEF);
+    timeline = timeline.concat(INSTRUCTIONS_01);    // Instructions (part 1)
+    timeline = timeline.concat(PRACTICE_GO);        // Practice (go trials)
+    timeline = timeline.concat(INSTRUCTIONS_02);    // Instructions (part 2)
+    timeline = timeline.concat(PRACTICE_NO_GO);     // Practice (no-go trials)
+    timeline = timeline.concat(INSTRUCTIONS_03);    // Instructions (part 3)
+    timeline = timeline.concat(COMPREHENSION);      // Comprehension check
+    timeline = timeline.concat(INSTRUCTIONS_04);    // Instructions (part 4)
+    timeline = timeline.concat(PIT_01);             // PIT task (block 1)
+    timeline = timeline.concat(QUALITY_CHECK);      // Quality check (implicit)
+    timeline = timeline.concat(PAUSE);              // Break screen
+    timeline = timeline.concat(PIT_02);             // PIT task (block 2)
+    timeline = timeline.concat(DEMO);               // Demographics form
+    timeline = timeline.concat(DEBRIEF);            // Debriefing form
 
     jsPsych.init({
         timeline: timeline,
