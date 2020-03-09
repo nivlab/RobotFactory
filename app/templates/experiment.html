@@ -16,6 +16,8 @@
         <script src="../static/js/jspsych-pit-pause.js" type="text/javascript"></script>
         <script src="../static/js/jspsych-pit-instructions.js" type="text/javascript"></script>
         <script src="../static/js/jspsych-pit-comprehension.js" type="text/javascript"></script>
+        <script src="../static/js/jspsych-survey-demo.js" type="text/javascript"></script>
+        <script src="../static/js/jspsych-survey-debrief.js" type="text/javascript"></script>
         <script src="../static/lib/jspsych-6.1.0/plugins/jspsych-call-function.js" type="text/javascript"></script>
 
         <!-- Load experiment -->
@@ -59,9 +61,13 @@
       "../static/img/rune10.png",
     ];
 
-    // Initialize score.
+    // Define global variables (outside control of participants).
     var low_quality = false;
     var score = 0;
+
+    // Define surveys.
+    var DEMO = {type: 'survey-demo'};
+    var DEBRIEF = {type: 'survey-debrief'};
 
     // Define timeline.
     var timeline = [];
@@ -76,6 +82,8 @@
     timeline = timeline.concat(QUALITY_CHECK);
     timeline = timeline.concat(PAUSE);
     timeline = timeline.concat(PIT_02);
+    timeline = timeline.concat(DEMO);
+    timeline = timeline.concat(DEBRIEF);
 
     jsPsych.init({
         timeline: timeline,

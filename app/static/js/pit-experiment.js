@@ -317,7 +317,7 @@ for (var i=0; i<4; i++){
 }
 
 //------------------------------------//
-// Define performance check
+// Define quality check
 //------------------------------------//
 
 var quality_check = function() {
