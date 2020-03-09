@@ -315,3 +315,34 @@ for (var i=0; i<4; i++){
   };
   PRACTICE_NO_GO.push(trial);
 }
+
+//------------------------------------//
+// Define performance check
+//------------------------------------//
+
+var quality_check = function() {
+
+  // Compute metadata.
+  var choices = jsPsych.data.get().filter({Block: 1}).select('Choice');
+  const freqs = choices.frequencies();
+  const denom = choices.count();
+
+  // Check if Go or No-Go responses comprise more than 90% of responses.
+  if ( ((freqs[32] || 0) / denom) > 0.9 ) {
+    var low_quality = true;
+  } else if ( ((freqs[-1] || 0) / denom) > 0.9 ) {
+    var low_quality = true;
+  } else {
+    var low_quality = false;
+  }
+  return low_quality;
+}
+
+var QUALITY_CHECK = {
+  type: 'call-function',
+  func: quality_check,
+  on_finish: function(trial) {
+    low_quality = jsPsych.data.getLastTrialData().values()[0].value;
+    if (low_quality) { jsPsych.endExperiment(); }
+  }
+}

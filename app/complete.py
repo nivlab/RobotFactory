@@ -27,12 +27,18 @@ def datadump():
         ## Save jsPsch data to disk.
         write_data(session, JSON)
 
-    ## Update participant metadata.
-    session['complete'] = True
-    write_metadata(session, ['complete'], 'a')
+        ## Update participant metadata.
+        session['complete'] = True
+        write_metadata(session, ['complete'], 'a')
 
-    ## DEV NOTE:
-    ## To pass a custom completion code, include the following line of code:
-    ## > session['complete'] = gen_code(16)
+        return redirect(url_for('complete.complete'))
 
-    return redirect(url_for('complete.complete'))
+    else:
+
+        ## Update participant metadata.
+        session['complete'] = True
+        session['ERROR'] = "1011: Noncompliant behavior."
+        write_metadata(session, ['complete','ERROR'], 'a')
+
+        ## Redirect participant to error (previous participation).
+        return redirect(url_for('error.error', errornum=1011))

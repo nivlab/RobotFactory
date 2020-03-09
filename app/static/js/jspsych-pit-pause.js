@@ -28,7 +28,6 @@ jsPsych.plugins["pit-pause"] = (function() {
 
     // Initialize HTML.
     var new_html = '';
-    console.log(trial.score);
 
     // Insert CSS (turn off conveyor animation).
     new_html += `<style>
@@ -97,7 +96,7 @@ jsPsych.plugins["pit-pause"] = (function() {
       }
 
       // Update HTML
-      display_element.querySelector('#message').innerHTML = "Get ready to judge a brand new set of robots.<br><br>Press any key to continue."; 
+      display_element.querySelector('#message').innerHTML = "Get ready to judge a brand new set of robots.<br><br>Press any key to continue.";
 
       // Initialize second keyboard listener.
       var keyboardListener = "";

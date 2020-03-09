@@ -139,8 +139,8 @@ jsPsych.plugins["pit-trial"] = (function() {
 
     // Initialize response
     var response = {
-      rt: null,
-      key: null
+      rt: -1,
+      key: -1
     };
 
     // Feedback phase
@@ -156,7 +156,7 @@ jsPsych.plugins["pit-trial"] = (function() {
       }
 
       // Define accuracy
-      if (trial.correct == -1 && response.key == null) {
+      if (trial.correct == -1 && response.key == -1) {
         response.accuracy = 1;
       } else if (trial.correct == 32 && response.key == 32) {
         response.accuracy = 1;
