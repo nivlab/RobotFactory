@@ -91,8 +91,8 @@ for f in files:
     
 ## Concatenate data.
 DATA = concat(DATA).sort_values(['Version','Subject','Trial'])
-METADATA = DataFrame(METADATA, columns=dd.keys()).sort_values('Subject')
-METADATA = METADATA.merge(DATA[['Subject','Version']])
+METADATA = DataFrame(METADATA, columns=dd.keys())
+METADATA = METADATA.merge(DATA[['Subject','Version']].drop_duplicates()).sort_values(['Version','Subject'])
 
 ## Save.
 DATA.to_csv(os.path.join(DATA_DIR, 'data.csv'), index=False)
