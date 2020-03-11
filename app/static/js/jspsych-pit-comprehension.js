@@ -162,7 +162,7 @@ jsPsych.plugins['pit-comprehension'] = (function() {
     // ---------------------------------- //
 
     // Initialize item
-    html += '<div id="jspsych-survey-multi-choice-1" class="jspsych-survey-multi-choice-question jspsych-survey-multi-choice-horizontal" data-name="probability">';
+    html += '<div id="jspsych-survey-multi-choice-1" class="jspsych-survey-multi-choice-question jspsych-survey-multi-choice-horizontal" data-name="context-win">';
 
     // Add question text
     html += '<p class="jspsych-survey-multi-choice-text survey-multi-choice">When the scanner light is <b><font color=#006600>green</font></b>, how many points will you earn for a correct judgment?</p>';
@@ -194,7 +194,7 @@ jsPsych.plugins['pit-comprehension'] = (function() {
     // ---------------------------------- //
 
     // Initialize item
-    html += '<div id="jspsych-survey-multi-choice-2" class="jspsych-survey-multi-choice-question jspsych-survey-multi-choice-horizontal" data-name="probability">';
+    html += '<div id="jspsych-survey-multi-choice-2" class="jspsych-survey-multi-choice-question jspsych-survey-multi-choice-horizontal" data-name="context-lose">';
 
     // Add question text
     html += '<p class="jspsych-survey-multi-choice-text survey-multi-choice">When the scanner light is <b><font color=#b30000>red</font></b>, how many points will you earn for a correct judgment?</p>';
@@ -226,7 +226,7 @@ jsPsych.plugins['pit-comprehension'] = (function() {
     // ---------------------------------- //
 
     // Initialize item
-    html += '<div id="jspsych-survey-multi-choice-3" class="jspsych-survey-multi-choice-question jspsych-survey-multi-choice-horizontal" data-name="bonus">';
+    html += '<div id="jspsych-survey-multi-choice-3" class="jspsych-survey-multi-choice-question jspsych-survey-multi-choice-horizontal" data-name="feedback">';
 
     // Add question text
     html += '<p class="jspsych-survey-multi-choice-text survey-multi-choice"><i>True</i> or <i>False</i>: the scanner will sometimes malfunction and provide incorrect feedback.</p>';
