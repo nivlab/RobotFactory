@@ -109,7 +109,7 @@ jsPsych.plugins["pit-trial"] = (function() {
     new_html += '<div class="torso">';
     new_html += '<div class="left"></div>';
     new_html += '<div class="right"></div>';
-    new_html += `<div class="rune"><img src="${trial.robot_rune}" style="height: 100%; width: 100%; object-fit: contain"></div></div>`;
+    new_html += `<div class="rune"><img src="../static/img/rune${trial.robot_rune}.png" style="height: 100%; width: 100%; object-fit: contain"></div></div>`;
     new_html += '<div class="foot"></div></div>';
 
     // Add robot 2 (hidden).
@@ -126,7 +126,10 @@ jsPsych.plugins["pit-trial"] = (function() {
     new_html += `<div class="window" style="background: ${trial.scanner_color}"></div>`;
 
     // Add factory machine parts (front).
-    new_html += `<div class="machine-front"><div class="score-container"><div class="score" id="outcome"></div></div></div>`;
+    new_html += '<div class="machine-front">';
+    new_html += '<div class="score-container">';
+    new_html += '<div class="score" id="outcome"></div>';
+    new_html += '</div></div>';
     new_html += '<div class="machine-top"></div>';
     new_html += '</div></div>';
 
@@ -166,25 +169,26 @@ jsPsych.plugins["pit-trial"] = (function() {
 
       // Define outcome
       if (trial.valence == "Win" && response.accuracy == 1 && trial.sham == 0) {
-        trial.outcome = 1;
+        trial.outcome = "+10";
       } else if (trial.valence == "Win" && response.accuracy == 1 && trial.sham == 1) {
-        trial.outcome = 0;
+        trial.outcome = "+0";
       } else if (trial.valence == "Win" && response.accuracy == 0 && trial.sham == 0) {
-        trial.outcome = 0;
+        trial.outcome = "+0";
       } else if (trial.valence == "Win" && response.accuracy == 0 && trial.sham == 1) {
-        trial.outcome = 1;
+        trial.outcome = "+10";
       } else if (trial.valence == "Lose" && response.accuracy == 1 && trial.sham == 0) {
-        trial.outcome = 0;
+        trial.outcome = "+0";
       } else if (trial.valence == "Lose" && response.accuracy == 1 && trial.sham == 1) {
-        trial.outcome = -1;
+        trial.outcome = "-10";
       } else if (trial.valence == "Lose" && response.accuracy == 0 && trial.sham == 0) {
-        trial.outcome = -1;
+        trial.outcome = "-10";
       } else if (trial.valence == "Lose" && response.accuracy == 0 && trial.sham == 1) {
-        trial.outcome = 0;
+        trial.outcome = "+0";
       }
 
       // Present outcome
       document.getElementById("outcome").innerHTML = trial.outcome;
+      document.getElementById("outcome").setAttribute('outcome', trial.outcome);
 
       jsPsych.pluginAPI.setTimeout(function() {
         end_trial();
@@ -203,6 +207,7 @@ jsPsych.plugins["pit-trial"] = (function() {
 
       // Store data
       var trial_data = {
+        "Rune": trial.robot_rune,
         "Correct": trial.correct,
         "Choice": response.key,
         "RT": response.rt,

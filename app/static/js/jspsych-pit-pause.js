@@ -67,7 +67,7 @@ jsPsych.plugins["pit-pause"] = (function() {
 
     // Add pause screen.
     new_html += '<div class="pause-container"><div class="pause-message">';
-    new_html += `<p id='message'>Great job! You've earned ${trial.score} points.<br><br>Take a break for a few moments and press any button when you are ready to continue.</p>`;
+    new_html += `<p id='message'>Great job!<br><br>Take a break for a few moments and press any button when you are ready to continue.</p>`;
     new_html += '</div></div>';
 
     // Display HTML
@@ -96,7 +96,7 @@ jsPsych.plugins["pit-pause"] = (function() {
       }
 
       // Update HTML
-      display_element.querySelector('#message').innerHTML = "Get ready to judge a brand new set of robots.<br><br>Press any key to continue.";
+      display_element.querySelector('#message').innerHTML = "Get ready for another round of robots to judge.<br><br>Press any key to continue.";
 
       // Initialize second keyboard listener.
       var keyboardListener = "";

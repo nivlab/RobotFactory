@@ -169,20 +169,20 @@ jsPsych.plugins['pit-comprehension'] = (function() {
 
     // Option 1: More likely
     html += '<div id="jspsych-survey-multi-choice-option-1-0" class="jspsych-survey-multi-choice-option">';
-    html += '<input type="radio" name="jspsych-survey-multi-choice-response-1" id="jspsych-survey-multi-choice-response-1-0" value="1" required>';
-    html += '<label class="jspsych-survey-multi-choice-text" for="jspsych-survey-multi-choice-response-1-0">1</label>';
+    html += '<input type="radio" name="jspsych-survey-multi-choice-response-1" id="jspsych-survey-multi-choice-response-1-0" value="+10" required>';
+    html += '<label class="jspsych-survey-multi-choice-text" for="jspsych-survey-multi-choice-response-1-0">+10</label>';
     html += '</div>';
 
     // Option 2: Less likely
     html += '<div id="jspsych-survey-multi-choice-option-1-1" class="jspsych-survey-multi-choice-option">';
-    html += '<input type="radio" name="jspsych-survey-multi-choice-response-1" id="jspsych-survey-multi-choice-response-1-1" value="0" required>';
-    html += '<label class="jspsych-survey-multi-choice-text" for="jspsych-survey-multi-choice-response-1-1">0</label>';
+    html += '<input type="radio" name="jspsych-survey-multi-choice-response-1" id="jspsych-survey-multi-choice-response-1-1" value="+0" required>';
+    html += '<label class="jspsych-survey-multi-choice-text" for="jspsych-survey-multi-choice-response-1-1">+0</label>';
     html += '</div>';
 
     // Option 3: Equally likely
     html += '<div id="jspsych-survey-multi-choice-option-1-2" class="jspsych-survey-multi-choice-option">';
-    html += '<input type="radio" name="jspsych-survey-multi-choice-response-1" id="jspsych-survey-multi-choice-response-1-2" value="-1" required>';
-    html += '<label class="jspsych-survey-multi-choice-text" for="jspsych-survey-multi-choice-response-1-2">-1</label>';
+    html += '<input type="radio" name="jspsych-survey-multi-choice-response-1" id="jspsych-survey-multi-choice-response-1-2" value="-10" required>';
+    html += '<label class="jspsych-survey-multi-choice-text" for="jspsych-survey-multi-choice-response-1-2">-10</label>';
     html += '</div>';
 
     // Close item
@@ -201,20 +201,20 @@ jsPsych.plugins['pit-comprehension'] = (function() {
 
     // Option 1: More likely
     html += '<div id="jspsych-survey-multi-choice-option-2-0" class="jspsych-survey-multi-choice-option">';
-    html += '<input type="radio" name="jspsych-survey-multi-choice-response-2" id="jspsych-survey-multi-choice-response-2-0" value="1" required>';
-    html += '<label class="jspsych-survey-multi-choice-text" for="jspsych-survey-multi-choice-response-2-0">1</label>';
+    html += '<input type="radio" name="jspsych-survey-multi-choice-response-2" id="jspsych-survey-multi-choice-response-2-0" value="+10" required>';
+    html += '<label class="jspsych-survey-multi-choice-text" for="jspsych-survey-multi-choice-response-2-0">+10</label>';
     html += '</div>';
 
     // Option 2: Less likely
     html += '<div id="jspsych-survey-multi-choice-option-2-1" class="jspsych-survey-multi-choice-option">';
-    html += '<input type="radio" name="jspsych-survey-multi-choice-response-2" id="jspsych-survey-multi-choice-response-2-1" value="0" required>';
-    html += '<label class="jspsych-survey-multi-choice-text" for="jspsych-survey-multi-choice-response-2-1">0</label>';
+    html += '<input type="radio" name="jspsych-survey-multi-choice-response-2" id="jspsych-survey-multi-choice-response-2-1" value="+0" required>';
+    html += '<label class="jspsych-survey-multi-choice-text" for="jspsych-survey-multi-choice-response-2-1">+0</label>';
     html += '</div>';
 
     // Option 3: Equally likely
     html += '<div id="jspsych-survey-multi-choice-option-2-2" class="jspsych-survey-multi-choice-option">';
-    html += '<input type="radio" name="jspsych-survey-multi-choice-response-2" id="jspsych-survey-multi-choice-response-2-2" value="-1" required>';
-    html += '<label class="jspsych-survey-multi-choice-text" for="jspsych-survey-multi-choice-response-2-2">-1</label>';
+    html += '<input type="radio" name="jspsych-survey-multi-choice-response-2" id="jspsych-survey-multi-choice-response-2-2" value="-10" required>';
+    html += '<label class="jspsych-survey-multi-choice-text" for="jspsych-survey-multi-choice-response-2-2">-10</label>';
     html += '</div>';
 
     // Close item
@@ -330,7 +330,7 @@ jsPsych.plugins['pit-comprehension'] = (function() {
       var val = display_element.querySelector('#jspsych-survey-multi-choice-1 input:checked').value;
 
       // Validation
-      if (val === "1") {
+      if (val === "+10") {
 
         // Update text
         Q2.innerHTML = "";
@@ -339,7 +339,7 @@ jsPsych.plugins['pit-comprehension'] = (function() {
       } else {
 
         // Update text
-        Q2.innerHTML = "That's incorrect. Hint: When the light is green you can earn either 1 or 0 points.";
+        Q2.innerHTML = "That's incorrect. Hint: When the light is green you can earn either +10 or +0 points.";
         Q2.className = "invalid"
 
         // Restart animation
@@ -361,7 +361,7 @@ jsPsych.plugins['pit-comprehension'] = (function() {
       var val = display_element.querySelector('#jspsych-survey-multi-choice-2 input:checked').value;
 
       // Validation
-      if (val === "0") {
+      if (val === "+0") {
 
         // Update text
         Q3.innerHTML = "";
@@ -370,7 +370,7 @@ jsPsych.plugins['pit-comprehension'] = (function() {
       } else {
 
         // Update text
-        Q3.innerHTML = "That's incorrect. Hint: When the light is red you can earn 0 or -1 points.";
+        Q3.innerHTML = "That's incorrect. Hint: When the light is red you can earn +0 or -10 points.";
         Q3.className = "invalid"
 
         // Restart animation

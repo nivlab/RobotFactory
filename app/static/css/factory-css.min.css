@@ -92,7 +92,16 @@
   left: 50%;
   transform: translate(-50%, -50%);
   font-family: "Orbitron", sans-serif, sans-serif;
-  font-size: 4vh;
+  font-size: 3.5vh;
+}
+.machine-front .score-container .score[outcome="+10"] {
+  color: #008450;
+}
+.machine-front .score-container .score[outcome="+0"] {
+  color: #606060;
+}
+.machine-front .score-container .score[outcome="-10"] {
+  color: #B81D13;
 }
 
 .machine-back {
