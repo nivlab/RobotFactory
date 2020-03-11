@@ -141,10 +141,16 @@ jsPsych.plugins["pit-trial"] = (function() {
     //---------------------------------------//
 
     // Initialize response
+    var all_responses = [];
     var response = {
       rt: -1,
       key: -1
     };
+
+    // Record any response
+    var any_response = function(info) {
+      all_responses.push(info.rt);
+    }
 
     // Feedback phase
     var after_response = function(info) {
@@ -201,6 +207,7 @@ jsPsych.plugins["pit-trial"] = (function() {
 
       // Kill any timeout handlers / keyboard listeners
       jsPsych.pluginAPI.clearAllTimeouts();
+      jsPsych.pluginAPI.cancelKeyboardResponse(keyboardSuperListener);
       if (typeof keyboardListener !== 'undefined') {
         jsPsych.pluginAPI.cancelKeyboardResponse(keyboardListener);
       }
@@ -214,6 +221,8 @@ jsPsych.plugins["pit-trial"] = (function() {
         "Accuracy": response.accuracy,
         "Sham": trial.sham,
         "Outcome": trial.outcome,
+        "Keys": all_responses,
+        "TotalKeys": all_responses.length
       };
 
       // Clear the display
@@ -227,6 +236,7 @@ jsPsych.plugins["pit-trial"] = (function() {
     // Start the response listener
     if (trial.valid_responses != jsPsych.NO_KEYS) {
 
+      // Task keyboardListener
       var keyboardListener = "";
       setTimeout(function() {
         keyboardListener = jsPsych.pluginAPI.getKeyboardResponse({
@@ -237,6 +247,15 @@ jsPsych.plugins["pit-trial"] = (function() {
           allow_held_key: false
         });
       }, trial.animation_duration);
+
+      // Universal keyboardListener
+      var keyboardSuperListener = jsPsych.pluginAPI.getKeyboardResponse({
+          callback_function: any_response,
+          valid_responses: trial.valid_responses,
+          rt_method: 'performance',
+          persist: true,
+          allow_held_key: false
+        });
 
     }
 
