@@ -255,7 +255,7 @@ jsPsych.plugins['pit-comprehension'] = (function() {
     html += '<div id="jspsych-survey-multi-choice-4" class="jspsych-survey-multi-choice-question jspsych-survey-multi-choice-horizontal" data-name="bonus">';
 
     // Add question text
-    html += '<p class="jspsych-survey-multi-choice-text survey-multi-choice">Will the number of points I earn affect performance bonus?</p>';
+    html += '<p class="jspsych-survey-multi-choice-text survey-multi-choice">Will the number of points I earn affect my performance bonus?</p>';
 
     // Option 1: Yes
     html += '<div id="jspsych-survey-multi-choice-option-4-0" class="jspsych-survey-multi-choice-option">';
