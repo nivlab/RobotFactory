@@ -1,6 +1,6 @@
 from flask import (Blueprint, redirect, render_template, request, session, url_for)
 from .io import write_data, write_metadata
-from .utils import gen_code, compute_bonus
+from .utils import gen_code
 
 ## Initialize blueprint.
 bp = Blueprint('complete', __name__)
