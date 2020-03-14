@@ -1,5 +1,9 @@
 /**
  * jspsych-pit-pause
+ * Sam Zorowitz
+ *
+ * plugin for running a pause break for the PIT task
+ *
  **/
 
 jsPsych.plugins["pit-pause"] = (function() {

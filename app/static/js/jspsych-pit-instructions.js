@@ -1,6 +1,10 @@
-/* jspsych-pit-instructions.js
+/**
+ * jspsych-pit-instructions
+ * Sam Zorowitz
  *
- */
+ * plugin for running the instructions for the PIT task
+ *
+ **/
 
 jsPsych.plugins["pit-instructions"] = (function() {
 
@@ -15,7 +19,7 @@ jsPsych.plugins["pit-instructions"] = (function() {
         pretty_name: 'Pages',
         default: undefined,
         array: true,
-        description: 'Paths to instruction images.'
+        description: 'Each element of the array is the content for a single page.'
       },
       key_forward: {
         type: jsPsych.plugins.parameterType.KEYCODE,
@@ -28,50 +32,80 @@ jsPsych.plugins["pit-instructions"] = (function() {
         pretty_name: 'Key backward',
         default: 'leftarrow',
         description: 'The key that the subject can press to return to the previous page.'
-      },
-      allow_backward: {
-        type: jsPsych.plugins.parameterType.BOOL,
-        pretty_name: 'Allow backward',
-        default: true,
-        description: 'If true, the subject can return to the previous page of the instructions.'
-      },
-      allow_keys: {
-        type: jsPsych.plugins.parameterType.BOOL,
-        pretty_name: 'Allow keys',
-        default: true,
-        description: 'If true, the subject can use keyboard keys to navigate the pages.'
-      },
-      show_clickable_nav: {
-        type: jsPsych.plugins.parameterType.BOOL,
-        pretty_name: 'Show clickable nav',
-        default: false,
-        description: 'If true, then a "Previous" and "Next" button will be displayed beneath the instructions.'
-      },
-      button_label_previous: {
-        type: jsPsych.plugins.parameterType.STRING,
-        pretty_name: 'Button label previous',
-        default: 'Previous',
-        description: 'The text that appears on the button to go backwards.'
-      },
-      button_label_next: {
-        type: jsPsych.plugins.parameterType.STRING,
-        pretty_name: 'Button label next',
-        default: 'Next',
-        description: 'The text that appears on the button to go forwards.'
       }
     }
   }
 
   plugin.trial = function(display_element, trial) {
 
+    //---------------------------------------//
+    // Define HTML.
+    //---------------------------------------//
+
+    // Initialize HTML.
+    var new_html = `<style>
+    body {
+      background: -webkit-gradient(linear, left bottom, left top, from(#808080), color-stop(50%, #606060), color-stop(50%, rgba(28, 25, 23, 0.5)), to(rgba(179, 230, 230, 0.5)));
+      background: linear-gradient(0deg, #808080 0%, #606060 50%, #A0A0A0 50%, #D3D3D3 100%);
+      height: 100vh;
+      max-height: 100vh;
+      overflow: hidden;
+      position: fixed;
+    }
+    .conveyor:after {
+      -webkit-animation: none;
+      animation: none;
+    }
+    </style>`;
+
+    // Add robot factor wrapper.
+    new_html += '<div class="wrap">';
+
+    // Add factory machine parts (back).
+    new_html += '<div class="machine-back"></div>';
+    new_html += '<div class="conveyor"></div>';
+    new_html += '<div class="shadows"></div>';
+
+    // Add robot 1 (active).
+    new_html += '<div class="robot" style="left: 50vw;">';
+    new_html += '<div class="antenna"></div>';
+    new_html += '<div class="head"></div>';
+    new_html += '<div class="torso">';
+    new_html += '<div class="left"></div>';
+    new_html += '<div class="right"></div>';
+    new_html += `<div class="rune"></div></div>`;
+    new_html += '<div class="foot"></div></div>';
+
+    // Add factory machine parts (front).
+    new_html += '<div class="machine-front"><div class="score-container"></div></div>';
+    new_html += '<div class="machine-top"></div>';
+
+    // Draw instructions
+    new_html += '<div class="instructions-box"><div class="instructions">'
+    new_html += '</div></div>';
+
+    // Draw buttons
+    new_html += "<div class='jspsych-instructions-nav'>";
+    new_html += "<button id='jspsych-instructions-back' class='jspsych-btn' style='margin-right: 5px;' disabled='disabled'>&lt; Prev</button>";
+    new_html += "<button id='jspsych-instructions-next' class='jspsych-btn' style='margin-left: 5px;'>Next &gt;</button></div>";
+
+    // Close wrapper
+    new_html += '</div>';
+
+    // draw
+    display_element.innerHTML = new_html;
+
+    //---------------------------------------//
+    // Task functions.
+    //---------------------------------------//
+
+    // Initialize variables.
     var current_page = 0;
-
     var view_history = [];
-
     var start_time = performance.now();
-
     var last_page_update_time = start_time;
 
+    // Define EventListener.
     function btnListener(evt){
     	evt.target.removeEventListener('click', btnListener);
     	if(this.id === "jspsych-instructions-back"){
@@ -84,53 +118,18 @@ jsPsych.plugins["pit-instructions"] = (function() {
 
     function show_current_page() {
 
-      // Initialize HTML
-      var html = `<style>
-      .imgbox {
-        display: grid;
-        height: 100%;
-      }
-      .center-fit {
-        max-width: 100%;
-        max-height: 100vh;
-        margin: auto;
-      }
-      .jspsych-instructions-nav {
-        position: absolute;
-        top: 90%;
-        left: 50%;
-        -webkit-transform: translate3d(-50%, -50%, 0);
-        transform: translate3d(-50%, -50%, 0);
-      }
-      .jspsych-btn {
-        font-size: 2.5vh;
-      }
-      </style>`;
+      // Update instructions text.
+      display_element.querySelector('.instructions').innerHTML = `<p>${trial.pages[current_page]}</p>`;
 
-      // Add image.
-      html += `<div class="imgbox"><img class="center-fit" src='${trial.pages[current_page]}'></div>`;
-
-      if (trial.show_clickable_nav) {
-
-        var nav_html = "<div class='jspsych-instructions-nav'>";
-        if (trial.allow_backward) {
-          var allowed = (current_page > 0 )? '' : "disabled='disabled'";
-          nav_html += "<button id='jspsych-instructions-back' class='jspsych-btn' style='margin-right: 5px;' "+allowed+">&lt; "+trial.button_label_previous+"</button>";
-        }
-        nav_html += "<button id='jspsych-instructions-next' class='jspsych-btn'"+
-            "style='margin-left: 5px;'>"+trial.button_label_next+
-            " &gt;</button></div>";
-
-        html += nav_html;
-        display_element.innerHTML = html;
-        if (current_page != 0 && trial.allow_backward) {
-          display_element.querySelector('#jspsych-instructions-back').addEventListener('click', btnListener);
-        }
-
-        display_element.querySelector('#jspsych-instructions-next').addEventListener('click', btnListener);
+      // Update prev button
+      if (current_page != 0) {
+        display_element.querySelector('#jspsych-instructions-back').disabled = false;
+        display_element.querySelector('#jspsych-instructions-back').addEventListener('click', btnListener);
       } else {
-        display_element.innerHTML = html;
+        display_element.querySelector('#jspsych-instructions-back').disabled = true;
       }
+      // Update next button
+      display_element.querySelector('#jspsych-instructions-next').addEventListener('click', btnListener);
 
     }
 
@@ -174,9 +173,7 @@ jsPsych.plugins["pit-instructions"] = (function() {
 
     function endTrial() {
 
-      if (trial.allow_keys) {
-        jsPsych.pluginAPI.cancelKeyboardResponse(keyboard_listener);
-      }
+      jsPsych.pluginAPI.cancelKeyboardResponse(keyboard_listener);
 
       display_element.innerHTML = '';
 
@@ -200,7 +197,7 @@ jsPsych.plugins["pit-instructions"] = (function() {
       });
       // check if key is forwards or backwards and update page
       if (jsPsych.pluginAPI.compareKeys(info.key, trial.key_backward)) {
-        if (current_page !== 0 && trial.allow_backward) {
+        if (current_page !== 0) {
           back();
         }
       }
@@ -213,14 +210,12 @@ jsPsych.plugins["pit-instructions"] = (function() {
 
     show_current_page();
 
-    if (trial.allow_keys) {
-      var keyboard_listener = jsPsych.pluginAPI.getKeyboardResponse({
-        callback_function: after_response,
-        valid_responses: [trial.key_forward, trial.key_backward],
-        rt_method: 'performance',
-        persist: false
-      });
-    }
+    var keyboard_listener = jsPsych.pluginAPI.getKeyboardResponse({
+      callback_function: after_response,
+      valid_responses: [trial.key_forward, trial.key_backward],
+      rt_method: 'performance',
+      persist: false
+    });
   };
 
   return plugin;

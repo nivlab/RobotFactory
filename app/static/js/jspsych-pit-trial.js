@@ -1,6 +1,10 @@
 /**
-* jspsych-pit-trial
-**/
+ * jspsych-pit-instructions
+ * Sam Zorowitz
+ *
+ * plugin for running one trial of the robot factory PIT task
+ *
+ **/
 
 jsPsych.plugins["pit-trial"] = (function() {
 

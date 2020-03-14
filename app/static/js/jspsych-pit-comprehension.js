@@ -1,6 +1,10 @@
 /**
-* jspsych-pit-comprehension
-**/
+ * jspsych-pit-comprehension
+ * Sam Zorowitz
+ *
+ * plugin for running the comprehension check for the PIT task
+ *
+ **/
 
 jsPsych.plugins['pit-comprehension'] = (function() {
   var plugin = {};
