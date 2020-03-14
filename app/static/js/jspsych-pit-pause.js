@@ -67,7 +67,7 @@ jsPsych.plugins["pit-pause"] = (function() {
 
     // Add pause screen.
     new_html += '<div class="pause-container"><div class="pause-message">';
-    new_html += `<p id='message'>Great job!<br><br>Take a break for a few moments and press any button when you are ready to continue.</p>`;
+    new_html += `<p id='message'>Take a break for a few moments and press any button when you are ready to continue.</p>`;
     new_html += '</div></div>';
 
     // Display HTML
