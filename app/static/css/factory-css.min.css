@@ -63,27 +63,29 @@
 /* Machine base                       */
 /* ---------------------------------- */
 
-.window {
+.scanner-light {
   position: absolute;
   top: 50%;
   left: 50%;
   -webkit-transform: translate3d(-50%, -50%, 0);
   transform: translate3d(-50%, -50%, 0);
-  width: 39vh;
-  height: 52vh;
+  border-bottom: 40vh solid rgba(0, 0, 0, 0);
+  width: 9vh;
+  border-left: 7vw solid transparent;
+  border-right: 7vw solid transparent;
   mix-blend-mode: soft-light;
   -webkit-animation: pavlovian 1.5s;
   animation: pavlovian 1.5s;
 }
 @-webkit-keyframes pavlovian {
-  0%    {background: rgba(0, 0, 0, 0);}
-  90%   {background: rgba(0, 0, 0, 0);}
-  100%  {background-color: rgba(232, 125, 179, 0.6);}
+  0%    { border-bottom-color: rgba(0, 0, 0, 0); }
+  90%   { border-bottom-color: rgba(0, 0, 0, 0); }
+  100%  { border-bottom-color: #fffff080; }
 }
 @keyframes pavlovian {
-  0%    {background: rgba(0, 0, 0, 0);}
-  90%   {background: rgba(0, 0, 0, 0);}
-  100%  {background-color: rgba(232, 125, 179, 0.6);}
+  0%    { border-bottom-color: rgba(0, 0, 0, 0); }
+  90%   { border-bottom-color: rgba(0, 0, 0, 0); }
+  100%  { border-bottom-color: #fffff080; }
 }
 
 .machine-front {
@@ -146,13 +148,10 @@
   font-family: "Orbitron", sans-serif, sans-serif;
   font-size: 3.5vh;
 }
-.machine-front .score-container .score[outcome="+10"] {
+.machine-front .score-container .score[valence="Win"] {
   color: #008450;
 }
-.machine-front .score-container .score[outcome="+0"] {
-  color: #606060;
-}
-.machine-front .score-container .score[outcome="-10"] {
+.machine-front .score-container .score[valence="Lose"] {
   color: #B81D13;
 }
 
