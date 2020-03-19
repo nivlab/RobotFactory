@@ -4,7 +4,7 @@ pandas
 numba
 
 ## Probabilistic programming libraries
-pystan
+pystan >= 2.19
 
 ## Visualization libraries
 matplotlib
