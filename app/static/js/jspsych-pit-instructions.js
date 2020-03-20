@@ -21,6 +21,20 @@ jsPsych.plugins["pit-instructions"] = (function() {
         array: true,
         description: 'Each element of the array is the content for a single page.'
       },
+      robot_runes: {
+        type: jsPsych.plugins.parameterType.STRING,
+        pretty_name: 'Robot rune',
+        array: true,
+        default: [],
+        description: 'Rune to display on robot. Should be same length as pages.'
+      },
+      scanner_colors: {
+        type: jsPsych.plugins.parameterType.HTML_STRING,
+        pretty_name: 'Scanner color',
+        array: true,
+        default: [],
+        description: 'Color of scanner light. Should be same length as pages.'
+      },
       key_forward: {
         type: jsPsych.plugins.parameterType.KEYCODE,
         pretty_name: 'Key forward',
@@ -73,8 +87,11 @@ jsPsych.plugins["pit-instructions"] = (function() {
     new_html += '<div class="torso">';
     new_html += '<div class="left"></div>';
     new_html += '<div class="right"></div>';
-    new_html += `<div class="rune"></div></div>`;
+    new_html += `<div class="rune" style="animation: none; -webkit-animation: none;"></div></div>`;
     new_html += '<div class="foot"></div></div>';
+
+    // Add factory window.
+    new_html += `<div class="scanner-light" style="animation: none; -webkit-animation: none;"></div>`;
 
     // Add factory machine parts (front).
     new_html += '<div class="machine-front"><div class="score-container"></div></div>';
@@ -105,6 +122,18 @@ jsPsych.plugins["pit-instructions"] = (function() {
     var start_time = performance.now();
     var last_page_update_time = start_time;
 
+    // Prepare robot runes.
+    var robot_runes = [];
+    for (var i=0; i<trial.pages.length; i++){
+      robot_runes.push( trial.robot_runes[i] == undefined ? '' : `<img src="../static/img/rune${trial.robot_runes[i]}.png" style="height: 100%; width: 100%; object-fit: contain">` );
+    }
+
+    // Initialize scanner colors.
+    var scanner_colors = [];
+    for (var i=0; i<trial.pages.length; i++){
+      scanner_colors.push( trial.scanner_colors[i] == undefined ? '#FFFFFF00' : trial.scanner_colors[i] );
+    }
+
     // Define EventListener.
     function btnListener(evt){
     	evt.target.removeEventListener('click', btnListener);
@@ -120,6 +149,12 @@ jsPsych.plugins["pit-instructions"] = (function() {
 
       // Update instructions text.
       display_element.querySelector('.instructions').innerHTML = `<p>${trial.pages[current_page]}</p>`;
+
+      // Update robot rune.
+      display_element.querySelector('.rune').innerHTML = robot_runes[current_page];
+
+      // Update scanner color.
+      display_element.querySelector('.scanner-light').style['border-bottom-color'] = scanner_colors[current_page];
 
       // Update prev button
       if (current_page != 0) {

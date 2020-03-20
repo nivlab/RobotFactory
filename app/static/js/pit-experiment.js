@@ -99,6 +99,26 @@ var INSTRUCTIONS_03 = {
       "At the end of the task, the total number of points you've<br>earned will be converted into a performance bonus.",
       "Next, we will ask you some questions about the task.",
     ],
+    robot_runes: [
+      undefined,
+      undefined,
+      undefined,
+      '01',
+      '01',
+      undefined,
+      undefined,
+      undefined,
+    ],
+    scanner_colors: [
+      '#FFFFFF00',
+      scanner_color_win,
+      scanner_color_lose,
+      '#FFFFF080',
+      '#FFFFF080',
+      '#FFFFFF00',
+      '#FFFFFF00',
+      '#FFFFFF00'
+    ],
     show_clickable_nav: true,
     button_label_previous: "Prev",
     button_label_next: "Next"
