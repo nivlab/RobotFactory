@@ -216,7 +216,7 @@ jsPsych.plugins['survey-debrief'] = (function() {
           // Store data
           var trialdata = {
             "rt": response_time,
-            "debriefgraphics": question_data
+            "debrief": question_data
           };
 
           // Update screen

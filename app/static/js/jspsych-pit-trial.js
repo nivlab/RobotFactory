@@ -14,35 +14,37 @@ jsPsych.plugins["pit-trial"] = (function() {
     name: 'pit-trial',
     description: '',
     parameters: {
-      valence: {
-        type: jsPsych.plugins.parameterType.STRING,
-        pretty_name: 'Valence',
-        description: 'Valence of trial (win or loss).'
+      robot_rune: {
+        type: jsPsych.plugins.parameterType.HTML_STRING,
+        pretty_name: 'Robot rune',
+        description: 'Rune to display on robot.'
+      },
+      scanner_color: {
+        type: jsPsych.plugins.parameterType.HTML_STRING,
+        pretty_name: 'Scanner color',
+        description: 'Color of scanner light.'
+      },
+      outcome_correct: {
+        type: jsPsych.plugins.parameterType.HTML_STRING,
+        pretty_name: 'Outcome correct',
+        default: '+10',
+        description: 'Outcome to present on correct action.',
+      },
+      outcome_incorrect: {
+        type: jsPsych.plugins.parameterType.HTML_STRING,
+        pretty_name: 'Outcome incorrect',
+        default: '+10',
+        description: 'Outcome to present on incorrect action.',
+      },
+      outcome_color: {
+        type: jsPsych.plugins.parameterType.HTML_STRING,
+        pretty_name: 'Outcome color',
+        description: 'Color of outcome text.'
       },
       correct: {
         type: jsPsych.plugins.parameterType.KEYCODE,
         pretty_name: 'Correct response',
         description: 'Correct response for trial.'
-      },
-      sham: {
-        type: jsPsych.plugins.parameterType.INT,
-        pretty_name: 'Sham trial',
-        description: 'Feedback for trial (Accurate = 0, Sham =1).'
-      },
-      robot_rune: {
-        type: jsPsych.plugins.parameterType.STRING,
-        pretty_name: 'Robot rune',
-        description: 'Rune to display on robot.'
-      },
-      scanner_color: {
-        type: jsPsych.plugins.parameterType.STRING,
-        pretty_name: 'Scanner color',
-        description: 'Color of scanner light.'
-      },
-      outcome_color: {
-        type: jsPsych.plugins.parameterType.STRING,
-        pretty_name: 'Outcome color',
-        description: 'Color of outcome text.'
       },
       valid_responses: {
         type: jsPsych.plugins.parameterType.KEYCODE,
@@ -84,12 +86,12 @@ jsPsych.plugins["pit-trial"] = (function() {
     // Insert CSS (window animation).
     new_html += `<style>
     body {
-      background: -webkit-gradient(linear, left bottom, left top, from(#808080), color-stop(50%, #606060), color-stop(50%, rgba(28, 25, 23, 0.5)), to(rgba(179, 230, 230, 0.5)));
-      background: linear-gradient(0deg, #808080 0%, #606060 50%, #A0A0A0 50%, #D3D3D3 100%);
       height: 100vh;
       max-height: 100vh;
       overflow: hidden;
       position: fixed;
+      background: -webkit-gradient(linear, left bottom, left top, from(#808080), color-stop(50%, #606060), color-stop(50%, rgba(28, 25, 23, 0.5)), to(rgba(179, 230, 230, 0.5)));
+      background: linear-gradient(0deg, #808080 0%, #606060 50%, #A0A0A0 50%, #D3D3D3 100%);
     }
     @-webkit-keyframes pavlovian {
       0%    {border-bottom-color: rgba(0, 0, 0, 0);}
@@ -104,7 +106,7 @@ jsPsych.plugins["pit-trial"] = (function() {
      </style>`;
 
     // Add robot factor wrapper.
-    new_html += '<div id="jspsych-pit-trial-stimulus"><div class="wrap">';
+    new_html += '<div class="wrap">';
 
     // Add factory machine parts (back).
     new_html += '<div class="machine-back"></div>';
@@ -112,7 +114,7 @@ jsPsych.plugins["pit-trial"] = (function() {
     new_html += '<div class="shadows"></div>';
 
     // Add robot 1 (active).
-    new_html += '<div class="robot" style="left: 50vw; -webkit-animation: enter 1s; animation: enter 1s;">';
+    new_html += '<div class="robot" status="active">';
     new_html += '<div class="antenna"></div>';
     new_html += '<div class="head"></div>';
     new_html += '<div class="torso">';
@@ -122,7 +124,7 @@ jsPsych.plugins["pit-trial"] = (function() {
     new_html += '<div class="foot"></div></div>';
 
     // Add robot 2 (hidden).
-    new_html += '<div class="robot" style="left: 100vw; -webkit-animation: exit 1s; animation: exit 1s;">';
+    new_html += '<div class="robot" status="hidden">';
     new_html += '<div class="antenna"></div>';
     new_html += '<div class="head"></div>';
     new_html += '<div class="torso">';
@@ -140,7 +142,9 @@ jsPsych.plugins["pit-trial"] = (function() {
     new_html += '<div class="score" id="outcome"></div>';
     new_html += '</div></div>';
     new_html += '<div class="machine-top"></div>';
-    new_html += '</div></div>';
+
+    // Close wrapper.
+    new_html += '</div>';
 
     // Display HTML
     display_element.innerHTML = new_html;
@@ -174,40 +178,22 @@ jsPsych.plugins["pit-trial"] = (function() {
       }
 
       // Define accuracy
-      if (trial.correct == -1 && response.key == -1) {
-        response.accuracy = 1;
-      } else if (trial.correct == 32 && response.key == 32) {
+      if (trial.correct == response.key) {
         response.accuracy = 1;
       } else {
         response.accuracy = 0;
       };
 
       // Define outcome
-      if (trial.valence == "Practice" && response.accuracy == 1) {
-        trial.outcome = "+10";
-      } else if ( trial.valence == "Practice" && response.accuracy == 0) {
-        trial.outcome = "+0";
-      } else if (trial.valence == "Win" && response.accuracy == 1 && trial.sham == 0) {
-        trial.outcome = "+10";
-      } else if (trial.valence == "Win" && response.accuracy == 1 && trial.sham == 1) {
-        trial.outcome = "1";
-      } else if (trial.valence == "Win" && response.accuracy == 0 && trial.sham == 0) {
-        trial.outcome = "+1";
-      } else if (trial.valence == "Win" && response.accuracy == 0 && trial.sham == 1) {
-        trial.outcome = "+10";
-      } else if (trial.valence == "Lose" && response.accuracy == 1 && trial.sham == 0) {
-        trial.outcome = "-1";
-      } else if (trial.valence == "Lose" && response.accuracy == 1 && trial.sham == 1) {
-        trial.outcome = "-10";
-      } else if (trial.valence == "Lose" && response.accuracy == 0 && trial.sham == 0) {
-        trial.outcome = "-10";
-      } else if (trial.valence == "Lose" && response.accuracy == 0 && trial.sham == 1) {
-        trial.outcome = "-1";
+      if (response.accuracy == 1) {
+        trial.outcome = trial.outcome_correct;
+      } else {
+        trial.outcome = trial.outcome_incorrect;
       }
 
       // Present outcome
       document.getElementById("outcome").innerHTML = trial.outcome;
-      document.getElementById("outcome").style.color = trial.outcome_color;
+      document.getElementById("outcome").style['color'] = trial.outcome_color;
 
       jsPsych.pluginAPI.setTimeout(function() {
         end_trial();
@@ -227,14 +213,12 @@ jsPsych.plugins["pit-trial"] = (function() {
 
       // Store data
       var trial_data = {
-        "Valence": trial.valence,
-        "Color": trial.scanner_color,
         "Rune": trial.robot_rune,
+        "Hex": trial.scanner_color,
         "Correct": trial.correct,
         "Choice": response.key,
         "RT": response.rt,
         "Accuracy": response.accuracy,
-        "Sham": trial.sham,
         "Outcome": trial.outcome,
         "Keys": all_responses,
         "TotalKeys": all_responses.length

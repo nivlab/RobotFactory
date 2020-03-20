@@ -2,10 +2,6 @@
 // Define parameters.
 //------------------------------------//
 
-// Define timings.
-const trial_duration = 1500;         // Duration of trial (response phase)
-const feedback_duration = 1000;      // Duration of feedback (minimum)
-
 // Define runes.
 var runes = ['03','04','05','06'];
 runes = jsPsych.randomization.sampleWithoutReplacement(runes, runes.length);
@@ -27,6 +23,16 @@ if (jsPsych.randomization.repeat([0,1],1)[0] == 1 ) {
   var outcome_color_lose = '#00539C';
 }
 
+// Define go key.
+const key_go = 32;
+
+// Define timings.
+const trial_duration = 1500;         // Duration of trial (response phase)
+const feedback_duration = 1000;      // Duration of feedback (minimum)
+
+// Define quality threshold.
+const threshold = 0.95;
+
 //------------------------------------//
 // Define instructions.
 //------------------------------------//
@@ -45,20 +51,24 @@ var INSTRUCTIONS_01 = {
     button_label_next: "Next"
 }
 
-var PRACTICE_GO = [];
-for (var i=0; i<4; i++){
-  var trial = {
+var PRACTICE_GO = {
+  timeline: [{
     type: 'pit-trial',
-    valence: 'Practice',
-    scanner_color: '#fffff080',
     robot_rune: '01',
-    correct: 32,
-    sham: 0,
-    valid_responses: [32],
+    scanner_color: '#FFFFF080',
+    outcome_color: '#000000',
+    outcome_correct: '+10',
+    outcome_incorrect: '+0',
+    correct: key_go,
+    valid_responses: [key_go],
     trial_duration: trial_duration,
-    feedback_duration: feedback_duration,
-  };
-  PRACTICE_GO.push(trial);
+    feedback_duration: feedback_duration
+  }],
+  repetitions: 4,
+  data: {
+    Block: 0,
+    Action: 'Go',
+  }
 }
 
 var INSTRUCTIONS_02 = {
@@ -71,20 +81,24 @@ var INSTRUCTIONS_02 = {
     button_label_next: "Next"
 }
 
-var PRACTICE_NO_GO = [];
-for (var i=0; i<4; i++){
-  var trial = {
+var PRACTICE_NO_GO = {
+  timeline: [{
     type: 'pit-trial',
-    valence: 'Practice',
-    scanner_color: '#fffff080',
     robot_rune: '02',
+    scanner_color: '#FFFFF080',
+    outcome_color: '#000000',
+    outcome_correct: '+10',
+    outcome_incorrect: '+0',
     correct: -1,
-    sham: 0,
-    valid_responses: [32],
+    valid_responses: [key_go],
     trial_duration: trial_duration,
-    feedback_duration: feedback_duration,
-  };
-  PRACTICE_NO_GO.push(trial);
+    feedback_duration: feedback_duration
+  }],
+  repetitions: 4,
+  data: {
+    Block: 0,
+    Action: 'No-Go',
+  }
 }
 
 var INSTRUCTIONS_03 = {
@@ -143,121 +157,80 @@ var INSTRUCTIONS_04 = {
 }
 
 //------------------------------------//
-// Define experiment (block 1)
+// Define experiment.
 //------------------------------------//
+// One block of the PIT task is comprised of
+// 20 exposures to four robots (GW, NGW, GAL, NGAL),
+// i.e. 80 total trials. 80% of trials provide
+// correct feedback, or 1/5 trials (in blocks)
+// present sham feedback. There are 2 total blocks,
+// or 40 total exposures per robot (160 total trials).
 
-// Define trial parameters
-var BLOCK_01 = [
-  {'Block': 1, 'Trial': 1, 'Robot': 2, 'Valence': 'Win', 'Action': 'No-Go', 'Correct': -1, 'Sham': 0},
-  {'Block': 1, 'Trial': 2, 'Robot': 3, 'Valence': 'Lose', 'Action': 'Go', 'Correct': 32, 'Sham': 0},
-  {'Block': 1, 'Trial': 3, 'Robot': 4, 'Valence': 'Lose', 'Action': 'No-Go', 'Correct': -1, 'Sham': 0},
-  {'Block': 1, 'Trial': 4, 'Robot': 1, 'Valence': 'Win', 'Action': 'Go', 'Correct': 32, 'Sham': 0},
-  {'Block': 1, 'Trial': 5, 'Robot': 3, 'Valence': 'Lose', 'Action': 'Go', 'Correct': 32, 'Sham': 1},
-  {'Block': 1, 'Trial': 6, 'Robot': 4, 'Valence': 'Lose', 'Action': 'No-Go', 'Correct': -1, 'Sham': 0},
-  {'Block': 1, 'Trial': 7, 'Robot': 1, 'Valence': 'Win', 'Action': 'Go', 'Correct': 32, 'Sham': 0},
-  {'Block': 1, 'Trial': 8, 'Robot': 2, 'Valence': 'Win', 'Action': 'No-Go', 'Correct': -1, 'Sham': 0},
-  {'Block': 1, 'Trial': 9, 'Robot': 1, 'Valence': 'Win', 'Action': 'Go', 'Correct': 32, 'Sham': 0},
-  {'Block': 1, 'Trial': 10, 'Robot': 3, 'Valence': 'Lose', 'Action': 'Go', 'Correct': 32, 'Sham': 0},
-  {'Block': 1, 'Trial': 11, 'Robot': 2, 'Valence': 'Win', 'Action': 'No-Go', 'Correct': -1, 'Sham': 0},
-  {'Block': 1, 'Trial': 12, 'Robot': 4, 'Valence': 'Lose', 'Action': 'No-Go', 'Correct': -1, 'Sham': 0},
-  {'Block': 1, 'Trial': 13, 'Robot': 1, 'Valence': 'Win', 'Action': 'Go', 'Correct': 32, 'Sham': 0},
-  {'Block': 1, 'Trial': 14, 'Robot': 2, 'Valence': 'Win', 'Action': 'No-Go', 'Correct': -1, 'Sham': 0},
-  {'Block': 1, 'Trial': 15, 'Robot': 3, 'Valence': 'Lose', 'Action': 'Go', 'Correct': 32, 'Sham': 0},
-  {'Block': 1, 'Trial': 16, 'Robot': 4, 'Valence': 'Lose', 'Action': 'No-Go', 'Correct': -1, 'Sham': 1},
-  {'Block': 1, 'Trial': 17, 'Robot': 1, 'Valence': 'Win', 'Action': 'Go', 'Correct': 32, 'Sham': 1},
-  {'Block': 1, 'Trial': 18, 'Robot': 3, 'Valence': 'Lose', 'Action': 'Go', 'Correct': 32, 'Sham': 0},
-  {'Block': 1, 'Trial': 19, 'Robot': 2, 'Valence': 'Win', 'Action': 'No-Go', 'Correct': -1, 'Sham': 1},
-  {'Block': 1, 'Trial': 20, 'Robot': 4, 'Valence': 'Lose', 'Action': 'No-Go', 'Correct': -1, 'Sham': 0},
-  {'Block': 1, 'Trial': 21, 'Robot': 4, 'Valence': 'Lose', 'Action': 'No-Go', 'Correct': -1, 'Sham': 0},
-  {'Block': 1, 'Trial': 22, 'Robot': 2, 'Valence': 'Win', 'Action': 'No-Go', 'Correct': -1, 'Sham': 0},
-  {'Block': 1, 'Trial': 23, 'Robot': 1, 'Valence': 'Win', 'Action': 'Go', 'Correct': 32, 'Sham': 0},
-  {'Block': 1, 'Trial': 24, 'Robot': 3, 'Valence': 'Lose', 'Action': 'Go', 'Correct': 32, 'Sham': 0},
-  {'Block': 1, 'Trial': 25, 'Robot': 4, 'Valence': 'Lose', 'Action': 'No-Go', 'Correct': -1, 'Sham': 0},
-  {'Block': 1, 'Trial': 26, 'Robot': 1, 'Valence': 'Win', 'Action': 'Go', 'Correct': 32, 'Sham': 0},
-  {'Block': 1, 'Trial': 27, 'Robot': 3, 'Valence': 'Lose', 'Action': 'Go', 'Correct': 32, 'Sham': 0},
-  {'Block': 1, 'Trial': 28, 'Robot': 2, 'Valence': 'Win', 'Action': 'No-Go', 'Correct': -1, 'Sham': 0},
-  {'Block': 1, 'Trial': 29, 'Robot': 3, 'Valence': 'Lose', 'Action': 'Go', 'Correct': 32, 'Sham': 0},
-  {'Block': 1, 'Trial': 30, 'Robot': 2, 'Valence': 'Win', 'Action': 'No-Go', 'Correct': -1, 'Sham': 1},
-  {'Block': 1, 'Trial': 31, 'Robot': 1, 'Valence': 'Win', 'Action': 'Go', 'Correct': 32, 'Sham': 1},
-  {'Block': 1, 'Trial': 32, 'Robot': 4, 'Valence': 'Lose', 'Action': 'No-Go', 'Correct': -1, 'Sham': 0},
-  {'Block': 1, 'Trial': 33, 'Robot': 4, 'Valence': 'Lose', 'Action': 'No-Go', 'Correct': -1, 'Sham': 0},
-  {'Block': 1, 'Trial': 34, 'Robot': 2, 'Valence': 'Win', 'Action': 'No-Go', 'Correct': -1, 'Sham': 0},
-  {'Block': 1, 'Trial': 35, 'Robot': 1, 'Valence': 'Win', 'Action': 'Go', 'Correct': 32, 'Sham': 0},
-  {'Block': 1, 'Trial': 36, 'Robot': 3, 'Valence': 'Lose', 'Action': 'Go', 'Correct': 32, 'Sham': 1},
-  {'Block': 1, 'Trial': 37, 'Robot': 4, 'Valence': 'Lose', 'Action': 'No-Go', 'Correct': -1, 'Sham': 1},
-  {'Block': 1, 'Trial': 38, 'Robot': 3, 'Valence': 'Lose', 'Action': 'Go', 'Correct': 32, 'Sham': 0},
-  {'Block': 1, 'Trial': 39, 'Robot': 1, 'Valence': 'Win', 'Action': 'Go', 'Correct': 32, 'Sham': 0},
-  {'Block': 1, 'Trial': 40, 'Robot': 2, 'Valence': 'Win', 'Action': 'No-Go', 'Correct': -1, 'Sham': 0},
-  {'Block': 1, 'Trial': 41, 'Robot': 3, 'Valence': 'Lose', 'Action': 'Go', 'Correct': 32, 'Sham': 1},
-  {'Block': 1, 'Trial': 42, 'Robot': 2, 'Valence': 'Win', 'Action': 'No-Go', 'Correct': -1, 'Sham': 0},
-  {'Block': 1, 'Trial': 43, 'Robot': 4, 'Valence': 'Lose', 'Action': 'No-Go', 'Correct': -1, 'Sham': 0},
-  {'Block': 1, 'Trial': 44, 'Robot': 1, 'Valence': 'Win', 'Action': 'Go', 'Correct': 32, 'Sham': 0},
-  {'Block': 1, 'Trial': 45, 'Robot': 4, 'Valence': 'Lose', 'Action': 'No-Go', 'Correct': -1, 'Sham': 0},
-  {'Block': 1, 'Trial': 46, 'Robot': 2, 'Valence': 'Win', 'Action': 'No-Go', 'Correct': -1, 'Sham': 1},
-  {'Block': 1, 'Trial': 47, 'Robot': 3, 'Valence': 'Lose', 'Action': 'Go', 'Correct': 32, 'Sham': 0},
-  {'Block': 1, 'Trial': 48, 'Robot': 1, 'Valence': 'Win', 'Action': 'Go', 'Correct': 32, 'Sham': 0},
-  {'Block': 1, 'Trial': 49, 'Robot': 4, 'Valence': 'Lose', 'Action': 'No-Go', 'Correct': -1, 'Sham': 0},
-  {'Block': 1, 'Trial': 50, 'Robot': 1, 'Valence': 'Win', 'Action': 'Go', 'Correct': 32, 'Sham': 0},
-  {'Block': 1, 'Trial': 51, 'Robot': 2, 'Valence': 'Win', 'Action': 'No-Go', 'Correct': -1, 'Sham': 0},
-  {'Block': 1, 'Trial': 52, 'Robot': 3, 'Valence': 'Lose', 'Action': 'Go', 'Correct': 32, 'Sham': 0},
-  {'Block': 1, 'Trial': 53, 'Robot': 2, 'Valence': 'Win', 'Action': 'No-Go', 'Correct': -1, 'Sham': 0},
-  {'Block': 1, 'Trial': 54, 'Robot': 3, 'Valence': 'Lose', 'Action': 'Go', 'Correct': 32, 'Sham': 0},
-  {'Block': 1, 'Trial': 55, 'Robot': 4, 'Valence': 'Lose', 'Action': 'No-Go', 'Correct': -1, 'Sham': 0},
-  {'Block': 1, 'Trial': 56, 'Robot': 1, 'Valence': 'Win', 'Action': 'Go', 'Correct': 32, 'Sham': 0},
-  {'Block': 1, 'Trial': 57, 'Robot': 1, 'Valence': 'Win', 'Action': 'Go', 'Correct': 32, 'Sham': 1},
-  {'Block': 1, 'Trial': 58, 'Robot': 3, 'Valence': 'Lose', 'Action': 'Go', 'Correct': 32, 'Sham': 0},
-  {'Block': 1, 'Trial': 59, 'Robot': 4, 'Valence': 'Lose', 'Action': 'No-Go', 'Correct': -1, 'Sham': 1},
-  {'Block': 1, 'Trial': 60, 'Robot': 2, 'Valence': 'Win', 'Action': 'No-Go', 'Correct': -1, 'Sham': 0},
-  {'Block': 1, 'Trial': 61, 'Robot': 2, 'Valence': 'Win', 'Action': 'No-Go', 'Correct': -1, 'Sham': 0},
-  {'Block': 1, 'Trial': 62, 'Robot': 3, 'Valence': 'Lose', 'Action': 'Go', 'Correct': 32, 'Sham': 0},
-  {'Block': 1, 'Trial': 63, 'Robot': 4, 'Valence': 'Lose', 'Action': 'No-Go', 'Correct': -1, 'Sham': 0},
-  {'Block': 1, 'Trial': 64, 'Robot': 1, 'Valence': 'Win', 'Action': 'Go', 'Correct': 32, 'Sham': 0},
-  {'Block': 1, 'Trial': 65, 'Robot': 2, 'Valence': 'Win', 'Action': 'No-Go', 'Correct': -1, 'Sham': 0},
-  {'Block': 1, 'Trial': 66, 'Robot': 4, 'Valence': 'Lose', 'Action': 'No-Go', 'Correct': -1, 'Sham': 0},
-  {'Block': 1, 'Trial': 67, 'Robot': 1, 'Valence': 'Win', 'Action': 'Go', 'Correct': 32, 'Sham': 1},
-  {'Block': 1, 'Trial': 68, 'Robot': 3, 'Valence': 'Lose', 'Action': 'Go', 'Correct': 32, 'Sham': 0},
-  {'Block': 1, 'Trial': 69, 'Robot': 4, 'Valence': 'Lose', 'Action': 'No-Go', 'Correct': -1, 'Sham': 1},
-  {'Block': 1, 'Trial': 70, 'Robot': 3, 'Valence': 'Lose', 'Action': 'Go', 'Correct': 32, 'Sham': 0},
-  {'Block': 1, 'Trial': 71, 'Robot': 1, 'Valence': 'Win', 'Action': 'Go', 'Correct': 32, 'Sham': 0},
-  {'Block': 1, 'Trial': 72, 'Robot': 2, 'Valence': 'Win', 'Action': 'No-Go', 'Correct': -1, 'Sham': 0},
-  {'Block': 1, 'Trial': 73, 'Robot': 2, 'Valence': 'Win', 'Action': 'No-Go', 'Correct': -1, 'Sham': 0},
-  {'Block': 1, 'Trial': 74, 'Robot': 3, 'Valence': 'Lose', 'Action': 'Go', 'Correct': 32, 'Sham': 1},
-  {'Block': 1, 'Trial': 75, 'Robot': 1, 'Valence': 'Win', 'Action': 'Go', 'Correct': 32, 'Sham': 0},
-  {'Block': 1, 'Trial': 76, 'Robot': 4, 'Valence': 'Lose', 'Action': 'No-Go', 'Correct': -1, 'Sham': 0},
-  {'Block': 1, 'Trial': 77, 'Robot': 2, 'Valence': 'Win', 'Action': 'No-Go', 'Correct': -1, 'Sham': 1},
-  {'Block': 1, 'Trial': 78, 'Robot': 1, 'Valence': 'Win', 'Action': 'Go', 'Correct': 32, 'Sham': 0},
-  {'Block': 1, 'Trial': 79, 'Robot': 4, 'Valence': 'Lose', 'Action': 'No-Go', 'Correct': -1, 'Sham': 0},
-  {'Block': 1, 'Trial': 80, 'Robot': 3, 'Valence': 'Lose', 'Action': 'Go', 'Correct': 32, 'Sham': 0}
-];
+// Predefine sham trials (8 sets of 5 trials).
+var sham = [[],[],[],[]];
+for (var i=0; i<4; i++) {
+  for (var j=0; j<8; j++) {
+    sham[i] = sham[i].concat(jsPsych.randomization.repeat([0,0,0,0,1],1));
+  }
+}
 
-// Iteratively define trials.
-var PIT_01 = [];
-BLOCK_01.forEach(function (trial) {
+// Iteratively define trials (40 per robot.)
+var PIT = [];
+var n = 0;
+for (var i=0; i<40; i++) {
 
-  // Define single trial of experiment.
-  var trial = {
-    type: 'pit-trial',
-    valence: trial.Valence,
-    correct: trial.Correct,
-    sham: trial.Sham,
-    robot_rune: runes[trial.Robot-1],
-    scanner_color: ((trial.Valence == 'Win') ? scanner_color_win : scanner_color_lose),
-    outcome_color: ((trial.Valence == 'Win') ? outcome_color_win : outcome_color_lose),
-    valid_responses: [32],
-    trial_duration: trial_duration,
-    feedback_duration: feedback_duration,
-    data: {
-      Block: trial.Block,
-      Trial: trial.Trial,
-      Action: trial.Action,
-      Robot: trial.Robot
-    },
-  };
+  // Define presentation order of 4 robots.
+  const order = jsPsych.randomization.repeat([0,1,2,3],1);
 
-  // Push to trial list.
-  PIT_01.push(trial);
+  // Iteratively define and append PIT trials.
+  order.forEach(function (robot) {
 
-});
+    // Predefine valence.
+    const valence = Math.floor(robot / 2) == 0 ? 'Win' : 'Lose';
+
+    // Predefine feedback.
+    if (valence == 'Win' && sham[robot][i] == 0) {
+      var outcome_correct   = '+10';
+      var outcome_incorrect = '+1';
+    } else if (valence == 'Win' && sham[robot][i] == 1) {
+      var outcome_correct   = '+1';
+      var outcome_incorrect = '+10';
+    } else if (valence == 'Lose' && sham[robot][i] == 0) {
+      var outcome_correct   = '-1';
+      var outcome_incorrect = '-10';
+    } else if (valence == 'Lose' && sham[robot][i] == 1) {
+      var outcome_correct   = '-10';
+      var outcome_incorrect = '-1';
+    }
+
+    const trial = {
+      type: 'pit-trial',
+      robot_rune: runes[robot],
+      scanner_color: valence == 'Win' ? scanner_color_win : scanner_color_lose,
+      outcome_color: valence == 'Win' ? outcome_color_win : outcome_color_lose,
+      outcome_correct: outcome_correct,
+      outcome_incorrect: outcome_incorrect,
+      correct: robot % 2 == 0 ? key_go : -1,
+      valid_responses: [key_go],
+      trial_duration: trial_duration,
+      feedback_duration: feedback_duration,
+      data: {
+        Block: Math.floor(n / 80) + 1,
+        Trial: n + 1,
+        Robot: robot + 1,
+        Valence: valence,
+        Action: robot % 2 == 0 ? 'Go' : 'No-Go',
+        Sham: sham[robot][i],
+        Color: valence == 'Win' ? instr_color_win : instr_color_lose,
+      }
+    };
+
+    PIT.push(trial)
+    n = n + 1;
+
+  })
+
+}
 
 //------------------------------------//
 // Define quality check
@@ -271,9 +244,9 @@ var quality_check = function() {
   const denom = choices.count();
 
   // Check if Go or No-Go responses comprise more than 90% of responses.
-  if ( ((freqs[32] || 0) / denom) > 0.95 ) {
+  if ( ((freqs[key_go] || 0) / denom) > threshold ) {
     var low_quality = true;
-  } else if ( ((freqs[-1] || 0) / denom) > 0.95 ) {
+  } else if ( ((freqs[-1] || 0) / denom) > threshold ) {
     var low_quality = true;
   } else {
     var low_quality = false;
@@ -290,130 +263,11 @@ var QUALITY_CHECK = {
   }
 }
 
-
 //------------------------------------//
 // Define pause break.
 //------------------------------------//
-
 
 // Define pause trials.
 var PAUSE = {
   type: 'pit-pause',
 };
-
-//------------------------------------//
-// Define experiment (block 2).
-//------------------------------------//
-
-// Define trial parameters
-var BLOCK_02 = [
-  {'Block': 2, 'Trial': 81, 'Robot': 1, 'Valence': 'Win', 'Action': 'Go', 'Correct': 32, 'Sham': 0},
-  {'Block': 2, 'Trial': 82, 'Robot': 2, 'Valence': 'Win', 'Action': 'No-Go', 'Correct': -1, 'Sham': 0},
-  {'Block': 2, 'Trial': 83, 'Robot': 4, 'Valence': 'Lose', 'Action': 'No-Go', 'Correct': -1, 'Sham': 0},
-  {'Block': 2, 'Trial': 84, 'Robot': 3, 'Valence': 'Lose', 'Action': 'Go', 'Correct': 32, 'Sham': 0},
-  {'Block': 2, 'Trial': 85, 'Robot': 1, 'Valence': 'Win', 'Action': 'Go', 'Correct': 32, 'Sham': 0},
-  {'Block': 2, 'Trial': 86, 'Robot': 2, 'Valence': 'Win', 'Action': 'No-Go', 'Correct': -1, 'Sham': 0},
-  {'Block': 2, 'Trial': 87, 'Robot': 3, 'Valence': 'Lose', 'Action': 'Go', 'Correct': 32, 'Sham': 0},
-  {'Block': 2, 'Trial': 88, 'Robot': 4, 'Valence': 'Lose', 'Action': 'No-Go', 'Correct': -1, 'Sham': 0},
-  {'Block': 2, 'Trial': 89, 'Robot': 3, 'Valence': 'Lose', 'Action': 'Go', 'Correct': 32, 'Sham': 1},
-  {'Block': 2, 'Trial': 90, 'Robot': 1, 'Valence': 'Win', 'Action': 'Go', 'Correct': 32, 'Sham': 1},
-  {'Block': 2, 'Trial': 91, 'Robot': 2, 'Valence': 'Win', 'Action': 'No-Go', 'Correct': -1, 'Sham': 0},
-  {'Block': 2, 'Trial': 92, 'Robot': 4, 'Valence': 'Lose', 'Action': 'No-Go', 'Correct': -1, 'Sham': 0},
-  {'Block': 2, 'Trial': 93, 'Robot': 4, 'Valence': 'Lose', 'Action': 'No-Go', 'Correct': -1, 'Sham': 0},
-  {'Block': 2, 'Trial': 94, 'Robot': 1, 'Valence': 'Win', 'Action': 'Go', 'Correct': 32, 'Sham': 0},
-  {'Block': 2, 'Trial': 95, 'Robot': 3, 'Valence': 'Lose', 'Action': 'Go', 'Correct': 32, 'Sham': 0},
-  {'Block': 2, 'Trial': 96, 'Robot': 2, 'Valence': 'Win', 'Action': 'No-Go', 'Correct': -1, 'Sham': 1},
-  {'Block': 2, 'Trial': 97, 'Robot': 4, 'Valence': 'Lose', 'Action': 'No-Go', 'Correct': -1, 'Sham': 1},
-  {'Block': 2, 'Trial': 98, 'Robot': 1, 'Valence': 'Win', 'Action': 'Go', 'Correct': 32, 'Sham': 0},
-  {'Block': 2, 'Trial': 99, 'Robot': 3, 'Valence': 'Lose', 'Action': 'Go', 'Correct': 32, 'Sham': 0},
-  {'Block': 2, 'Trial': 100, 'Robot': 2, 'Valence': 'Win', 'Action': 'No-Go', 'Correct': -1, 'Sham': 0},
-  {'Block': 2, 'Trial': 101, 'Robot': 4, 'Valence': 'Lose', 'Action': 'No-Go', 'Correct': -1, 'Sham': 0},
-  {'Block': 2, 'Trial': 102, 'Robot': 3, 'Valence': 'Lose', 'Action': 'Go', 'Correct': 32, 'Sham': 0},
-  {'Block': 2, 'Trial': 103, 'Robot': 1, 'Valence': 'Win', 'Action': 'Go', 'Correct': 32, 'Sham': 1},
-  {'Block': 2, 'Trial': 104, 'Robot': 2, 'Valence': 'Win', 'Action': 'No-Go', 'Correct': -1, 'Sham': 1},
-  {'Block': 2, 'Trial': 105, 'Robot': 3, 'Valence': 'Lose', 'Action': 'Go', 'Correct': 32, 'Sham': 0},
-  {'Block': 2, 'Trial': 106, 'Robot': 1, 'Valence': 'Win', 'Action': 'Go', 'Correct': 32, 'Sham': 0},
-  {'Block': 2, 'Trial': 107, 'Robot': 2, 'Valence': 'Win', 'Action': 'No-Go', 'Correct': -1, 'Sham': 0},
-  {'Block': 2, 'Trial': 108, 'Robot': 4, 'Valence': 'Lose', 'Action': 'No-Go', 'Correct': -1, 'Sham': 0},
-  {'Block': 2, 'Trial': 109, 'Robot': 2, 'Valence': 'Win', 'Action': 'No-Go', 'Correct': -1, 'Sham': 0},
-  {'Block': 2, 'Trial': 110, 'Robot': 4, 'Valence': 'Lose', 'Action': 'No-Go', 'Correct': -1, 'Sham': 0},
-  {'Block': 2, 'Trial': 111, 'Robot': 1, 'Valence': 'Win', 'Action': 'Go', 'Correct': 32, 'Sham': 0},
-  {'Block': 2, 'Trial': 112, 'Robot': 3, 'Valence': 'Lose', 'Action': 'Go', 'Correct': 32, 'Sham': 0},
-  {'Block': 2, 'Trial': 113, 'Robot': 2, 'Valence': 'Win', 'Action': 'No-Go', 'Correct': -1, 'Sham': 0},
-  {'Block': 2, 'Trial': 114, 'Robot': 4, 'Valence': 'Lose', 'Action': 'No-Go', 'Correct': -1, 'Sham': 0},
-  {'Block': 2, 'Trial': 115, 'Robot': 3, 'Valence': 'Lose', 'Action': 'Go', 'Correct': 32, 'Sham': 1},
-  {'Block': 2, 'Trial': 116, 'Robot': 1, 'Valence': 'Win', 'Action': 'Go', 'Correct': 32, 'Sham': 0},
-  {'Block': 2, 'Trial': 117, 'Robot': 4, 'Valence': 'Lose', 'Action': 'No-Go', 'Correct': -1, 'Sham': 1},
-  {'Block': 2, 'Trial': 118, 'Robot': 3, 'Valence': 'Lose', 'Action': 'Go', 'Correct': 32, 'Sham': 0},
-  {'Block': 2, 'Trial': 119, 'Robot': 2, 'Valence': 'Win', 'Action': 'No-Go', 'Correct': -1, 'Sham': 0},
-  {'Block': 2, 'Trial': 120, 'Robot': 1, 'Valence': 'Win', 'Action': 'Go', 'Correct': 32, 'Sham': 0},
-  {'Block': 2, 'Trial': 121, 'Robot': 2, 'Valence': 'Win', 'Action': 'No-Go', 'Correct': -1, 'Sham': 0},
-  {'Block': 2, 'Trial': 122, 'Robot': 4, 'Valence': 'Lose', 'Action': 'No-Go', 'Correct': -1, 'Sham': 0},
-  {'Block': 2, 'Trial': 123, 'Robot': 3, 'Valence': 'Lose', 'Action': 'Go', 'Correct': 32, 'Sham': 0},
-  {'Block': 2, 'Trial': 124, 'Robot': 1, 'Valence': 'Win', 'Action': 'Go', 'Correct': 32, 'Sham': 1},
-  {'Block': 2, 'Trial': 125, 'Robot': 3, 'Valence': 'Lose', 'Action': 'Go', 'Correct': 32, 'Sham': 1},
-  {'Block': 2, 'Trial': 126, 'Robot': 4, 'Valence': 'Lose', 'Action': 'No-Go', 'Correct': -1, 'Sham': 0},
-  {'Block': 2, 'Trial': 127, 'Robot': 2, 'Valence': 'Win', 'Action': 'No-Go', 'Correct': -1, 'Sham': 0},
-  {'Block': 2, 'Trial': 128, 'Robot': 1, 'Valence': 'Win', 'Action': 'Go', 'Correct': 32, 'Sham': 0},
-  {'Block': 2, 'Trial': 129, 'Robot': 4, 'Valence': 'Lose', 'Action': 'No-Go', 'Correct': -1, 'Sham': 0},
-  {'Block': 2, 'Trial': 130, 'Robot': 1, 'Valence': 'Win', 'Action': 'Go', 'Correct': 32, 'Sham': 0},
-  {'Block': 2, 'Trial': 131, 'Robot': 3, 'Valence': 'Lose', 'Action': 'Go', 'Correct': 32, 'Sham': 0},
-  {'Block': 2, 'Trial': 132, 'Robot': 2, 'Valence': 'Win', 'Action': 'No-Go', 'Correct': -1, 'Sham': 0},
-  {'Block': 2, 'Trial': 133, 'Robot': 4, 'Valence': 'Lose', 'Action': 'No-Go', 'Correct': -1, 'Sham': 0},
-  {'Block': 2, 'Trial': 134, 'Robot': 1, 'Valence': 'Win', 'Action': 'Go', 'Correct': 32, 'Sham': 0},
-  {'Block': 2, 'Trial': 135, 'Robot': 3, 'Valence': 'Lose', 'Action': 'Go', 'Correct': 32, 'Sham': 0},
-  {'Block': 2, 'Trial': 136, 'Robot': 2, 'Valence': 'Win', 'Action': 'No-Go', 'Correct': -1, 'Sham': 0},
-  {'Block': 2, 'Trial': 137, 'Robot': 4, 'Valence': 'Lose', 'Action': 'No-Go', 'Correct': -1, 'Sham': 1},
-  {'Block': 2, 'Trial': 138, 'Robot': 1, 'Valence': 'Win', 'Action': 'Go', 'Correct': 32, 'Sham': 0},
-  {'Block': 2, 'Trial': 139, 'Robot': 3, 'Valence': 'Lose', 'Action': 'Go', 'Correct': 32, 'Sham': 0},
-  {'Block': 2, 'Trial': 140, 'Robot': 2, 'Valence': 'Win', 'Action': 'No-Go', 'Correct': -1, 'Sham': 1},
-  {'Block': 2, 'Trial': 141, 'Robot': 2, 'Valence': 'Win', 'Action': 'No-Go', 'Correct': -1, 'Sham': 1},
-  {'Block': 2, 'Trial': 142, 'Robot': 3, 'Valence': 'Lose', 'Action': 'Go', 'Correct': 32, 'Sham': 0},
-  {'Block': 2, 'Trial': 143, 'Robot': 1, 'Valence': 'Win', 'Action': 'Go', 'Correct': 32, 'Sham': 0},
-  {'Block': 2, 'Trial': 144, 'Robot': 4, 'Valence': 'Lose', 'Action': 'No-Go', 'Correct': -1, 'Sham': 0},
-  {'Block': 2, 'Trial': 145, 'Robot': 4, 'Valence': 'Lose', 'Action': 'No-Go', 'Correct': -1, 'Sham': 0},
-  {'Block': 2, 'Trial': 146, 'Robot': 1, 'Valence': 'Win', 'Action': 'Go', 'Correct': 32, 'Sham': 0},
-  {'Block': 2, 'Trial': 147, 'Robot': 3, 'Valence': 'Lose', 'Action': 'Go', 'Correct': 32, 'Sham': 0},
-  {'Block': 2, 'Trial': 148, 'Robot': 2, 'Valence': 'Win', 'Action': 'No-Go', 'Correct': -1, 'Sham': 0},
-  {'Block': 2, 'Trial': 149, 'Robot': 2, 'Valence': 'Win', 'Action': 'No-Go', 'Correct': -1, 'Sham': 0},
-  {'Block': 2, 'Trial': 150, 'Robot': 4, 'Valence': 'Lose', 'Action': 'No-Go', 'Correct': -1, 'Sham': 0},
-  {'Block': 2, 'Trial': 151, 'Robot': 3, 'Valence': 'Lose', 'Action': 'Go', 'Correct': 32, 'Sham': 0},
-  {'Block': 2, 'Trial': 152, 'Robot': 1, 'Valence': 'Win', 'Action': 'Go', 'Correct': 32, 'Sham': 0},
-  {'Block': 2, 'Trial': 153, 'Robot': 1, 'Valence': 'Win', 'Action': 'Go', 'Correct': 32, 'Sham': 0},
-  {'Block': 2, 'Trial': 154, 'Robot': 4, 'Valence': 'Lose', 'Action': 'No-Go', 'Correct': -1, 'Sham': 0},
-  {'Block': 2, 'Trial': 155, 'Robot': 3, 'Valence': 'Lose', 'Action': 'Go', 'Correct': 32, 'Sham': 0},
-  {'Block': 2, 'Trial': 156, 'Robot': 2, 'Valence': 'Win', 'Action': 'No-Go', 'Correct': -1, 'Sham': 0},
-  {'Block': 2, 'Trial': 157, 'Robot': 3, 'Valence': 'Lose', 'Action': 'Go', 'Correct': 32, 'Sham': 1},
-  {'Block': 2, 'Trial': 158, 'Robot': 4, 'Valence': 'Lose', 'Action': 'No-Go', 'Correct': -1, 'Sham': 1},
-  {'Block': 2, 'Trial': 159, 'Robot': 2, 'Valence': 'Win', 'Action': 'No-Go', 'Correct': -1, 'Sham': 0},
-  {'Block': 2, 'Trial': 160, 'Robot': 1, 'Valence': 'Win', 'Action': 'Go', 'Correct': 32, 'Sham': 1}
-];
-
-// Iteratively define trials.
-var PIT_02 = [];
-BLOCK_02.forEach(function (trial) {
-
-  // Define single trial of experiment.
-  var trial = {
-    type: 'pit-trial',
-    valence: trial.Valence,
-    correct: trial.Correct,
-    sham: trial.Sham,
-    robot_rune: runes[trial.Robot-1],
-    scanner_color: ((trial.Valence == 'Win') ? scanner_color_win : scanner_color_lose),
-    outcome_color: ((trial.Valence == 'Win') ? outcome_color_win : outcome_color_lose),
-    valid_responses: [32],
-    trial_duration: trial_duration,
-    feedback_duration: feedback_duration,
-    data: {
-      Block: trial.Block,
-      Trial: trial.Trial,
-      Action: trial.Action,
-      Robot: trial.Robot
-    },
-  };
-
-  // Push to trial list.
-  PIT_02.push(trial);
-
-});

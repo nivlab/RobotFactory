@@ -83,14 +83,14 @@ jsPsych.plugins['pit-comprehension'] = (function() {
       background: #ffffff;
       border: 2px solid black;
       border-radius: 12px;
-      line-height: 1.15em;
+      font-size: 1.5vh;
+      line-height: 1.5em;
     }
     .jspsych-survey-multi-choice-question {
       margin-top: 0em;
       margin-bottom: 1.0em;
       text-align: left;
       padding-left: 2em;
-      font-size: 1.5vh;
     }
     .jspsych-survey-multi-choice-horizontal .jspsych-survey-multi-choice-text {
       text-align: left;
@@ -145,7 +145,7 @@ jsPsych.plugins['pit-comprehension'] = (function() {
 
     // Show preamble text
     html += '<div class="comprehension-box">'
-    html += '<div class="jspsych-survey-multi-choice-preamble"><h4 style="font-size: 2vh; margin-block-start: 0.5em; margin-block-end: 0.5em">Please answer the questions below:</div>';
+    html += '<div class="jspsych-survey-multi-choice-preamble"><h4 style="font-size: 2vh; margin-block-start: 1em; margin-block-end: 1em">Please answer the questions below:</div>';
 
     // Initialize form element
     html += '<form id="jspsych-survey-multi-choice-form">';
