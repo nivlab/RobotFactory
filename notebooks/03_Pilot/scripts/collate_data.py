@@ -31,22 +31,10 @@ for f in files:
     ## Assemble behavioral data.
     data = DataFrame([dd for dd in JSON if dd['trial_type'] == 'pit-trial'])
     data = data.query('Block > 0')
-
-    ## Version testing.
-    try: 
+    
+    ## Check if Version 1.
+    if data.shape[-1] == 14:
         
-        ## Define columns of interest.
-        cols = ['Block','Trial','Valence','Action','Robot','Rune','Correct',
-                'Choice','RT','Accuracy','Sham','Outcome','TotalKeys']
-        
-        ## Limit to columns of interest.
-        data = data[cols]
-        
-        ## Insert version ID.
-        data.insert(0,'Version',2)
-        
-    except KeyError:
-                
         ## Define columns of interest.
         cols = ['Block','Trial','Valence','Action','Correct','Choice',
                 'RT','Accuracy','Sham','Outcome']
@@ -56,16 +44,54 @@ for f in files:
         
         ## Insert version ID and missing columns.
         data.insert(0,'Version',1)
-        data.insert(5,'Robot',np.nan)
-        data.insert(6,'Rune',np.nan)
-        data['TotalKeys'] = np.nan
-
+#         data.insert(5,'Robot',np.nan)
+#         data.insert(6,'Rune',np.nan)
+#         data['TotalKeys'] = np.nan
+        
+    elif data.shape[-1] == 18:
+        
+        ## Define columns of interest.
+        cols = ['Block','Trial','Valence','Action','Robot','Rune','Correct',
+                'Choice','RT','Accuracy','Sham','Outcome','TotalKeys']
+        
+        ## Limit to columns of interest.
+        data = data[cols]
+        
+        ## Insert version ID and missing columns.
+        data.insert(0,'Version',2)
+        
+    elif data.shape[-1] == 19:
+        
+        ## Define columns of interest.
+        cols = ['Block','Trial','Valence','Action','Robot','Rune','Color','Correct',
+                'Choice','RT','Accuracy','Sham','Outcome','TotalKeys']
+        
+        ## Limit to columns of interest.
+        data = data[cols]
+        
+        ## Insert version ID and missing columns.
+        data.insert(0,'Version',3)
+        
+    else:
+        
+        raise ValueError(f'Not sure which version this {subject} is.')
+        
     ## Reformat columns.
     data['Block'] = data['Block'].astype(int)
     data['Trial'] = data['Trial'].astype(int)
     data['Correct'] = data['Correct'].replace({32: 1, -1:0})
     data['Choice'] = data['Choice'].replace({32: 1, -1:0})
     data['RT'] = np.where(data['RT'] < 0, np.nan, data['RT'] * 1e-3).round(3)
+    
+    ## Define robot identities.
+    data.loc[np.logical_and(data.Valence=='Win',data.Action=='Go'),'Robot'] = 'GW'
+    data.loc[np.logical_and(data.Valence=='Win',data.Action=='No-Go'),'Robot'] = 'NGW'
+    data.loc[np.logical_and(data.Valence=='Lose',data.Action=='Go'),'Robot'] = 'GAL'
+    data.loc[np.logical_and(data.Valence=='Lose',data.Action=='No-Go'),'Robot'] = 'NGAL'
+
+    ## Define exposure.
+    f = lambda x: np.arange(x.size)+1
+    data.insert(3,'Exposure',data.groupby('Robot').Trial.transform(f))
     
     ## Insert subject ID. Append.
     data.insert(0,'Subject',subject)
@@ -75,24 +101,29 @@ for f in files:
     ### Assemble metadata.
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
     
+    ## Initialize dictionary.
+    dd = dict(
+        Subject = subject, 
+        Version = data.Version.unique()[0],
+        Minutes = np.round(JSON[-1]['time_elapsed'] * 1e-3 / 60, 2)
+    )
+    
     ## Gather surveys.
     DEMO, = [dd for dd in JSON if dd['trial_type'] == 'survey-demo']
     COMP, = [dd for dd in JSON if dd['trial_type'] == 'pit-comprehension']
     DEBRIEF, = [dd for dd in JSON if dd['trial_type'] == 'survey-debrief']
     
-     ## Assemble dictionary.
-    dd = dict(Subject = subject)
-    dd.update(DEMO['demographics']); dd['Demo-RT'] = DEMO['rt'] / 1000.
-    dd['Comp-Errors'] = COMP['errors']; dd['Comp-RT'] = COMP['rt'] / 1000.
-    dd.update(DEBRIEF['debriefgraphics']); dd['Debrief-RT'] = DEMO['rt'] / 1000.
+    ## Append surveys.
+    dd.update(DEMO['demographics']); dd['Demo-RT'] = DEMO['rt'] * 1e-3
+    dd['Comp-Errors'] = COMP['errors']; dd['Comp-RT'] = COMP['rt'] * 1e-3
+    dd.update(DEBRIEF['debriefgraphics']); dd['Debrief-RT'] = DEMO['rt'] * 1e-3
     
     ## Append.
     METADATA.append(dd)
     
 ## Concatenate data.
-DATA = concat(DATA).sort_values(['Version','Subject','Trial'])
-METADATA = DataFrame(METADATA, columns=dd.keys())
-METADATA = METADATA.merge(DATA[['Subject','Version']].drop_duplicates()).sort_values(['Version','Subject'])
+DATA = concat(DATA, sort=False).sort_values(['Version','Subject','Trial'])
+METADATA = DataFrame(METADATA, columns=dd.keys()).sort_values(['Version','Subject'])
 
 ## Save.
 DATA.to_csv(os.path.join(DATA_DIR, 'data.csv'), index=False)
