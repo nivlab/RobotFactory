@@ -18,6 +18,30 @@ jsPsych.plugins['pit-comprehension'] = (function() {
         pretty_name: 'Button label',
         default:  'Continue',
         description: 'Label of the button.'
+      },
+      win_color_text: {
+        type: jsPsych.plugins.parameterType.STRING,
+        pretty_name: 'Win color name',
+        default:  'black',
+        description: 'Name of the win color.'
+      },
+      loss_color_text: {
+        type: jsPsych.plugins.parameterType.STRING,
+        pretty_name: 'Loss color name',
+        default:  'black',
+        description: 'Name of the loss color.'
+      },
+      win_color_hex: {
+        type: jsPsych.plugins.parameterType.STRING,
+        pretty_name: 'Win color hex',
+        default:  'black',
+        description: 'Hex code of the win color.'
+      },
+      loss_color_hex: {
+        type: jsPsych.plugins.parameterType.STRING,
+        pretty_name: 'Loss color hex',
+        default:  'black',
+        description: 'Hex code of the loss color.'
       }
     }
   }
@@ -169,24 +193,30 @@ jsPsych.plugins['pit-comprehension'] = (function() {
     html += '<div id="jspsych-survey-multi-choice-1" class="jspsych-survey-multi-choice-question jspsych-survey-multi-choice-horizontal" data-name="context-win">';
 
     // Add question text
-    html += '<p class="jspsych-survey-multi-choice-text survey-multi-choice">When the scanner light is <b><font color=#006600>green</font></b>, how many points will you earn for a correct judgment?</p>';
+    html += `<p class="jspsych-survey-multi-choice-text survey-multi-choice">When the scanner light is <b><font color=${trial.win_color_hex}>${trial.win_color_text}</font></b>, how many points will you earn for a correct judgment?</p>`;
 
-    // Option 1: More likely
+    // Option 1: +10
     html += '<div id="jspsych-survey-multi-choice-option-1-0" class="jspsych-survey-multi-choice-option">';
     html += '<input type="radio" name="jspsych-survey-multi-choice-response-1" id="jspsych-survey-multi-choice-response-1-0" value="+10" required>';
     html += '<label class="jspsych-survey-multi-choice-text" for="jspsych-survey-multi-choice-response-1-0">+10</label>';
     html += '</div>';
 
-    // Option 2: Less likely
+    // Option 2: +1
     html += '<div id="jspsych-survey-multi-choice-option-1-1" class="jspsych-survey-multi-choice-option">';
-    html += '<input type="radio" name="jspsych-survey-multi-choice-response-1" id="jspsych-survey-multi-choice-response-1-1" value="+0" required>';
-    html += '<label class="jspsych-survey-multi-choice-text" for="jspsych-survey-multi-choice-response-1-1">+0</label>';
+    html += '<input type="radio" name="jspsych-survey-multi-choice-response-1" id="jspsych-survey-multi-choice-response-1-1" value="+1" required>';
+    html += '<label class="jspsych-survey-multi-choice-text" for="jspsych-survey-multi-choice-response-1-1">+1</label>';
     html += '</div>';
 
-    // Option 3: Equally likely
+    // Option 3: -1
     html += '<div id="jspsych-survey-multi-choice-option-1-2" class="jspsych-survey-multi-choice-option">';
-    html += '<input type="radio" name="jspsych-survey-multi-choice-response-1" id="jspsych-survey-multi-choice-response-1-2" value="-10" required>';
-    html += '<label class="jspsych-survey-multi-choice-text" for="jspsych-survey-multi-choice-response-1-2">-10</label>';
+    html += '<input type="radio" name="jspsych-survey-multi-choice-response-1" id="jspsych-survey-multi-choice-response-1-2" value="-1" required>';
+    html += '<label class="jspsych-survey-multi-choice-text" for="jspsych-survey-multi-choice-response-1-2">-1</label>';
+    html += '</div>';
+
+    // Option 4: -10
+    html += '<div id="jspsych-survey-multi-choice-option-1-3" class="jspsych-survey-multi-choice-option">';
+    html += '<input type="radio" name="jspsych-survey-multi-choice-response-1" id="jspsych-survey-multi-choice-response-1-3" value="-10" required>';
+    html += '<label class="jspsych-survey-multi-choice-text" for="jspsych-survey-multi-choice-response-1-3">-10</label>';
     html += '</div>';
 
     // Close item
@@ -201,24 +231,30 @@ jsPsych.plugins['pit-comprehension'] = (function() {
     html += '<div id="jspsych-survey-multi-choice-2" class="jspsych-survey-multi-choice-question jspsych-survey-multi-choice-horizontal" data-name="context-lose">';
 
     // Add question text
-    html += '<p class="jspsych-survey-multi-choice-text survey-multi-choice">When the scanner light is <b><font color=#b30000>red</font></b>, how many points will you earn for a correct judgment?</p>';
+    html += `<p class="jspsych-survey-multi-choice-text survey-multi-choice">When the scanner light is <b><font color=${trial.lose_color_hex}>${trial.lose_color_text}</font></b>, how many points will you earn for a correct judgment?</p>`;
 
-    // Option 1: More likely
+    // Option 1: +10
     html += '<div id="jspsych-survey-multi-choice-option-2-0" class="jspsych-survey-multi-choice-option">';
     html += '<input type="radio" name="jspsych-survey-multi-choice-response-2" id="jspsych-survey-multi-choice-response-2-0" value="+10" required>';
     html += '<label class="jspsych-survey-multi-choice-text" for="jspsych-survey-multi-choice-response-2-0">+10</label>';
     html += '</div>';
 
-    // Option 2: Less likely
+    // Option 2: +1
     html += '<div id="jspsych-survey-multi-choice-option-2-1" class="jspsych-survey-multi-choice-option">';
-    html += '<input type="radio" name="jspsych-survey-multi-choice-response-2" id="jspsych-survey-multi-choice-response-2-1" value="+0" required>';
-    html += '<label class="jspsych-survey-multi-choice-text" for="jspsych-survey-multi-choice-response-2-1">+0</label>';
+    html += '<input type="radio" name="jspsych-survey-multi-choice-response-2" id="jspsych-survey-multi-choice-response-2-1" value="+1" required>';
+    html += '<label class="jspsych-survey-multi-choice-text" for="jspsych-survey-multi-choice-response-2-1">+1</label>';
     html += '</div>';
 
-    // Option 3: Equally likely
+    // Option 3: -1
     html += '<div id="jspsych-survey-multi-choice-option-2-2" class="jspsych-survey-multi-choice-option">';
-    html += '<input type="radio" name="jspsych-survey-multi-choice-response-2" id="jspsych-survey-multi-choice-response-2-2" value="-10" required>';
-    html += '<label class="jspsych-survey-multi-choice-text" for="jspsych-survey-multi-choice-response-2-2">-10</label>';
+    html += '<input type="radio" name="jspsych-survey-multi-choice-response-2" id="jspsych-survey-multi-choice-response-2-2" value="-1" required>';
+    html += '<label class="jspsych-survey-multi-choice-text" for="jspsych-survey-multi-choice-response-2-2">-1</label>';
+    html += '</div>';
+
+    // Option 4: -10
+    html += '<div id="jspsych-survey-multi-choice-option-2-3" class="jspsych-survey-multi-choice-option">';
+    html += '<input type="radio" name="jspsych-survey-multi-choice-response-2" id="jspsych-survey-multi-choice-response-2-3" value="-10" required>';
+    html += '<label class="jspsych-survey-multi-choice-text" for="jspsych-survey-multi-choice-response-2-3">-10</label>';
     html += '</div>';
 
     // Close item
@@ -343,7 +379,7 @@ jsPsych.plugins['pit-comprehension'] = (function() {
       } else {
 
         // Update text
-        Q2.innerHTML = "That's incorrect. Hint: When the light is green you can earn either +10 or +0 points.";
+        Q2.innerHTML = `That's incorrect. Hint: When the light is ${trial.win_color_text} you can earn either +10 or +1 points.`;
         Q2.className = "invalid"
 
         // Restart animation
@@ -365,7 +401,7 @@ jsPsych.plugins['pit-comprehension'] = (function() {
       var val = display_element.querySelector('#jspsych-survey-multi-choice-2 input:checked').value;
 
       // Validation
-      if (val === "+0") {
+      if (val === "-1") {
 
         // Update text
         Q3.innerHTML = "";
@@ -374,7 +410,7 @@ jsPsych.plugins['pit-comprehension'] = (function() {
       } else {
 
         // Update text
-        Q3.innerHTML = "That's incorrect. Hint: When the light is red you can earn +0 or -10 points.";
+        Q3.innerHTML = `That's incorrect. Hint: When the light is ${trial.lose_color_text} you can earn -1 or -10 points.`;
         Q3.className = "invalid"
 
         // Restart animation

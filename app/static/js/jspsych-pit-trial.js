@@ -19,16 +19,6 @@ jsPsych.plugins["pit-trial"] = (function() {
         pretty_name: 'Valence',
         description: 'Valence of trial (win or loss).'
       },
-      scanner_color: {
-        type: jsPsych.plugins.parameterType.STRING,
-        pretty_name: 'Scanner color',
-        description: 'Color of factory scanner light.'
-      },
-      robot_rune: {
-        type: jsPsych.plugins.parameterType.STRING,
-        pretty_name: 'Robot rune',
-        description: 'Rune to display on robot.'
-      },
       correct: {
         type: jsPsych.plugins.parameterType.KEYCODE,
         pretty_name: 'Correct response',
@@ -37,7 +27,22 @@ jsPsych.plugins["pit-trial"] = (function() {
       sham: {
         type: jsPsych.plugins.parameterType.INT,
         pretty_name: 'Sham trial',
-        description: 'Denoting if trial is sham trial.'
+        description: 'Feedback for trial (Accurate = 0, Sham =1).'
+      },
+      robot_rune: {
+        type: jsPsych.plugins.parameterType.STRING,
+        pretty_name: 'Robot rune',
+        description: 'Rune to display on robot.'
+      },
+      scanner_color: {
+        type: jsPsych.plugins.parameterType.STRING,
+        pretty_name: 'Scanner color',
+        description: 'Color of scanner light.'
+      },
+      outcome_color: {
+        type: jsPsych.plugins.parameterType.STRING,
+        pretty_name: 'Outcome color',
+        description: 'Color of outcome text.'
       },
       valid_responses: {
         type: jsPsych.plugins.parameterType.KEYCODE,
@@ -87,14 +92,14 @@ jsPsych.plugins["pit-trial"] = (function() {
       position: fixed;
     }
     @-webkit-keyframes pavlovian {
-      0%    {background: rgba(0, 0, 0, 0);}
-      90%   {background: rgba(0, 0, 0, 0);}
-      100%  {background-color: ${trial.scanner_color};}
+      0%    {border-bottom-color: rgba(0, 0, 0, 0);}
+      90%   {border-bottom-color: rgba(0, 0, 0, 0);}
+      100%  {border-bottom-color: ${trial.scanner_color};}
     }
     @keyframes pavlovian {
-      0%    {background: rgba(0, 0, 0, 0);}
-      90%   {background: rgba(0, 0, 0, 0);}
-      100%  {background-color: ${trial.scanner_color};}
+      0%    {border-bottom-color: rgba(0, 0, 0, 0);}
+      90%   {border-bottom-color: rgba(0, 0, 0, 0);}
+      100%  {border-bottom-color: ${trial.scanner_color};}
     }
      </style>`;
 
@@ -127,7 +132,7 @@ jsPsych.plugins["pit-trial"] = (function() {
     new_html += '<div class="foot"></div></div>';
 
     // Add factory window.
-    new_html += `<div class="window" style="background: ${trial.scanner_color}"></div>`;
+    new_html += `<div class="scanner-light" style="border-bottom-color: ${trial.scanner_color}"></div>`;
 
     // Add factory machine parts (front).
     new_html += '<div class="machine-front">';
@@ -178,27 +183,31 @@ jsPsych.plugins["pit-trial"] = (function() {
       };
 
       // Define outcome
-      if (trial.valence == "Win" && response.accuracy == 1 && trial.sham == 0) {
+      if (trial.valence == "Practice" && response.accuracy == 1) {
+        trial.outcome = "+10";
+      } else if ( trial.valence == "Practice" && response.accuracy == 0) {
+        trial.outcome = "+0";
+      } else if (trial.valence == "Win" && response.accuracy == 1 && trial.sham == 0) {
         trial.outcome = "+10";
       } else if (trial.valence == "Win" && response.accuracy == 1 && trial.sham == 1) {
-        trial.outcome = "+0";
+        trial.outcome = "1";
       } else if (trial.valence == "Win" && response.accuracy == 0 && trial.sham == 0) {
-        trial.outcome = "+0";
+        trial.outcome = "+1";
       } else if (trial.valence == "Win" && response.accuracy == 0 && trial.sham == 1) {
         trial.outcome = "+10";
       } else if (trial.valence == "Lose" && response.accuracy == 1 && trial.sham == 0) {
-        trial.outcome = "+0";
+        trial.outcome = "-1";
       } else if (trial.valence == "Lose" && response.accuracy == 1 && trial.sham == 1) {
         trial.outcome = "-10";
       } else if (trial.valence == "Lose" && response.accuracy == 0 && trial.sham == 0) {
         trial.outcome = "-10";
       } else if (trial.valence == "Lose" && response.accuracy == 0 && trial.sham == 1) {
-        trial.outcome = "+0";
+        trial.outcome = "-1";
       }
 
       // Present outcome
       document.getElementById("outcome").innerHTML = trial.outcome;
-      document.getElementById("outcome").setAttribute('outcome', trial.outcome);
+      document.getElementById("outcome").style.color = trial.outcome_color;
 
       jsPsych.pluginAPI.setTimeout(function() {
         end_trial();
@@ -218,6 +227,8 @@ jsPsych.plugins["pit-trial"] = (function() {
 
       // Store data
       var trial_data = {
+        "Valence": trial.valence,
+        "Color": trial.scanner_color,
         "Rune": trial.robot_rune,
         "Correct": trial.correct,
         "Choice": response.key,
