@@ -1,7 +1,7 @@
 /**
- * jspsych-survey-demo
- * a jspsych plugin for the Niv lab demographics form
- */
+* jspsych-survey-demo
+* a jspsych plugin for the Niv lab demographics form
+*/
 
 jsPsych.plugins['survey-demo'] = (function() {
 
@@ -21,189 +21,222 @@ jsPsych.plugins['survey-demo'] = (function() {
   }
   plugin.trial = function(display_element, trial) {
 
-    // scroll to top of screen
-    window.scrollTo(0,0);
+    //---------------------------------------//
+    // Define HTML.
+    //---------------------------------------//
 
     // Initialize HTML
     var html = '';
 
     // Inject CSS
-    html += '<style>';
-    html += '.demo-header { margin: auto; top: 5%; width: 100%; padding: 0 0 0 0; background-color: #fff; font-size: 90%; text-align: center; }'+
-      '.demo-footer { margin: auto; top: 95%; width: 100%; padding: 0 0 0 0; background-color: #fff; text-align: right; }'+
-      'input[type=text], select, textarea{ border: 1px solid #ccc; border-radius: 4px; }'+
-      'input[type=number], select, textarea{ padding: 4px 12px; border: 1px solid #ccc; border-radius: 4px; width: 60px; }'+
-      'input[type="radio"] { margin: 0 6px 0 0; }'+
-      'input[type="checkbox"] { margin: 0 6px 0 0; }'+
-      'label { padding: 0 8px 0 0; display: inline-block; }'+
-      '.demo-footer input[type=submit] { background-color: #ffb347; color: white; padding: 8px 20px; border: none; border-radius: 4px; float: right; margin-top: 2px; margin-right: -15px; margin-bottom: 20px; }'+
-      '.container { margin: auto; width: 100%; background-color: #F8F8F8; padding: 5px 0 5px 15px; border-radius: 5px; }'+
-      '.demo-prompt { float: left; width: 33%; margin-top: 6px; margin-bottom: 6px; font-size: 90%; text-align: left; }'+
-      '.demo-resp { float: left; width: 66%; margin-top: 6px; margin-bottom: 6px; font-size: 85%; text-align: left; }'+
-      '.row:after { content: ""; display: table; clear: both; }'+
-      '@media screen and (max-width: 600px) { .demo-prompt, .demo-resp, input[type=submit] { width: 100%; margin-top: 0; } }';
-    html += '</style>';
+    html += `<style>
+    .survey-demo-wrap {
+      height: 100vh;
+      width: 100vw;
+    }
+    .survey-demo-instructions {
+      margin: auto;
+      width: 75vw;
+      padding: 0 0 0 0;
+      text-align: center;
+      font-size: 1.33vw;
+      line-height: 1.15em;
+    }
+    .survey-demo-container {
+      display: grid;
+      grid-template-columns: 40% 60%;
+      grid-template-rows: auto;
+      width: 75vw;
+      margin: auto;
+      background-color: #F8F8F8;
+      border-radius: 12px;
+    }
+    .survey-demo-row {
+      display: contents;
+      justify-items: center;
+      text-align: left;
+      font-size: 1.33vw;
+      line-height: 1.5em;
+    }
+    .survey-demo-prompt {
+      padding: 12px 0 12px 15px;
+      border-top: 2px solid #ffffff;
+    }
+    .survey-demo-prompt label {
+      padding: 0 8px 0 0;
+      display: inline-block;
+    }
+    .survey-demo-response {
+      padding: 12px 0 12px 0;
+      border-top: 2px solid #ffffff;
+    }
+    .survey-demo-response label {
+      padding: 0 1em 0 0;
+      display: inline-block;
+    }
+    .survey-demo-response input[type='radio'], input[type='checkbox'] {
+      height: 1.05vw;
+      width: 1.05vw;
+      margin: 0 6px 0 0;
+    }
+    .survey-demo-response input[type='number'], input[type='text'] {
+      height: 1.5vw;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    .survey-demo-response input[type='number'] {
+      width: 7.5%;
+    }
+    .survey-demo-response input[type='text'] {
+      width: 15%;
+    }
+    .survey-demo-footer {
+      margin: auto;
+      width: 75vw;
+      padding: 0 0 0 0;
+      text-align: right;
+    }
+    .survey-demo-footer input[type=submit] {
+      background-color: #F0F0F0;
+      padding: 8px 20px;
+      border: none;
+      border-radius: 4px;
+      margin-top: 5px;
+      margin-bottom: 20px;
+      margin-right: 0px;
+      font-size: 1.15vw;
+      color: black;
+    }
+    </style>`;
 
-    // Add header
-    html += `
-    <div class=demo-header><h2>Demographics Survey</h2>
-        <p>Please answer the questions below. <font color="#c87606">Your answers will not affect your payment or bonus.</font></p>
-    </div>`
+    // Initialize survey.
+    html += '<div class="survey-demo-wrap"><form id="jspsych-survey-demo">';
 
-    // Begin form
-    html += '<form id="jspsych-survey-demo">'
+    // Add demoing header.
+    html += '<div class=survey-demo-instructions>';
+    html += '<h2>Demographics Survey</h2>';
+    html += '<p>Please answer the questions below. <font color="#c87606">Your answers will not affect your payment or bonus.</font></p>'
+    html += '</div>';
 
-    // Add demographics form
-    html += `
-    <div class="container">
+    // Begin demoing container.
+    html += '<div class="survey-demo-container">';
 
-    		<div class="row">
+    // Item 1: Age
+    html += '<div class="survey-demo-row">';
+    html += '<div class="survey-demo-prompt"><label for="age">What is your age?</label></div>';
+    html += '<div class="survey-demo-response">';
+    html += '<input type="number" name="age" min="18" max="100" size="20">';
+    html += '</div></div>';
 
-    				<div class="demo-prompt">
-    						<label for="age">What is your age?</label>
-    				</div>
+    // Item 2: Gender
+    html += '<div class="survey-demo-row">';
+    html += '<div class="survey-demo-prompt"><label for="gender-categorical">What is your gender?</label></div>';
+    html += '<div class="survey-demo-response">';
+    html += '<label><input type="radio" name="gender-categorical" value="Male" required>Male</label>';
+    html += '<label><input type="radio" name="gender-categorical" value="Female" required>Female</label>';
+    html += '<label><input type="radio" name="gender-categorical" value="Rather not say" required>Rather not say</label>';
+    html += '<label style="padding: 0 0.5em 0 0;"><input type="radio" name="gender-categorical" value="Other" required>Other</label>';
+    html += '<input type="text" name="gender-free-response" maxlength="24" size="10"></label>';
+    html += '</div></div>';
 
-    				<div class="demo-resp">
-    						<input type="number" name="age" min="18" max="100" size="20">
-    				</div>
-    		</div>
+    // Item 3: Ethnicity
+    html += '<div class="survey-demo-row">';
+    html += '<div class="survey-demo-prompt"><label for="ethnicity">What is your ethnicity?</label></div>';
+    html += '<div class="survey-demo-response">';
+    html += '<label><input type="radio" name="ethnicity" value="Hispanic or Latino" required>Hispanic or Latino</label><br>';
+    html += '<label><input type="radio" name="ethnicity" value="Not Hispanic or Latino" required>Not Hispanic or Latino</label><br>';
+    html += '<label><input type="radio" name="ethnicity" value="Unknown" required>Unknown</label><br>';
+    html += '<label><input type="radio" name="ethnicity" value="Rather not say" required>Rather not say</label>';
+    html += '</div></div>';
 
-    		<hr color="#fff">
+    // Item 4: Race
+    html += '<div class="survey-demo-row">';
+    html += '<div class="survey-demo-prompt"><label for="race">What is your race?<br><small>(Choose all that apply)</small></label></div>';
+    html += '<div class="survey-demo-response">';
+    html += '<label><input type="checkbox" name="race" value="American Indian/Alaska Native">American Indian/Alaska Native</label><br>';
+    html += '<label><input type="checkbox" name="race" value="Asian">Asian</label><br>';
+    html += '<label><input type="checkbox" name="race" value="Native Hawaiian or other Pacific Islander">Native Hawaiian or other Pacific Islander</label><br>';
+    html += '<label><input type="checkbox" name="race" value="Black or African American">Black or African American</label><br>';
+    html += '<label><input type="checkbox" name="race" value="White">White</label><br>';
+    html += '<label><input type="checkbox" name="race" value="Rather not say">Rather not say</label>';
+    html += '</div></div>';
 
-    		<div class="row">
+    // Item 5: English speaking
+    html += '<div class="survey-demo-row">';
+    html += '<div class="survey-demo-prompt"><label for="language">Is English your first language?</label></div>';
+    html += '<div class="survey-demo-response">';
+    html += '<label><input type="radio" name="language" value="Yes" required>Yes</label>';
+    html += '<label><input type="radio" name="language" value="No" required>No</label>';
+    html += '</div></div>';
 
-    				<div class="demo-prompt">
-    						<label for="country">What is your gender?</label>
-    				</div>
+    // Item 6: Fluency
+    html += '<div class="survey-demo-row">';
+    html += '<div class="survey-demo-prompt"><label for="fluency">How well do you speak English?</label></div>';
+    html += '<div class="survey-demo-response">';
+    html += '<label><input type="radio" name="fluency" value="Very well" required>Very well</label>';
+    html += '<label><input type="radio" name="fluency" value="Well" required>Well</label>';
+    html += '<label><input type="radio" name="fluency" value="Not well" required>Not well</label>';
+    html += '<label><input type="radio" name="fluency" value="Not at all" required>Not at all</label>';
+    html += '</div></div>';
 
-    				<div class="demo-resp">
-                <label><input type="radio" name="gender-categorical" value="Male" required>Male</label>
-                <label><input type="radio" name="gender-categorical" value="Female" required>Female</label>
-                <label><input type="radio" name="gender-categorical" value="Rather not say" required>Rather not say</label>
-                <label><input type="radio" name="gender-categorical" value="Other" required>Other</label>
-    				</div>
+    // Close container.
+    html += '</div>';
 
-    		</div>
+    // Add submit button.
+    html += '<div class="survey-demo-footer">';
+    html += `<input type="submit" value="${trial.button_label}"></input>`;
+    html += '</div>';
 
-    		<hr color="#fff">
-
-    		<div class="row">
-
-    				<div class="demo-prompt">
-    						<label for="country">What is your ethnicity?</label>
-    				</div>
-
-    				<div class="demo-resp">
-    						<label><input type="radio" name="ethnicity" value="Hispanic or Latino" required>Hispanic or Latino</label><br>
-    						<label><input type="radio" name="ethnicity" value="Not Hispanic or Latino" required>Not Hispanic or Latino</label><br>
-    						<label><input type="radio" name="ethnicity" value="Unknown" required>Unknown</label><br>
-    						<label><input type="radio" name="ethnicity" value="Rather not say" required>Rather not say</label>
-    				</div>
-
-    		</div>
-
-    		<hr color="#fff">
-
-    		<div class="row">
-
-    				<div class="demo-prompt">
-    						<label for="country">		What is your race?<br><small>(Choose all that apply)</small></label>
-    				</div>
-
-    				<div class="demo-resp">
-    						<label><input type="checkbox" name="race" value="American Indian/Alaska Native">American Indian/Alaska Native</label><br>
-    						<label><input type="checkbox" name="race" value="Asian">Asian</label><br>
-    						<label><input type="checkbox" name="race" value="Native Hawaiian or other Pacific Islander">Native Hawaiian or other Pacific Islander</label><br>
-    						<label><input type="checkbox" name="race" value="Black or African American">Black or African American</label><br>
-    						<label><input type="checkbox" name="race" value="White">White</label><br>
-    						<label><input type="checkbox" name="race" value="Rather not say">Rather not say</label>
-    				</div>
-
-    		</div>
-
-    		<hr color="#fff">
-
-    		<div class="row">
-
-    				<div class="demo-prompt">
-    						<label for="english">Is English your first language?</label>
-    				</div>
-
-    				<div class="demo-resp">
-    						<label><input type="radio" name="english" value="Yes" required>Yes</label>
-    						<label><input type="radio" name="english" value="No" required>No</label>
-    				</div>
-
-    		</div>
-
-    		<hr color="#fff">
-
-    		<div class="row">
-
-    				<div class="demo-prompt">
-    						<label for="fluency">How well do you speak English?</label>
-    				</div>
-
-    				<div class="demo-resp">
-    						<label><input type="radio" name="fluency" value="Very well" required>Very well</label>
-    						<label><input type="radio" name="fluency" value="Well" required>Well</label>
-    						<label><input type="radio" name="fluency" value="Not well" required>Not well</label>
-    						<label><input type="radio" name="fluency" value="Not at all" required>Not at all</label>
-    				</div>
-
-    		</div>
-
-    </div>`
-
-    // Add submit button
-    html += `
-    <div class="demo-footer">
-        <input type="submit" id="jspsych-survey-demo-next" class="jspsych-btn jspsych-survey-demo" value="${trial.button_label}"></input>
-    </div>`;
-
-    // End form
-    html += '</form>'
+    // End survey.
+    html += '</form></div>';
 
     // Display HTML
     display_element.innerHTML = html;
 
+    //---------------------------------------//
+    // Define functions.
+    //---------------------------------------//
+
+    // Scroll to top of screen.
+    window.onbeforeunload = function () {
+      window.scrollTo(0, 0);
+    }
+
     display_element.querySelector('#jspsych-survey-demo').addEventListener('submit', function(event) {
 
-        // Wait for response
-        event.preventDefault();
+      // Wait for response
+      event.preventDefault();
 
-        // verify that at least one box has been checked for the race question
-        var checkboxes = document.querySelectorAll('input[type="checkbox"]');
-        var checkedOne = Array.prototype.slice.call(checkboxes).some(x => x.checked);
+      // verify that at least one box has been checked for the race question
+      var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+      var checkedOne = Array.prototype.slice.call(checkboxes).some(x => x.checked);
 
-        if(!checkedOne){
+      if(!checkedOne){
 
-          alert("You did not enter a response for the question \"What is your race?\". Please choose at least one option.");
+        alert("You did not enter a response for the question \"What is your race?\". Please choose at least one option.");
 
-        } else {
+      } else {
 
-          // Measure response time
-          var endTime = performance.now();
-          var response_time = endTime - startTime;
+        // Measure response time
+        var endTime = performance.now();
+        var response_time = endTime - startTime;
 
-          var question_data = serializeArray(this);
-          question_data = objectifyForm(question_data);
+        var question_data = serializeArray(this);
+        question_data = objectifyForm(question_data);
 
-          // Store data
-          var trialdata = {
-            "rt": response_time,
-            "demographics": question_data
-          };
+        // Store data
+        var trialdata = {
+          "rt": response_time,
+          "responses": question_data
+        };
 
-          // Update screen
-          display_element.innerHTML = '';
+        // Update screen
+        display_element.innerHTML = '';
 
-          // Move onto next trial
-          jsPsych.finishTrial(trialdata);
+        // Move onto next trial
+        jsPsych.finishTrial(trialdata);
 
-        }
-
-
+      }
 
     });
 
@@ -212,11 +245,11 @@ jsPsych.plugins['survey-demo'] = (function() {
   };
 
   /*!
-   * Serialize all form data into an array
-   * (c) 2018 Chris Ferdinandi, MIT License, https://gomakethings.com
-   * @param  {Node}   form The form to serialize
-   * @return {String}      The serialized form data
-   */
+  * Serialize all form data into an array
+  * (c) 2018 Chris Ferdinandi, MIT License, https://gomakethings.com
+  * @param  {Node}   form The form to serialize
+  * @return {String}      The serialized form data
+  */
   var serializeArray = function (form) {
     // Setup our serialized data
     var serialized = [];
@@ -225,6 +258,8 @@ jsPsych.plugins['survey-demo'] = (function() {
     for (var i = 0; i < form.elements.length; i++) {
       var field = form.elements[i];
 
+
+      console.log(field)
       // Don't serialize fields without a name, submits, buttons, file and reset inputs, and disabled fields
       if (!field.name || field.disabled || field.type === 'file' || field.type === 'reset' || field.type === 'submit' || field.type === 'button') continue;
 

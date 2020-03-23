@@ -132,7 +132,7 @@ jsPsych.plugins['pit-comprehension'] = (function() {
      </style>`;
 
     // Add factory machine parts (back).
-    html += '<div class="wrap">';
+    html += '<div class="factory-wrap">';
     html += '<div class="machine-back"></div>';
     html += '<div class="conveyor"></div>';
     html += '<div class="shadows"></div>';

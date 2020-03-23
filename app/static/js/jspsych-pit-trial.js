@@ -106,7 +106,7 @@ jsPsych.plugins["pit-trial"] = (function() {
      </style>`;
 
     // Add robot factor wrapper.
-    new_html += '<div class="wrap">';
+    new_html += '<div class="factory-wrap">';
 
     // Add factory machine parts (back).
     new_html += '<div class="machine-back"></div>';

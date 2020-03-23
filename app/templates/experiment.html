@@ -62,10 +62,10 @@
     timeline = timeline.concat(INSTRUCTIONS_03);    // Instructions (part 3)
     timeline = timeline.concat(COMPREHENSION);      // Comprehension check
     timeline = timeline.concat(INSTRUCTIONS_04);    // Instructions (part 4)
-    timeline = timeline.concat(PIT.slice(0,4));    // PIT task (block 1)
+    timeline = timeline.concat(PIT.slice(0,80));    // PIT task (block 1)
     timeline = timeline.concat(QUALITY_CHECK);      // Quality check (implicit)
     timeline = timeline.concat(PAUSE);              // Break screen
-    timeline = timeline.concat(PIT.slice(80,84));  // PIT task (block 2)
+    timeline = timeline.concat(PIT.slice(80,160));  // PIT task (block 2)
     timeline = timeline.concat(DEMO);               // Demographics form
     timeline = timeline.concat(DEBRIEF);            // Debriefing form
 
@@ -81,7 +81,7 @@
           if (low_quality) {
 
             // Display jsPsych data in viewport.
-            // jsPsych.data.displayData();s
+            // jsPsych.data.displayData();
 
             // Save rejected dataset to disk.
             reject_data('1011');

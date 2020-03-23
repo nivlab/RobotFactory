@@ -47,7 +47,7 @@ jsPsych.plugins["pit-pause"] = (function() {
     </style>`;
 
     // Add robot factor wrapper.
-    new_html += '<div id="jspsych-pit-pause-stimulus"><div class="wrap">';
+    new_html += '<div id="jspsych-pit-pause-stimulus"><div class="factory-wrap">';
 
     // Add factory machine parts (back).
     new_html += '<div class="machine-back"></div>';

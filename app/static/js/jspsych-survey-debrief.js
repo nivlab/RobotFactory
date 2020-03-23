@@ -1,5 +1,6 @@
 /**
  * jspsych-survey-debrief
+ * a jspsych plugin for a run-of-the-mill feedback survey
  */
 
 jsPsych.plugins['survey-debrief'] = (function() {
@@ -29,164 +30,149 @@ jsPsych.plugins['survey-debrief'] = (function() {
 
     // Inject CSS
     html += `<style>
-    .wrap {
+    .survey-debrief-wrap {
       height: 100vh;
       width: 100vw;
     }
-    .debrief-header {
+    .survey-debrief-instructions {
       margin: auto;
-      top: 5%;
-      width: 100%;
+      width: 75vw;
       padding: 0 0 0 0;
-      background-color: #fff;
-      font-size: 90%;
       text-align: center;
+      font-size: 1.33vw;
+      line-height: 1.15em;
     }
-    .debrief-footer {
+    .survey-debrief-container {
+      display: grid;
+      grid-template-columns: 40% 60%;
+      grid-template-rows: auto;
+      grid-gap: 2px;
+      width: 75vw;
       margin: auto;
-      top: 95%;
-      width: 100%;
-      padding: 0 0 0 0;
-      background-color: #fff;
-      text-align: right;
+      background-color: #F8F8F8;
+      border-radius: 12px;
     }
-    input[type=text], select, textarea{
-      border: 1px solid #ccc;
-      border-radius: 4px;
+    .survey-debrief-row {
+      display: contents;
+      justify-items: center;
+      text-align: left;
+      font-size: 1.33vw;
+      line-height: 1.5em;
     }
-    input[type=number], select, textarea{
-      padding: 4px 12px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      width: 60px;
+    .survey-debrief-prompt {
+      padding: 12px 0 12px 15px;
+      border-top: 2px solid #ffffff;
     }
-    input[type="radio"] {
-      margin: 0 6px 0 0;
-    }
-    input[type="checkbox"] {
-      margin: 0 6px 0 0;
-    }
-    label {
+    .survey-debrief-prompt label {
       padding: 0 8px 0 0;
       display: inline-block;
     }
-    .debrief-footer input[type=submit] {
-      background-color: #ffb347;
-      color: white;
+    .survey-debrief-response {
+      padding: 12px 0 12px 0;
+      border-top: 2px solid #ffffff;
+    }
+    .survey-debrief-response label {
+      padding: 0 8px 0 0;
+      display: inline-block;
+    }
+    .survey-debrief-response input[type=text] {
+      width: 60%;
+      height: 1.33vw;
+      padding: 0.1em 0.2em;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    .survey-debrief-response input[type="radio"] {
+      height: 1.05vw;
+      width: 1.05vw;
+      margin: 0 6px 0 0;
+    }
+    .survey-debrief-footer {
+      margin: auto;
+      width: 75vw;
+      padding: 0 0 0 0;
+      text-align: right;
+    }
+    .survey-debrief-footer input[type=submit] {
+      background-color: #F0F0F0;
       padding: 8px 20px;
       border: none;
       border-radius: 4px;
-      float: right;
-      margin-top: 2px;
-      margin-right: -15px;
+      margin-top: 5px;
       margin-bottom: 20px;
+      margin-right: 0px;
+      font-size: 1.15vw;
+      color: black;
     }
-    .container {
-      margin: auto;
-      width: 100%;
-      background-color: #F8F8F8;
-      padding: 5px 0 5px 15px;
-      border-radius: 5px;
-    }
-    .debrief-prompt {
-      float: left;
-      width: 33%;
-      margin-top: 6px;
-      margin-bottom: 6px;
-      font-size: 90%;
-      text-align: left;
-    }
-    .debrief-resp {
-      float: left;
-      width: 66%;
-      margin-top: 6px;
-      margin-bottom: 6px;
-      font-size: 85%;
-      text-align: left;
-    }
-    .row:after {
-      content: "";
-      display: table;
-      clear: both; }
-    @media screen and (max-width: 600px) {
-      .debrief-prompt, .debrief-resp, input[type=submit] {
-        width: 100%;
-        margin-top: 0;
-      }
-    };
     </style>`;
 
+    // Initialize survey.
+    html += '<div class="survey-debrief-wrap"><form id="jspsych-survey-debrief">';
+
     // Add debriefing header.
-    html += '<div class=header>';
+    html += '<div class=survey-debrief-instructions>';
     html += '<h2>Debriefing</h2>';
     html += '<p>Please answer the questions below. <font color="#c87606">Your answers will not affect your payment or bonus.</font></p>'
     html += '</div>';
 
-    // Begin form
-    html += '<form id="jspsych-survey-debrief">'
-
-    // Add debriefing form
-    html += '<div class="container">';
+    // Begin debriefing container.
+    html += '<div class="survey-debrief-container">';
 
     // Item 1: Task difficulty
-    html += '<div class="row">';
-    html += '<div class="debrief-prompt"><label for="country">How difficult was the task?</label></div>';
-    html += '<div class="debrief-resp">';
+    html += '<div class="survey-debrief-row">';
+    html += '<div class="survey-debrief-prompt"><label for="difficulty">How difficult was the task?</label></div>';
+    html += '<div class="survey-debrief-response">';
     html += '<label><input type="radio" name="difficulty" value="5" required>Very easy</label><br>';
     html += '<label><input type="radio" name="difficulty" value="4" required>Somewhat easy</label><br>';
     html += '<label><input type="radio" name="difficulty" value="3" required>Neither easy nor hard</label><br>';
     html += '<label><input type="radio" name="difficulty" value="2" required>Somewhat hard</label><br>';
     html += '<label><input type="radio" name="difficulty" value="1" required>Very hard</label>';
     html += '</div></div>';
-    html += '<hr color="#fff">';
 
     // Item 2: Task enjoyment
-    html += '<div class="row">';
-    html += '<div class="debrief-prompt"><label for="country">How fun was the task?</label></div>';
-    html += '<div class="debrief-resp">';
+    html += '<div class="survey-debrief-row">';
+    html += '<div class="survey-debrief-prompt"><label for="fun">How fun was the task?</label></div>';
+    html += '<div class="survey-debrief-response">';
     html += '<label><input type="radio" name="fun" value="5" required>Very fun</label><br>';
     html += '<label><input type="radio" name="fun" value="4" required>Somewhat fun</label><br>';
     html += '<label><input type="radio" name="fun" value="3" required>Neither fun nor boring</label><br>';
     html += '<label><input type="radio" name="fun" value="2" required>Somewhat boring</label><br>';
     html += '<label><input type="radio" name="fun" value="1" required>Very boring</label>';
     html += '</div></div>';
-    html += '<hr color="#fff">';
 
     // Item 3: Instructions clarity
-    html += '<div class="row">';
-    html += '<div class="debrief-prompt"><label for="country">How clear were the instructions?</label></div>';
-    html += '<div class="debrief-resp">';
+    html += '<div class="survey-debrief-row">';
+    html += '<div class="survey-debrief-prompt"><label for="clarity">How clear were the instructions?</label></div>';
+    html += '<div class="survey-debrief-response">';
     html += '<label><input type="radio" name="clarity" value="5" required>Very clear</label><br>';
     html += '<label><input type="radio" name="clarity" value="4" required>Somewhat clear</label><br>';
     html += '<label><input type="radio" name="clarity" value="3" required>Neither clear nor confusing</label><br>';
     html += '<label><input type="radio" name="clarity" value="2" required>Somewhat confusing</label><br>';
     html += '<label><input type="radio" name="clarity" value="1" required>Very confusing</label>';
     html += '</div></div>';
-    html += '<hr color="#fff">';
 
     // Item 4: Task strategies
-    html += '<div class="row">';
-    html += '<div class="debrief-prompt"><label for="strategy">Did you use any strategies during the task (e.g. write things down)?</label></div>';
-    html += '<div class="debrief-resp"><input type="text" name="strategy" size="40"></div>';
+    html += '<div class="survey-debrief-row">';
+    html += '<div class="survey-debrief-prompt"><label for="strategy">Did you use any strategies during the task (e.g. write things down)?</label></div>';
+    html += '<div class="survey-debrief-response"><input type="text" name="strategy"></div>';
     html += '</div>';
-    html += '<hr color="#fff">';
 
     // Item 5: Additional comments.
-    html += '<div class="row">';
-    html += '<div class="debrief-prompt"><label for="feedback">Do you have any other comments?</label></div>';
-    html += '<div class="debrief-resp"><input type="text" name="feedback" size="40"></div>';
+    html += '<div class="survey-debrief-row">';
+    html += '<div class="survey-debrief-prompt"><label for="feedback">Do you have any other comments?</label></div>';
+    html += '<div class="survey-debrief-response"><input type="text" name="feedback"></div>';
     html += '</div>';
 
-    // Close container.
+    // Close survey-debrief-container.
     html += '</div>';
 
     // Add submit button.
-    html += '<div class="debrief-footer">';
+    html += '<div class="survey-debrief-footer">';
     html += `<input type="submit" id="jspsych-survey-debrief-next" class="jspsych-btn jspsych-survey-debrief" value="${trial.button_label}"></input>`;
     html += '</div>';
 
-    // End form
-    html += '</form>'
+    // End survey.
+    html += '</form></div>';
 
     // Display HTML
     display_element.innerHTML = html;
@@ -195,8 +181,10 @@ jsPsych.plugins['survey-debrief'] = (function() {
     // Define functions.
     //---------------------------------------//
 
-    // scroll to top of screen
-    window.scrollTo(0,0);
+    // Scroll to top of screen.
+    window.onbeforeunload = function () {
+      window.scrollTo(0, 0);
+    }
 
     display_element.querySelector('#jspsych-survey-debrief').addEventListener('submit', function(event) {
 
@@ -216,7 +204,7 @@ jsPsych.plugins['survey-debrief'] = (function() {
           // Store data
           var trialdata = {
             "rt": response_time,
-            "debrief": question_data
+            "responses": question_data
           };
 
           // Update screen
