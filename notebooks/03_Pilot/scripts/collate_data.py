@@ -44,9 +44,6 @@ for f in files:
         
         ## Insert version ID and missing columns.
         data.insert(0,'Version',1)
-#         data.insert(5,'Robot',np.nan)
-#         data.insert(6,'Rune',np.nan)
-#         data['TotalKeys'] = np.nan
         
     elif data.shape[-1] == 18:
         

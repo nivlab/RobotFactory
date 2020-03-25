@@ -1,11 +1,12 @@
 // Pavlovian Instrumental Transfer (PIT) Task
 // Model variant 1 (no pooling)
 //
-// Parameters (4): 
-//   - beta: inverse temperature
-//   - eta:  learning rate
-//   - tau:  go bias
-//   - nu:   Pavlovian bias
+// Parameters (5): 
+//   - beta_p: inverse temperature (positive)
+//   - beta_n: inverse temperature (negaitve)
+//   - eta:    learning rate
+//   - tau:    go bias
+//   - nu:     Pavlovian bias
 //
 // Notes:
 //   - Model is vectorized such that it iterates over all participants/arms
@@ -33,6 +34,9 @@ transformed data {
     // Number of participants
     int  N = max(sub_ix);
 
+    // Binarized Pavlovian index
+    vector[H] z = (pav_ix + 1) / 2;
+
     // Upper limit of inverse tmperature
     real  ul = 20;
     
@@ -46,7 +50,8 @@ transformed data {
 parameters {
     
     // Individual-level parameters
-    vector[N]  beta_pr;             // Inverse temperature
+    vector[N]  beta_p_pr;           // Inverse temperature (positive)
+    vector[N]  beta_n_pr;           // Inverse temperature (negative)
     vector[N]  eta_pr;              // Learning rate
     vector[N]  tau_pr;              // Go bias
     vector[N]  nu_pr;               // Pavlovian bias
@@ -54,13 +59,15 @@ parameters {
 }
 transformed parameters {
 
-    vector<lower =  0, upper = ul>[N]  beta;
+    vector<lower =  0, upper = ul>[N]  beta_p;
+    vector<lower =  0, upper = ul>[N]  beta_n;
     vector<lower =  0, upper =  1>[N]  eta;
     vector<lower = -1, upper =  1>[N]  tau;
     vector<lower = -1, upper =  1>[N]  nu;
     
-    beta = Phi_approx( beta_pr ) * ul;
-    eta  = Phi_approx( eta_pr );
+    beta_p = Phi_approx( beta_p_pr ) * ul;
+    beta_n = Phi_approx( beta_n_pr ) * ul;
+    eta = Phi_approx( eta_pr );
     tau = tanh( tau_pr );
     nu  = tanh( nu_pr );
     
@@ -74,16 +81,17 @@ model {
     vector[H]    V  = pav_ix;                // State values
     
     // Parameter expansion
-    vector[H]  beta_vec = beta[sub_ix];
+    vector[H]  beta_vec = z .* beta_p[sub_ix] + (1-z) .* beta_n[sub_ix];
     vector[H]  eta_vec = eta[sub_ix];
     vector[H]  tau_vec = tau[sub_ix];
     vector[H]  nu_vec  = nu[sub_ix];
         
     // Individial-level priors
-    beta_pr ~ normal(0, 1);
-    eta_pr  ~ normal(0, 1);
-    tau_pr  ~ normal(0, 1);
-    nu_pr   ~ normal(0, 1);
+    beta_p_pr ~ normal(0, 1);
+    beta_n_pr ~ normal(0, 1);
+    eta_pr    ~ normal(0, 1);
+    tau_pr    ~ normal(0, 1);
+    nu_pr     ~ normal(0, 1);
     
     for (i in 1:T) {
         
