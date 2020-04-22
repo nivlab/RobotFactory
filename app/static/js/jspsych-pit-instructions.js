@@ -81,7 +81,7 @@ jsPsych.plugins["pit-instructions"] = (function() {
     new_html += '<div class="shadows"></div>';
 
     // Add robot 1 (active).
-    new_html += '<div class="robot" style="left: 50vw;">';
+    new_html += '<div class="robot">';
     new_html += '<div class="antenna"></div>';
     new_html += '<div class="head"></div>';
     new_html += '<div class="torso">';
@@ -94,17 +94,16 @@ jsPsych.plugins["pit-instructions"] = (function() {
     new_html += `<div class="scanner-light" style="animation: none; -webkit-animation: none;"></div>`;
 
     // Add factory machine parts (front).
-    new_html += '<div class="machine-front"><div class="score-container"></div></div>';
+    new_html += '<div class="machine-front">';
+    new_html += '<div class="score-container"></div>';
+    new_html += '<div class="jspsych-instructions-nav">';
+    new_html += '<button id="jspsych-instructions-back" class="jspsych-btn" style="margin-right: 5px;" disabled="disabled">&lt; Prev</button>';
+    new_html += '<button id="jspsych-instructions-next" class="jspsych-btn" style="margin-left: 5px;">Next &gt;</button>';
+    new_html += '</div></div>';
     new_html += '<div class="machine-top"></div>';
 
     // Draw instructions
-    new_html += '<div class="instructions-box"><div class="instructions">'
-    new_html += '</div></div>';
-
-    // Draw buttons
-    new_html += "<div class='jspsych-instructions-nav'>";
-    new_html += "<button id='jspsych-instructions-back' class='jspsych-btn' style='margin-right: 5px;' disabled='disabled'>&lt; Prev</button>";
-    new_html += "<button id='jspsych-instructions-next' class='jspsych-btn' style='margin-left: 5px;'>Next &gt;</button></div>";
+    new_html += '<div class="instructions-box"><div class="instructions"></div></div>';
 
     // Close wrapper
     new_html += '</div>';

@@ -55,7 +55,7 @@ jsPsych.plugins["pit-pause"] = (function() {
     new_html += '<div class="shadows"></div>';
 
     // Add robot 1 (active).
-    new_html += '<div class="robot" style="left: 50vw;">';
+    new_html += '<div class="robot">';
     new_html += '<div class="antenna"></div>';
     new_html += '<div class="head"></div>';
     new_html += '<div class="torso">';
