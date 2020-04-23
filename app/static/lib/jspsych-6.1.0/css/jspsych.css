@@ -24,10 +24,11 @@
    margin: auto;
    flex: 1 1 100%;
    width: 100%;
+   overflow: hidden;  /* edited by sam */
  }
 
  .jspsych-content {
-   max-width: 100%; /* this is mainly an IE 10-11 fix */
+   max-width: 100%; /* edited by sam */
    text-align: center;
    margin: auto; /* this is for overflowing content */
  }
@@ -94,7 +95,7 @@
   color: #555;
   border-bottom: 1px solid #dedede;
   background-color: #f9f9f9;
-  margin-bottom: 1em;
+  /* margin-bottom: 1em; */  /* edited by sam */
   text-align: center;
   padding: 8px 0px;
   width: 100%;

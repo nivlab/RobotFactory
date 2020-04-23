@@ -3,8 +3,8 @@
 .factory-wrap {
   width: 100vw;
   height: 100vh;
-  -webkit-transform: translateY(13vh) scale(1.75);
-  transform: translateY(13vh) scale(1.75);
+  -webkit-transform: translateY(10vh) scale(1.75);
+  transform: translateY(10vh) scale(1.75);
 }
 
 /* ---------------------------------- */
@@ -507,6 +507,58 @@
 }
 
 /* ---------------------------------- */
+/* Comprehension check                */
+/* ---------------------------------- */
+
+.comprehension-box {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate3d(-50%, -65%, 0);
+  transform: translate3d(-50%, -65%, 0);
+  width: 42vw;
+  height: 24vw;
+  background: #ffffff;
+  border: 2px solid black;
+  border-radius: 12px;
+  font-size: 0.85vw;
+  line-height: 1.5em;
+}
+.comprehension-box .jspsych-survey-multi-choice-preamble h4 {
+  font-size: 1vw;
+  margin-block-start: 1em;
+  margin-block-end: 1.2em
+}
+.comprehension-box .jspsych-survey-multi-choice-question {
+  margin-top: 0em;
+  margin-bottom: 1.0em;
+  text-align: left;
+  padding-left: 2em;
+}
+.comprehension-box .jspsych-survey-multi-choice-horizontal .jspsych-survey-multi-choice-text {
+  text-align: left;
+  margin: 0em 0em 0em 0em
+}
+.comprehension-box .jspsych-survey-multi-choice-horizontal .jspsych-survey-multi-choice-option {
+  display: inline-block;
+  margin: 0.33em 1em 0em 1em;
+}
+.comprehension-box .jspsych-survey-multi-choice-option input[type='radio'] {
+  margin-right: 0.5em;
+  width: 8px;
+  height: 8px;
+}
+.comprehension-box input[type='submit'] {
+  position: absolute;
+  top: 95%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  font-size: 0.75vw;
+  padding: 4px 8px;
+}
+
+/* ---------------------------------- */
 /* Viewpoint Adjustments              */
 /* ---------------------------------- */
 
@@ -678,5 +730,13 @@
       -webkit-animation-timing-function: ease-in-out;
       animation-timing-function: ease-in-out;
     }
+  }
+  .comprehension-box {
+    width: calc(900px * 0.42);
+    height: calc(900px * 0.24);
+    font-size: calc(900px * 0.0085);
+  }
+  .comprehension-box .jspsych-survey-multi-choice-preamble h4 {
+    font-size: calc(900px * 0.01);
   }
 }

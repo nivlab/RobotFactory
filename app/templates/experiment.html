@@ -55,13 +55,8 @@
 
     // Define timeline.
     var timeline = [];
-    timeline = timeline.concat(INSTRUCTIONS_01);    // Instructions (part 1)
-    timeline = timeline.concat(PRACTICE_GO);        // Practice (go trials)
-    timeline = timeline.concat(INSTRUCTIONS_02);    // Instructions (part 2)
-    timeline = timeline.concat(PRACTICE_NO_GO);     // Practice (no-go trials)
-    timeline = timeline.concat(INSTRUCTIONS_03);    // Instructions (part 3)
-    timeline = timeline.concat(COMPREHENSION);      // Comprehension check
-    timeline = timeline.concat(INSTRUCTIONS_04);    // Instructions (part 4)
+    timeline = timeline.concat(INSTRUCTIONS);          // Instructions loop
+    timeline = timeline.concat(READY);              // Ready check
     timeline = timeline.concat(PIT.slice(0,80));    // PIT task (block 1)
     timeline = timeline.concat(QUALITY_CHECK);      // Quality check (implicit)
     timeline = timeline.concat(PAUSE);              // Break screen
@@ -72,24 +67,22 @@
     jsPsych.init({
         timeline: timeline,
         preload_images: preload_images,
+        show_progress_bar: true,
         on_finish: function() {
 
           // Add interactions to the data variable
           var interaction_data = jsPsych.data.getInteractionData();
           jsPsych.data.get().addToLast({interactions: interaction_data.json()});
 
-          if (low_quality) {
+          // Display jsPsych data in viewport.
+          // jsPsych.data.displayData();
 
-            // Display jsPsych data in viewport.
-            // jsPsych.data.displayData();
+          if (low_quality) {
 
             // Save rejected dataset to disk.
             reject_data('1011');
 
           } else {
-
-            // Display jsPsych data in viewport.
-            // jsPsych.data.displayData();
 
             // Save complete dataset to disk.
             pass_data("{{workerId}}", "{{assignmentId}}", "{{hitId}}",  "{{a}}", "{{tp_a}}", "{{b}}", "{{tp_b}}", "{{c}}", "{{tp_c}}");

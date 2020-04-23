@@ -30,8 +30,11 @@ const key_go = 32;
 const trial_duration = 1500;         // Duration of trial (response phase)
 const feedback_duration = 1000;      // Duration of feedback (minimum)
 
+// Define comprehension threshold.
+const max_errors = 1;
+
 // Define quality threshold.
-const threshold = 0.95;
+const threshold = 0.90;
 
 //------------------------------------//
 // Define instructions.
@@ -146,7 +149,31 @@ var COMPREHENSION = {
   lose_color_hex: outcome_color_lose,
 }
 
-var INSTRUCTIONS_04 = {
+var INSTRUCTIONS = {
+  timeline: [
+    INSTRUCTIONS_01,
+    PRACTICE_GO,
+    INSTRUCTIONS_02,
+    PRACTICE_NO_GO,
+    INSTRUCTIONS_03,
+    COMPREHENSION
+  ],
+  loop_function: function(data) {
+
+    // Extract number of errors.
+    const num_errors = data.values().slice(-1)[0].num_errors;
+
+    // Check if instructions should repeat.
+    if (num_errors > max_errors) {
+      return true;
+    } else {
+      return false;
+    }
+
+  }
+}
+
+var READY = {
     type: 'pit-instructions',
     pages: [
       "Get ready to begin the task.<br><br>Good luck!",
