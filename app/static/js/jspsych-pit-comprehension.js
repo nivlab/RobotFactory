@@ -93,9 +93,6 @@ jsPsych.plugins['pit-comprehension'] = (function() {
     // Initialize HTML
     var html = "";
 
-    // Initialize HTML
-    var html = "";
-
     // inject CSS for trial
     html += `<style>
     body {
