@@ -187,24 +187,24 @@ var READY = {
 // Define experiment.
 //------------------------------------//
 // One block of the PIT task is comprised of
-// 20 exposures to four robots (GW, NGW, GAL, NGAL),
-// i.e. 80 total trials. 80% of trials provide
+// 30 exposures to four robots (GW, NGW, GAL, NGAL),
+// i.e. 120 total trials. 80% of trials provide
 // correct feedback, or 1/5 trials (in blocks)
 // present sham feedback. There are 2 total blocks,
-// or 40 total exposures per robot (160 total trials).
+// or 60 total exposures per robot (240 total trials).
 
-// Predefine sham trials (8 sets of 5 trials).
+// Predefine sham trials (12 sets of 5 trials).
 var sham = [[],[],[],[]];
 for (var i=0; i<4; i++) {
-  for (var j=0; j<8; j++) {
+  for (var j=0; j<12; j++) {
     sham[i] = sham[i].concat(jsPsych.randomization.repeat([0,0,0,0,1],1));
   }
 }
 
-// Iteratively define trials (40 per robot.)
+// Iteratively define trials (60 per robot.)
 var PIT = [];
 var n = 0;
-for (var i=0; i<40; i++) {
+for (var i=0; i<60; i++) {
 
   // Define presentation order of 4 robots.
   const order = jsPsych.randomization.repeat([0,1,2,3],1);
@@ -242,7 +242,7 @@ for (var i=0; i<40; i++) {
       trial_duration: trial_duration,
       feedback_duration: feedback_duration,
       data: {
-        Block: Math.floor(n / 80) + 1,
+        Block: Math.floor(n / 120) + 1,
         Trial: n + 1,
         Robot: robot + 1,
         Valence: valence,
