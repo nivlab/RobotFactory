@@ -2,18 +2,6 @@
 // Define questionnaires.
 //------------------------------------//
 
-// Define affective slider stimuli.
-var AS_stimuli = [
-  '../static/img/AS_happy.png',
-  '../static/img/AS_intensity_cue.png',
-  '../static/img/AS_sleepy.png',
-  '../static/img/AS_unhappy.png',
-  '../static/img/AS_wideawake.png',
-  '../static/img/slider_thumb_unselected.png',
-  '../static/img/slider_thumb_selected.png',
-  '../static/img/slider_track.png'
-];
-
 // Valence slider
 var VALENCE = {
   type: 'affective-slider',
