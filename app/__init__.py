@@ -3,7 +3,7 @@ from flask import (Flask, redirect, render_template, request, session, url_for)
 from app import consent, alert, experiment, complete, error
 from .io import write_metadata
 from .utils import gen_code
-__version__ = '0.9.5'
+__version__ = '0.9.6'
 
 ## Define root directory.
 ROOT_DIR = os.path.dirname(os.path.realpath(__file__))
@@ -51,6 +51,7 @@ def index():
         assignmentId = request.args.get('assignmentId'),    # MTurk metadata
         hitId        = request.args.get('hitId'),           # MTurk metadata
         subId        = gen_code(24),                        # NivTurk metadata
+        address      = request.remote_addr,                 # NivTurk metadata
         a            = request.args.get('a'),               # TurkPrime metadata
         tp_a         = request.args.get('tp_a'),            # TurkPrime metadata
         b            = request.args.get('b'),               # TurkPrime metadata
@@ -100,7 +101,7 @@ def index():
 
         ## Update metadata.
         for k, v in info.items(): session[k] = v
-        write_metadata(session, ['workerId','hitId','assignmentId','subId','browser','platform','version'], 'w')
+        write_metadata(session, ['workerId','hitId','assignmentId','subId','address', 'browser','platform','version'], 'w')
 
         ## Redirect participant to consent form.
         return redirect(url_for('consent.consent'))

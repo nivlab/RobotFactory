@@ -66,6 +66,9 @@ jsPsych.plugins["pit-instructions"] = (function() {
       overflow: hidden;
       position: fixed;
     }
+    .jspsych-content-wrapper {
+      overflow: hidden;
+    }
     .conveyor:after {
       -webkit-animation: none;
       animation: none;

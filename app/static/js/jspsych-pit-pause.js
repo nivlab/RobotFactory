@@ -43,6 +43,9 @@ jsPsych.plugins["pit-pause"] = (function() {
       overflow: hidden;
       position: fixed;
     }
+    .jspsych-content-wrapper {
+      overflow: hidden;
+    }
     .conveyor:after {-webkit-animation: none; animation: none;}
     </style>`;
 

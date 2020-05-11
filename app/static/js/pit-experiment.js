@@ -173,16 +173,6 @@ var INSTRUCTIONS = {
   }
 }
 
-var READY = {
-    type: 'pit-instructions',
-    pages: [
-      "Get ready to begin the task.<br><br>Good luck!",
-    ],
-    show_clickable_nav: true,
-    button_label_previous: "Prev",
-    button_label_next: "Next"
-}
-
 //------------------------------------//
 // Define experiment.
 //------------------------------------//
@@ -291,10 +281,41 @@ var QUALITY_CHECK = {
 }
 
 //------------------------------------//
-// Define pause break.
+// Define transition screens.
 //------------------------------------//
 
-// Define pause trials.
+// Define ready screen.
+var READY = {
+  type: 'pit-instructions',
+  pages: [
+    "Get ready to begin the task.<br><br>Good luck!",
+  ],
+  show_clickable_nav: true,
+  button_label_previous: "Prev",
+  button_label_next: "Next",
+  on_finish: function(trial) {
+    pass_message('starting block 1');
+  }
+}
+
+// Define pause screen.
 var PAUSE = {
   type: 'pit-pause',
+  on_finish: function(trial) {
+    pass_message('starting block 2');
+  }
 };
+
+// Define finish screen.
+var FINISHED = {
+  type: 'pit-instructions',
+  pages: [
+    "Great job! You've finished the task.<br><br>Now you will complete a few short surveys.",
+  ],
+  show_clickable_nav: true,
+  button_label_previous: "Prev",
+  button_label_next: "Next",
+  on_finish: function(trial) {
+    pass_message('starting surveys');
+  }
+}
