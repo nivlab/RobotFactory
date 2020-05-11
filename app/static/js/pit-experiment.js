@@ -2,12 +2,24 @@
 // Define parameters.
 //------------------------------------//
 
+// Rune sets (uncomment to choose which to use).
+const rune_s1 = ['rune_01_ear', 'rune_01_ger', 'rune_01_ingwaz', 'rune_01_yr'];
+const rune_s2 = ['rune_02_cen', 'rune_02_haglaz', 'rune_02_os', 'rune_02_raido']
+// const rune_s1 = ['rune_03_algiz', 'rune_03_naudiz', 'rune_03_othalan', 'rune_03_uruz'];
+// const rune_s2 = ['rune_04_ac', 'rune_04_dalgaz', 'rune_04_iwaz', 'rune_04_wunjo'];
+// const rune_s1 = ['rune_05_gebo', 'rune_05_ior', 'rune_05_jeran', 'rune_05_tiwaz'];
+// const rune_s2 = ['rune_06_ansuz', 'rune_06_berkanan', 'rune_06_cweord', 'rune_06_ehwaz'];
+// const rune_s1 = ['rune_07_gar', 'rune_07_kauna', 'rune_07_laukaz', 'rune_07_thurisaz'];
+// const rune_s2 = ['rune_08_fehu', 'rune_08_mannaz', 'rune_08_pertho', 'rune_08_sigel'];
+
 // Define runes.
-var runes = ['03','04','05','06'];
-runes = jsPsych.randomization.sampleWithoutReplacement(runes, runes.length);
+var runes = jsPsych.randomization.shuffle([
+  jsPsych.randomization.shuffle(rune_s1),
+  jsPsych.randomization.shuffle(rune_s2)
+]);
 
 // Define scanner colors.
-if (jsPsych.randomization.repeat([0,1],1)[0] == 1 ) {
+if ( jsPsych.randomization.repeat([0,1],1)[0] == 1 ) {
   var instr_color_win    = 'blue';
   var scanner_color_win  = '#3366ff99';
   var outcome_color_win  = '#00539C';
@@ -37,6 +49,15 @@ const max_errors = 1;
 const threshold = 0.90;
 
 //------------------------------------//
+// Define images for preloading.
+//------------------------------------//
+
+var rune_stimuli = ['../static/img/rune_00_ingz.png', '../static/img/rune_00_isaz.png'];
+[].concat.apply([],runes).forEach(function(rune) {
+  rune_stimuli.push('../static/img/' + rune + '.png')
+})
+
+//------------------------------------//
 // Define instructions.
 //------------------------------------//
 
@@ -57,7 +78,7 @@ var INSTRUCTIONS_01 = {
 var PRACTICE_GO = {
   timeline: [{
     type: 'pit-trial',
-    robot_rune: '01',
+    robot_rune: 'rune_00_ingz',
     scanner_color: '#FFFFF080',
     outcome_color: '#000000',
     outcome_correct: '+10',
@@ -87,7 +108,7 @@ var INSTRUCTIONS_02 = {
 var PRACTICE_NO_GO = {
   timeline: [{
     type: 'pit-trial',
-    robot_rune: '02',
+    robot_rune: 'rune_00_isaz',
     scanner_color: '#FFFFF080',
     outcome_color: '#000000',
     outcome_correct: '+10',
@@ -120,8 +141,8 @@ var INSTRUCTIONS_03 = {
       undefined,
       undefined,
       undefined,
-      '01',
-      '01',
+      'rune_00_ingz',
+      'rune_00_ingz',
       undefined,
       undefined,
       undefined,
@@ -183,71 +204,76 @@ var INSTRUCTIONS = {
 // present sham feedback. There are 2 total blocks,
 // or 60 total exposures per robot (240 total trials).
 
-// Predefine sham trials (12 sets of 5 trials).
-var sham = [[],[],[],[]];
-for (var i=0; i<4; i++) {
-  for (var j=0; j<12; j++) {
+// Predefine sham trials (6 sets of 5 trials for each of 8 robots).
+var sham = [[],[],[],[],[],[],[],[]];
+for (var i=0; i<8; i++) {
+  for (var j=0; j<6; j++) {
     sham[i] = sham[i].concat(jsPsych.randomization.repeat([0,0,0,0,1],1));
   }
 }
 
-// Iteratively define trials (60 per robot.)
+// Iteratively define trials (2 blocks, 30 exposures per robot).
 var PIT = [];
 var n = 0;
-for (var i=0; i<60; i++) {
+for (var b=0; b<2; b++) {
 
-  // Define presentation order of 4 robots.
-  const order = jsPsych.randomization.repeat([0,1,2,3],1);
+  for (var i=0; i<30; i++) {
 
-  // Iteratively define and append PIT trials.
-  order.forEach(function (robot) {
+    // Define presentation order of 4 robots.
+    const order = jsPsych.randomization.repeat([0,1,2,3],1);
 
-    // Predefine valence.
-    const valence = Math.floor(robot / 2) == 0 ? 'Win' : 'Lose';
+    // Iteratively define and append PIT trials.
+    order.forEach(function (robot) {
 
-    // Predefine feedback.
-    if (valence == 'Win' && sham[robot][i] == 0) {
-      var outcome_correct   = '+10';
-      var outcome_incorrect = '+1';
-    } else if (valence == 'Win' && sham[robot][i] == 1) {
-      var outcome_correct   = '+1';
-      var outcome_incorrect = '+10';
-    } else if (valence == 'Lose' && sham[robot][i] == 0) {
-      var outcome_correct   = '-1';
-      var outcome_incorrect = '-10';
-    } else if (valence == 'Lose' && sham[robot][i] == 1) {
-      var outcome_correct   = '-10';
-      var outcome_incorrect = '-1';
-    }
+      // Predefine valence.
+      const valence = Math.floor(robot / 2) == 0 ? 'Win' : 'Lose';
 
-    const trial = {
-      type: 'pit-trial',
-      robot_rune: runes[robot],
-      scanner_color: valence == 'Win' ? scanner_color_win : scanner_color_lose,
-      outcome_color: valence == 'Win' ? outcome_color_win : outcome_color_lose,
-      outcome_correct: outcome_correct,
-      outcome_incorrect: outcome_incorrect,
-      correct: robot % 2 == 0 ? key_go : -1,
-      valid_responses: [key_go],
-      trial_duration: trial_duration,
-      feedback_duration: feedback_duration,
-      data: {
-        Block: Math.floor(n / 120) + 1,
-        Trial: n + 1,
-        Robot: robot + 1,
-        Valence: valence,
-        Action: robot % 2 == 0 ? 'Go' : 'No-Go',
-        Sham: sham[robot][i],
-        Color: valence == 'Win' ? instr_color_win : instr_color_lose,
+      // Predefine feedback.
+      if (valence == 'Win' && sham[robot][i] == 0) {
+        var outcome_correct   = '+10';
+        var outcome_incorrect = '+1';
+      } else if (valence == 'Win' && sham[robot][i] == 1) {
+        var outcome_correct   = '+1';
+        var outcome_incorrect = '+10';
+      } else if (valence == 'Lose' && sham[robot][i] == 0) {
+        var outcome_correct   = '-1';
+        var outcome_incorrect = '-10';
+      } else if (valence == 'Lose' && sham[robot][i] == 1) {
+        var outcome_correct   = '-10';
+        var outcome_incorrect = '-1';
       }
-    };
 
-    PIT.push(trial)
-    n = n + 1;
+      const trial = {
+        type: 'pit-trial',
+        robot_rune: runes[b][robot],
+        scanner_color: valence == 'Win' ? scanner_color_win : scanner_color_lose,
+        outcome_color: valence == 'Win' ? outcome_color_win : outcome_color_lose,
+        outcome_correct: outcome_correct,
+        outcome_incorrect: outcome_incorrect,
+        correct: robot % 2 == 0 ? key_go : -1,
+        valid_responses: [key_go],
+        trial_duration: trial_duration,
+        feedback_duration: feedback_duration,
+        data: {
+          Block: b + 1,
+          Trial: n + 1,
+          Robot: robot + 1,
+          Valence: valence,
+          Action: robot % 2 == 0 ? 'Go' : 'No-Go',
+          Sham: sham[robot][i],
+          Color: valence == 'Win' ? instr_color_win : instr_color_lose,
+        }
+      };
 
-  })
+      PIT.push(trial)
+      n = n + 1;
+
+    })
+
+  }
 
 }
+console.log(PIT)
 
 //------------------------------------//
 // Define quality check

@@ -17,7 +17,7 @@ jsPsych.plugins["pit-trial"] = (function() {
       robot_rune: {
         type: jsPsych.plugins.parameterType.HTML_STRING,
         pretty_name: 'Robot rune',
-        description: 'Rune to display on robot.'
+        description: 'Filename of rune image in static folder.'
       },
       scanner_color: {
         type: jsPsych.plugins.parameterType.HTML_STRING,
@@ -123,7 +123,7 @@ jsPsych.plugins["pit-trial"] = (function() {
     new_html += '<div class="torso">';
     new_html += '<div class="left"></div>';
     new_html += '<div class="right"></div>';
-    new_html += `<div class="rune"><img src="../static/img/rune${trial.robot_rune}.png" style="height: 100%; width: 100%; object-fit: contain"></div></div>`;
+    new_html += `<div class="rune"><img src="../static/img/${trial.robot_rune}.png" style="height: 100%; width: 100%; object-fit: contain"></div></div>`;
     new_html += '<div class="foot"></div></div>';
 
     // Add robot 2 (hidden).

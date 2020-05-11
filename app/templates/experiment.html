@@ -51,63 +51,52 @@
       task_version: 'test-retest',
     });
 
-    // Define images to preload.
-    var rune_images = [
-      "../static/img/rune01.png",
-      "../static/img/rune02.png",
-      "../static/img/rune03.png",
-      "../static/img/rune04.png",
-      "../static/img/rune05.png",
-      "../static/img/rune06.png",
-    ];
-
     // Define global variables.
     var low_quality = false;
 
     // Define timeline.
     var timeline = [];
-    // timeline = timeline.concat(VALENCE);            // Affective slider (valence)
-    // timeline = timeline.concat(AROUSAL);            // Affective slider (arousal)
-    // timeline = timeline.concat(INSTRUCTIONS);       // Instructions loop
+    timeline = timeline.concat(VALENCE);            // Affective slider (valence)
+    timeline = timeline.concat(INSTRUCTIONS);       // Instructions loop
     timeline = timeline.concat(READY);              // Ready check
-    // timeline = timeline.concat(PIT.slice(0,120));   // PIT task (block 1)
-    // timeline = timeline.concat(QUALITY_CHECK);      // Quality check (implicit)
+    timeline = timeline.concat(PIT.slice(0,120));   // PIT task (block 1)
+    timeline = timeline.concat(QUALITY_CHECK);      // Quality check (implicit)
     timeline = timeline.concat(PAUSE);              // Break screen
-    // timeline = timeline.concat(PIT.slice(120,240)); // PIT task (block 2)
+    timeline = timeline.concat(PIT.slice(120,240)); // PIT task (block 2)
     timeline = timeline.concat(FINISHED);           // End of task
-    // timeline = timeline.concat(SURVEYS);            // Questionnaires
-    // timeline = timeline.concat(DEMO);               // Demographics form
+    timeline = timeline.concat(SURVEYS);            // Questionnaires
+    timeline = timeline.concat(DEMO);               // Demographics form
     timeline = timeline.concat(DEBRIEF);            // Debriefing form
 
     jsPsych.init({
-        timeline: timeline,
-        preload_images: [AS_stimuli, rune_images],
-        show_progress_bar: true,
-        on_finish: function() {
+      timeline: timeline,
+      preload_images: [slider_stimuli, rune_stimuli],
+      show_progress_bar: true,
+      on_finish: function() {
 
-          // Remove requirement to verify redirect
-          window.removeEventListener("beforeunload", verify_unload);
+        // Remove requirement to verify redirect
+        window.removeEventListener("beforeunload", verify_unload);
 
-          // Add interactions to the data variable
-          var interaction_data = jsPsych.data.getInteractionData();
-          jsPsych.data.get().addToLast({interactions: interaction_data.json()});
+        // Add interactions to the data variable
+        var interaction_data = jsPsych.data.getInteractionData();
+        jsPsych.data.get().addToLast({interactions: interaction_data.json()});
 
-          // Display jsPsych data in viewport.
-          // jsPsych.data.displayData();
+        // Display jsPsych data in viewport.
+        // jsPsych.data.displayData();
 
-          if (low_quality) {
+        if (low_quality) {
 
-            // Save rejected dataset to disk.
-            reject_data('1011');
+          // Save rejected dataset to disk.
+          reject_data('1011');
 
-          } else {
+        } else {
 
-            // Save complete dataset to disk.
-            pass_data("{{workerId}}", "{{assignmentId}}", "{{hitId}}",  "{{a}}", "{{tp_a}}", "{{b}}", "{{tp_b}}", "{{c}}", "{{tp_c}}");
-
-          }
+          // Save complete dataset to disk.
+          pass_data("{{workerId}}", "{{assignmentId}}", "{{hitId}}",  "{{a}}", "{{tp_a}}", "{{b}}", "{{tp_b}}", "{{c}}", "{{tp_c}}");
 
         }
+
+      }
 
     })
 

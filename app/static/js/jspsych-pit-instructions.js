@@ -26,7 +26,7 @@ jsPsych.plugins["pit-instructions"] = (function() {
         pretty_name: 'Robot rune',
         array: true,
         default: [],
-        description: 'Rune to display on robot. Should be same length as pages.'
+        description: 'Filenames of rune images in static folder. Should be same length as pages.'
       },
       scanner_colors: {
         type: jsPsych.plugins.parameterType.HTML_STRING,
@@ -127,7 +127,7 @@ jsPsych.plugins["pit-instructions"] = (function() {
     // Prepare robot runes.
     var robot_runes = [];
     for (var i=0; i<trial.pages.length; i++){
-      robot_runes.push( trial.robot_runes[i] == undefined ? '' : `<img src="../static/img/rune${trial.robot_runes[i]}.png" style="height: 100%; width: 100%; object-fit: contain">` );
+      robot_runes.push( trial.robot_runes[i] == undefined ? '' : `<img src="../static/img/${trial.robot_runes[i]}.png" style="height: 100%; width: 100%; object-fit: contain">` );
     }
 
     // Initialize scanner colors.

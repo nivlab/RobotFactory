@@ -2,7 +2,7 @@
 // Define questionnaires.
 //------------------------------------//
 
-var AS_stimuli = [
+var slider_stimuli = [
   '../static/img/slider_track.png',
   '../static/img/AS_intensity_cue.png',
   '../static/img/AS_unhappy.png',
@@ -20,17 +20,7 @@ var VALENCE = {
   slider_type: 'valence',
   left_anchor: 2, // indexes into the AS_stimuli array
   right_anchor: 3, // indexes into the AS_stimuli array
-  AS_stimuli: AS_stimuli
-}
-
-// Arousal slider
-var AROUSAL = {
-  type: 'affective-slider',
-  prompt: 'Please rate your current mood from completely calm (left) to wide awake (right).',
-  slider_type: 'arousal',
-  left_anchor: 4, // indexes into the AS_stimuli array
-  right_anchor: 5, // indexes into the AS_stimuli array
-  AS_stimuli: AS_stimuli
+  AS_stimuli: slider_stimuli
 }
 
 // Generalized anxiety disorder questionnaire
@@ -79,7 +69,7 @@ var SUDU = {
     "Have there been periods lasting several days or more when you were so down in the dumps that you thought you might never snap out of it?",
     "Have you had times when your thoughts and ideas came so fast that you couldn't get them all out, or they came so quickly that others complained that they couldn't keep up with your ideas?",
     "Have there been times when you have felt that you would be better off dead?",
-    "Have there been times of a couple days or more when you were able to stop breathing entirely (without aid of medical equipment)?"
+    "Have there been times of a couple days or more when you were able to stop breathing entirely (without the aid of medical equipment)?"
   ],
   scale: [
     "Never or<br>hardly ever",
