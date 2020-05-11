@@ -31,9 +31,18 @@
     <body></body>
     <script>
 
+    // Display alert message on back/refresh.
+    // https://developer.mozilla.org/en-US/docs/Web/API/WindowEventHandlers/onbeforeunload
+    function verify_unload(e){
+      e.preventDefault();
+      (e || window.event).returnValue = null;
+      return null;
+    };
+    window.addEventListener("beforeunload", verify_unload);
+
     // Add version metadata.
     jsPsych.data.addProperties({
-      task_version: '0.4.1',
+      task_version: '0.4.2',
     });
 
     // Define images to preload.
@@ -69,6 +78,9 @@
         preload_images: preload_images,
         show_progress_bar: true,
         on_finish: function() {
+
+          // Remove requirement to verify redirect
+          window.removeEventListener("beforeunload", verify_unload);
 
           // Add interactions to the data variable
           var interaction_data = jsPsych.data.getInteractionData();
