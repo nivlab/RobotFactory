@@ -13,14 +13,16 @@ var slider_stimuli = [
   '../static/img/slider_thumb_unselected.png'
 ];
 
-// Valence slider
-var VALENCE = {
+// Affective slider
+var SLIDER = {
   type: 'affective-slider',
-  prompt: 'Please rate your current mood from completely sad (left) to completely happy (right).',
+  prompt: 'Before we get started, please rate your current mood from completely sad (left) to completely happy (right).',
   slider_type: 'valence',
   left_anchor: 2, // indexes into the AS_stimuli array
   right_anchor: 3, // indexes into the AS_stimuli array
-  AS_stimuli: slider_stimuli
+  AS_stimuli: slider_stimuli,
+  initial_silent_duration: 500,
+  initial_blank_duration: 0
 }
 
 // Generalized anxiety disorder questionnaire

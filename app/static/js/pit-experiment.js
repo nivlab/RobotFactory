@@ -48,6 +48,10 @@ const max_errors = 1;
 // Define quality threshold.
 const threshold = 0.90;
 
+// Define payment.
+const completion_bonus = 1.00;
+const performance_bonus = 1.00;
+
 //------------------------------------//
 // Define images for preloading.
 //------------------------------------//
@@ -134,8 +138,8 @@ var INSTRUCTIONS_03 = {
       "When a robot is scanned, it will reveal a <b>symbol</b> on its<br>chestplate. This symbol will mark whether a robot is<br>complete or incomplete.",
       "Pay close attention to the symbol as it will help you<br>decide whether to accept (press SPACE)<br>or reject (do nothing) the robot.",
       "<b>Be aware:</b> Sometimes the scanner will malfunction and<br>provide you incorrect feedback. That is, it may provide<br>you the wrong number of points based on your judgment.",
-      "At the end of the task, the total number of points you've<br>earned will be converted into a performance bonus.",
-      "Next, we will ask you some questions about the task.",
+      "At the end of the task, the total number of points you've<br>earned will be converted into a <b>performance bonus.</b>",
+      "Next, we will ask you some questions about the task.<br>You need to answer all questions correctly to proceed.",
     ],
     robot_runes: [
       undefined,
@@ -172,10 +176,10 @@ var COMPREHENSION = {
 
 var INSTRUCTIONS = {
   timeline: [
-    INSTRUCTIONS_01,
-    PRACTICE_GO,
-    INSTRUCTIONS_02,
-    PRACTICE_NO_GO,
+    // INSTRUCTIONS_01,
+    // PRACTICE_GO,
+    // INSTRUCTIONS_02,
+    // PRACTICE_NO_GO,
     INSTRUCTIONS_03,
     COMPREHENSION
   ],
@@ -273,7 +277,6 @@ for (var b=0; b<2; b++) {
   }
 
 }
-console.log(PIT)
 
 //------------------------------------//
 // Define quality check
@@ -311,10 +314,11 @@ var QUALITY_CHECK = {
 //------------------------------------//
 
 // Define ready screen.
-var READY = {
+var READY_01 = {
   type: 'pit-instructions',
   pages: [
-    "Get ready to begin the task.<br><br>Good luck!",
+    "Great job! You've passed the comprehension check.",
+    "Get ready to begin <b>Block 1/4</b>. It will take ~3 minutes.<br>Press any key when you're ready to start.",
   ],
   show_clickable_nav: true,
   button_label_previous: "Prev",
@@ -324,24 +328,92 @@ var READY = {
   }
 }
 
-// Define pause screen.
-var PAUSE = {
-  type: 'pit-pause',
+var READY_02 = {
+  type: 'pit-instructions',
+  pages: [
+    "Take a break for a few moments and press any button when you are ready to continue.",
+    "Get ready to begin <b>Block 2/4</b>. It will take ~3 minutes.<br>Press any key when you're ready to start.",
+  ],
+  show_clickable_nav: true,
+  button_label_previous: "Prev",
+  button_label_next: "Next",
   on_finish: function(trial) {
     pass_message('starting block 2');
   }
-};
+}
+
+var READY_03 = {
+  type: 'pit-instructions',
+  pages: [
+    "Take a break for a few moments and press any button when you are ready to continue.",
+    "In the final two blocks, you will judge <b>brand new robots</b>.",
+    "Get ready to begin <b>Block 3/4</b>. It will take ~3 minutes.<br>Press any key when you're ready to start.",
+  ],
+  show_clickable_nav: true,
+  button_label_previous: "Prev",
+  button_label_next: "Next",
+  on_finish: function(trial) {
+    pass_message('starting block 3');
+  }
+}
+
+var READY_04 = {
+  type: 'pit-instructions',
+  pages: [
+    "Take a break for a few moments and press any button when you are ready to continue.",
+    "Get ready to begin <b>Block 4/4</b>. It will take ~3 minutes.<br>Press any key when you're ready to start.",
+  ],
+  show_clickable_nav: true,
+  button_label_previous: "Prev",
+  button_label_next: "Next",
+  on_finish: function(trial) {
+    pass_message('starting block 4');
+  }
+}
 
 // Define finish screen.
 var FINISHED = {
   type: 'pit-instructions',
   pages: [
-    "Great job! You've finished the task.<br><br>Now you will complete a few short surveys.",
+    "Great job! You've finished the task.<br><br>Now you will complete 4 short surveys.",
   ],
   show_clickable_nav: true,
   button_label_previous: "Prev",
   button_label_next: "Next",
   on_finish: function(trial) {
     pass_message('starting surveys');
+  }
+}
+
+// Define feedback screen.
+var FEEDBACK = {
+  stimulus: '',
+  type: 'html-keyboard-response',
+  on_start: function(trial) {
+
+    // Compute overall accuracy.
+    var accuracy = jsPsych.data.get().filter([{Block: 1}, {Block:2}]).select('Accuracy');
+    var accuracy = accuracy.mean();
+
+    // Compute payment.
+    var bonus = completion_bonus + Math.ceil(performance_bonus * accuracy * 100) / 100;
+    var total = completion_bonus + performance_bonus;
+
+    // Report accuracy to subject.
+    trial.stimulus = `You earned a bonus of $${bonus} out of $${total}.<br><br>Press any key to complete the experiment.`
+
+  },
+  on_finish: function(trial) {
+
+    // Compute overall accuracy.
+    var accuracy = jsPsych.data.get().filter([{Block: 1}, {Block:2}]).select('Accuracy');
+    var accuracy = accuracy.mean();
+    trial.accuracy = accuracy;
+
+    // Compute payment.
+    var bonus = completion_bonus + Math.ceil(performance_bonus * accuracy * 100) / 100;
+    var total = completion_bonus + performance_bonus;
+    trial.bonus = bonus;
+
   }
 }

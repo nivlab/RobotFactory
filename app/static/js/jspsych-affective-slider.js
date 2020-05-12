@@ -42,7 +42,7 @@ jsPsych.plugins["affective-slider"] = (function() {
       },
       AS_dimensions: {
         type: jsPsych.plugins.parameterType.INT, // BOOL, STRING, INT, FLOAT, FUNCTION, KEYCODE, SELECT, HTML_STRING, IMAGE, AUDIO, VIDEO, OBJECT, COMPLEX
-        default: [900, 350],
+        default: [1000, 350],
         description: 'The dimensions [width, height] of the html canvas on which the affective slider is drawn'
       },
       AS_border_width: {
