@@ -49,8 +49,8 @@ const max_errors = 1;
 const threshold = 0.90;
 
 // Define payment.
-const completion_bonus = 1.00;
-const performance_bonus = 1.00;
+const completion_bonus = 0.00;
+const performance_bonus = 1.50;
 
 //------------------------------------//
 // Define images for preloading.
