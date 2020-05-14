@@ -43,9 +43,11 @@ const trial_duration = 1500;         // Duration of trial (response phase)
 const feedback_duration = 1000;      // Duration of feedback (minimum)
 
 // Define comprehension threshold.
-const max_errors = 1;
+var max_errors = 0;
+var max_loops = 2;
+var num_loops = 0;
 
-// Define quality threshold.
+// Define accuracy threshold.
 const threshold = 0.90;
 
 // Define payment.
@@ -76,7 +78,10 @@ var INSTRUCTIONS_01 = {
     ],
     show_clickable_nav: true,
     button_label_previous: "Prev",
-    button_label_next: "Next"
+    button_label_next: "Next",
+    on_start: function(trial) {
+      pass_message('starting instructions');
+    }
 }
 
 var PRACTICE_GO = {
@@ -190,11 +195,25 @@ var INSTRUCTIONS = {
 
     // Check if instructions should repeat.
     if (num_errors > max_errors) {
-      return true;
+      num_loops++;
+      if (num_loops >= max_loops) {
+        low_quality = true;
+        return false;
+      } else {
+        return true;
+      }
     } else {
       return false;
     }
 
+  }
+}
+
+var COMPREHENSION_CHECK = {
+  type: 'call-function',
+  func: function(){},
+  on_finish: function(trial) {
+    if (low_quality) { jsPsych.endExperiment(); }
   }
 }
 
@@ -281,8 +300,10 @@ for (var b=0; b<2; b++) {
 //------------------------------------//
 // Define quality check
 //------------------------------------//
+// Check PIT accuracy after first block. Reject participants
+// who respond consistently (go or no-go) on 90% or more trials.
 
-var quality_check = function() {
+var accuracy_check = function() {
 
   // Compute metadata.
   var choices = jsPsych.data.get().filter({Block: 1}).select('Choice');
@@ -300,9 +321,9 @@ var quality_check = function() {
   return low_quality;
 }
 
-var QUALITY_CHECK = {
+var ACCURACY_CHECK = {
   type: 'call-function',
-  func: quality_check,
+  func: accuracy_check,
   on_finish: function(trial) {
     low_quality = jsPsych.data.getLastTrialData().values()[0].value;
     if (low_quality) { jsPsych.endExperiment(); }
@@ -318,7 +339,7 @@ var READY_01 = {
   type: 'pit-instructions',
   pages: [
     "Great job! You've passed the comprehension check.",
-    "Get ready to begin <b>Block 1/4</b>. It will take ~3 minutes.<br>Press any key when you're ready to start.",
+    "Get ready to begin <b>Block 1/4</b>. It will take ~3 minutes.<br>Press next when you're ready to start.",
   ],
   show_clickable_nav: true,
   button_label_previous: "Prev",
@@ -332,7 +353,7 @@ var READY_02 = {
   type: 'pit-instructions',
   pages: [
     "Take a break for a few moments and press any button when you are ready to continue.",
-    "Get ready to begin <b>Block 2/4</b>. It will take ~3 minutes.<br>Press any key when you're ready to start.",
+    "Get ready to begin <b>Block 2/4</b>. It will take ~3 minutes.<br>Press next when you're ready to start.",
   ],
   show_clickable_nav: true,
   button_label_previous: "Prev",
@@ -347,7 +368,7 @@ var READY_03 = {
   pages: [
     "Take a break for a few moments and press any button when you are ready to continue.",
     "In the final two blocks, you will judge <b>brand new robots</b>.",
-    "Get ready to begin <b>Block 3/4</b>. It will take ~3 minutes.<br>Press any key when you're ready to start.",
+    "Get ready to begin <b>Block 3/4</b>. It will take ~3 minutes.<br>Press next you're ready to start.",
   ],
   show_clickable_nav: true,
   button_label_previous: "Prev",
@@ -361,7 +382,7 @@ var READY_04 = {
   type: 'pit-instructions',
   pages: [
     "Take a break for a few moments and press any button when you are ready to continue.",
-    "Get ready to begin <b>Block 4/4</b>. It will take ~3 minutes.<br>Press any key when you're ready to start.",
+    "Get ready to begin <b>Block 4/4</b>. It will take ~3 minutes.<br>Press next when you're ready to start.",
   ],
   show_clickable_nav: true,
   button_label_previous: "Prev",
@@ -375,14 +396,11 @@ var READY_04 = {
 var FINISHED = {
   type: 'pit-instructions',
   pages: [
-    "Great job! You've finished the task.<br><br>Now you will complete 4 short surveys.",
+    "Great job! You've finished the task.",
   ],
   show_clickable_nav: true,
   button_label_previous: "Prev",
   button_label_next: "Next",
-  on_finish: function(trial) {
-    pass_message('starting surveys');
-  }
 }
 
 // Define feedback screen.

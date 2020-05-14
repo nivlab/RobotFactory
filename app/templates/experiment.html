@@ -56,22 +56,24 @@
 
     // Define timeline.
     var timeline = [];
-    timeline = timeline.concat(SLIDER);             // Affective slider (valence)
-    timeline = timeline.concat(INSTRUCTIONS);       // Instructions loop
-    timeline = timeline.concat(READY_01);           // Ready check (block 1)
-    timeline = timeline.concat(PIT.slice(0,60));    // PIT task (block 1)
-    timeline = timeline.concat(QUALITY_CHECK);      // Quality check (implicit)
-    timeline = timeline.concat(READY_02);           // Ready check (block 2)
-    timeline = timeline.concat(PIT.slice(60,120));  // PIT task (block 2)
-    timeline = timeline.concat(READY_03);           // Ready check (block 3)
-    timeline = timeline.concat(PIT.slice(120,180)); // PIT task (block 3)
-    timeline = timeline.concat(READY_04);           // Ready check (block 4)
-    timeline = timeline.concat(PIT.slice(180,240)); // PIT task (block 4)
-    timeline = timeline.concat(FINISHED);           // End of task
-    timeline = timeline.concat(SURVEYS);            // Questionnaires
-    timeline = timeline.concat(DEMO);               // Demographics form
-    timeline = timeline.concat(DEBRIEF);            // Debriefing form
-    timeline = timeline.concat(FEEDBACK);           // Present feedback
+    timeline = timeline.concat(SLIDER);              // Affective slider (valence)
+    timeline = timeline.concat(SURVEYS);             // Questionnaires
+    timeline = timeline.concat(INFREQUENCY_CHECK);   // Infrequency check (implicit)
+    timeline = timeline.concat(INSTRUCTIONS);        // Instructions loop
+    timeline = timeline.concat(COMPREHENSION_CHECK); // Comprehension check (implicit)
+    timeline = timeline.concat(READY_01);            // Ready check (block 1)
+    timeline = timeline.concat(PIT.slice(0,60));     // PIT task (block 1)
+    timeline = timeline.concat(ACCURACY_CHECK);      // Accuracy check (implicit)
+    timeline = timeline.concat(READY_02);            // Ready check (block 2)
+    timeline = timeline.concat(PIT.slice(60,120));   // PIT task (block 2)
+    timeline = timeline.concat(READY_03);            // Ready check (block 3)
+    timeline = timeline.concat(PIT.slice(120,180));  // PIT task (block 3)
+    timeline = timeline.concat(READY_04);            // Ready check (block 4)
+    timeline = timeline.concat(PIT.slice(180,240));  // PIT task (block 4)
+    timeline = timeline.concat(FINISHED);            // End of task
+    timeline = timeline.concat(DEMO);                // Demographics form
+    timeline = timeline.concat(DEBRIEF);             // Debriefing form
+    timeline = timeline.concat(FEEDBACK);            // Present feedback
 
     jsPsych.init({
       timeline: timeline,
@@ -89,7 +91,7 @@
         // Display jsPsych data in viewport.
         // jsPsych.data.displayData();
 
-        if (low_quality) {
+        if (low_quality || num_loops >= max_loops) {
 
           // Save rejected dataset to disk.
           reject_data('1011');

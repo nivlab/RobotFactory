@@ -2,6 +2,19 @@
 // Define questionnaires.
 //------------------------------------//
 
+// Demographics questionnaire
+var DEMO = {
+  type: 'survey-demo',
+  data: {survey: 'demographics'}
+};
+
+// Debriefing questionnaire
+var DEBRIEF = {
+  type: 'survey-debrief',
+  data: {survey: 'debrief'}
+};
+
+// Affective slider stimuli (NOTE: must be in this order).
 var slider_stimuli = [
   '../static/img/slider_track.png',
   '../static/img/AS_intensity_cue.png',
@@ -126,14 +139,51 @@ var BISBAS = {
 // Randomize survey order
 var SURVEYS = jsPsych.randomization.repeat([GAD7, SUDU, BISBAS], 1);
 
-// Demographics questionnaire
-var DEMO = {
-  type: 'survey-demo',
-  data: {survey: 'demographics'}
-};
+//------------------------------------//
+// Define quality check
+//------------------------------------//
+// Check responses to infrequency items. Reject participants
+// who respond carelessly on 2 or more items.
 
-// Debriefing questionnaire
-var DEBRIEF = {
-  type: 'survey-debrief',
-  data: {survey: 'debrief'}
-};
+// Define infrequency item check.
+var infrequency_check = function() {
+
+  // Get infrequency items.
+  var bisbas = jsPsych.data.get().filter({survey: 'bisbas'}).select('responses').values[0]['Q13'];
+  var gad7 = jsPsych.data.get().filter({survey: 'gad7'}).select('responses').values[0]['Q08'];
+  var sudu = jsPsych.data.get().filter({survey: '7up7down'}).select('responses').values[0]['Q15'];
+  var sudu_rt = jsPsych.data.get().filter({survey: '7up7down'}).select('rt').values[0] / 1000.;
+
+  // Score items.
+  bisbas = bisbas > 1;    // Response should be [0,1]
+  gad7 = gad7 > 0;        // Response should be 0
+  sudu = sudu > 0;        // Response should be 0
+
+  // Score 7up-7down completion time.
+  if (sudu_rt < 15) {
+    sudu_rt = 2;
+  } else if (sudu_rt < 30) {
+    sudu_rt = 1;
+  } else {
+    sudu_rt = 0;
+  }
+
+  // Assess responding.
+  var num_careless = bisbas + gad7 + Math.max(sudu, sudu_rt);
+  if (num_careless < 2) {
+    var low_quality = false;
+  } else {
+    var low_quality = true;
+  }
+
+  return low_quality;
+}
+
+var INFREQUENCY_CHECK = {
+  type: 'call-function',
+  func: infrequency_check,
+  on_finish: function(trial) {
+    low_quality = jsPsych.data.getLastTrialData().values()[0].value;
+    if (low_quality) { jsPsych.endExperiment(); }
+  }
+}
