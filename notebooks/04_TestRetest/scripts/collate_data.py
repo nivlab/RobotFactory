@@ -21,7 +21,9 @@ DATA = []
 for f in files:
     
     ## Load file.
-    subject = f.replace('.json','')
+    subject, session = f.replace('.json','').split('_')
+    session = session[-1]
+    
     with open(os.path.join(RAW_DIR, f), 'r') as f:
         JSON = json.load(f)
         
@@ -59,6 +61,7 @@ for f in files:
     
     ## Insert subject ID. Append.
     data.insert(0,'Subject',subject)
+    data.insert(1,'Session',session)
     DATA.append(data)    
     
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
@@ -68,18 +71,23 @@ for f in files:
     ## Initialize dictionary.
     dd = dict(
         Subject = subject, 
+        Session = session,
         Total = np.round(JSON[-1]['time_elapsed'] * 1e-3 / 60, 2)
     )
     
-    ## Gather surveys.
-    DEMO, = [dd for dd in JSON if dd['trial_type'] == 'survey-demo']
-    DEBRIEF, = [dd for dd in JSON if dd['trial_type'] == 'survey-debrief']
-    COMP = len([dd for dd in JSON if dd['trial_type'] == 'pit-comprehension'])
+    ## Demographics
+    DEMO = [dd for dd in JSON if dd['trial_type'] == 'survey-demo']
+    if DEMO:
+        DEMO, = DEMO
+        dd.update(DEMO['responses']); dd['Demo-RT'] = DEMO['rt'] * 1e-3
     
-    ## Append surveys.
-    dd.update(DEMO['responses']); dd['Demo-RT'] = DEMO['rt'] * 1e-3
+    ## Comprehension.
+    COMP = len([dd for dd in JSON if dd['trial_type'] == 'pit-comprehension'])
     dd['Comp-Loops'] = COMP
-    dd.update(DEBRIEF['responses']); dd['Debrief-RT'] = DEMO['rt'] * 1e-3
+
+    ## Debriefing
+    DEBRIEF, = [dd for dd in JSON if dd['trial_type'] == 'survey-debrief']
+    dd.update(DEBRIEF['responses']); dd['Debrief-RT'] = DEBRIEF['rt'] * 1e-3    
     
     ## Append.
     METADATA.append(dd)
@@ -87,17 +95,24 @@ for f in files:
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
     ### Assemble survey data.
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
+        
+    ## Initialize dictionary.
+    dd = dict(Subject=subject, Session = session)
+    
+    ## Add affective slider.
+    slider, = [dd for dd in JSON if dd['trial_type'] == 'affective-slider']
+    dd['Slider'] = slider['loc']
+    dd['Slider-RT'] = slider['time_elapsed'] * 1e-3
     
     ## Gather surveys.
     templates = [dd for dd in JSON if dd['trial_type'] == 'survey-template']
-        
-    ## Initialize dictionary.
-    dd = dict(Subject=subject)
     
     for prefix in ['gad7','7up7down','bisbas']:
         
         ## Extract survey.
-        survey, = [d for d in templates if d['survey']==prefix]
+        survey = [d for d in templates if d['survey']==prefix]
+        if survey: survey, = survey
+        else: continue
         
         ## Format prefix.
         if prefix == '7up7down': prefix = '7U7D'
@@ -117,9 +132,9 @@ for f in files:
     SURVEYS.append(dd)
     
 ## Concatenate data.
-DATA = concat(DATA).sort_values(['Subject','Trial'])
-SURVEYS = DataFrame(SURVEYS).sort_values(['Subject'])
-METADATA = DataFrame(METADATA).sort_values(['Subject'])
+DATA = concat(DATA).sort_values(['Subject','Session','Trial'])
+SURVEYS = DataFrame(SURVEYS).sort_values(['Subject','Session'])
+METADATA = DataFrame(METADATA).sort_values(['Subject','Session'])
 
 ## Save.
 DATA.to_csv(os.path.join(DATA_DIR, 'data.csv'), index=False)
