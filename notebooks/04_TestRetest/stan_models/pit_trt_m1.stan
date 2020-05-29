@@ -32,9 +32,6 @@ transformed data {
 
     // Number of participants
     int  N = max(sub_ix);
-
-    // Upper limit of inverse tmperature
-    real  ul = 20;
     
     // Vectorized choices
     vector[H]  y[2,T];
@@ -47,73 +44,55 @@ transformed data {
 }
 parameters {
     
-    // Inverse temperature
-    vector[2]  beta_mu_pr;
-    vector[N]  beta_c_pr;
-    vector[N]  beta_d_pr;
+    // Group-level parameters (pre-transform)
+    matrix[4,2]  mu_pr;
     
-    // Learning rate
-    vector[2]  eta_mu_pr;
-    vector[N]  eta_c_pr;
-    vector[N]  eta_d_pr;
+    // Subject-level parameters (pre-transform)
+    matrix[4,N]  theta_c_pr;
+    matrix[4,N]  theta_d_pr;
+    
+    // Parameter covariance
+    cholesky_factor_corr[4]  L_c;
+    cholesky_factor_corr[4]  L_d;
+    vector[4]  sigma_c_pr;
+    vector[4]  sigma_d_pr;
 
-    // Go bias
-    vector[2]  tau_mu_pr;
-    vector[N]  tau_c_pr;
-    vector[N]  tau_d_pr;
-    
-    // Pavlovian bias
-    vector[2]  nu_mu_pr;
-    vector[N]  nu_c_pr;
-    vector[N]  nu_d_pr;
-    
-    // Variances
-    vector<lower=0>[4] sigma_c;
-    vector<lower=0>[4] sigma_d;
-
-}
-transformed parameters {
-
-    vector<lower =  0, upper = ul>[N]  beta[2];
-    vector<lower =  0, upper =  1>[N]  eta[2];
-    vector<lower = -1, upper =  1>[N]  tau[2];
-    vector<lower = -1, upper =  1>[N]  nu[2];
-    
-    // Session 1
-    beta[1] = Phi_approx( beta_mu_pr[1] + sigma_c[1] * beta_c_pr - sigma_d[1] * beta_d_pr ) * ul;
-    eta[1]  = Phi_approx( eta_mu_pr[1] + sigma_c[2] * eta_c_pr - sigma_d[2] * eta_d_pr );
-    tau[1]  = tanh( tau_mu_pr[1] + sigma_c[3] * tau_c_pr - sigma_d[3] * tau_d_pr );
-    nu[1]   = tanh( nu_mu_pr[1] + sigma_c[4] * nu_c_pr - sigma_d[4] * nu_d_pr );
-    
-    // Session 2
-    beta[2] = Phi_approx( beta_mu_pr[2] + sigma_c[1] * beta_c_pr + sigma_d[1] * beta_d_pr ) * ul;
-    eta[2]  = Phi_approx( eta_mu_pr[2] + sigma_c[2] * eta_c_pr + sigma_d[2] * eta_d_pr );
-    tau[2]  = tanh( tau_mu_pr[2] + sigma_c[3] * tau_c_pr + sigma_d[3] * tau_d_pr );
-    nu[2]   = tanh( nu_mu_pr[2] + sigma_c[4] * nu_c_pr + sigma_d[4] * nu_d_pr );
-    
 }
 model {
-        
+       
+    // Generated quantities
+    vector[N]  beta[2];
+    vector[N]  eta[2];
+    vector[N]  tau[2];
+    vector[N]  nu[2];
+       
+    // Rotate random effects
+    matrix[4,N]  theta_c = diag_pre_multiply( exp(sigma_c_pr), L_c ) * theta_c_pr;
+    matrix[4,N]  theta_d = diag_pre_multiply( exp(sigma_d_pr), L_d ) * theta_d_pr;
+
+    // Construct individual-level parameters (session 1)
+    beta[1] = (mu_pr[1,1] + theta_c[1,:]' - theta_d[1,:]') * 10;
+    eta[1] = Phi_approx(mu_pr[2,1] + theta_c[2,:]' - theta_d[2,:]');
+    tau[1] = mu_pr[3,1] + theta_c[3,:]' - theta_d[3,:]';
+    nu[1]  = mu_pr[4,1] + theta_c[4,:]' - theta_d[4,:]';
+
+    // Construct individual-level parameters (session 2)
+    beta[2] = (mu_pr[1,2] + theta_c[1,:]' + theta_d[1,:]') * 10;
+    eta[2] = Phi_approx(mu_pr[2,2] + theta_c[2,:]' + theta_d[2,:]');
+    tau[2] = mu_pr[3,2] + theta_c[3,:]' + theta_d[3,:]';
+    nu[2]  = mu_pr[4,2] + theta_c[4,:]' + theta_d[4,:]';
+       
     // Priors
-    beta_mu_pr ~ normal(0, 1);
-    beta_c_pr ~ normal(0, 1);
-    beta_d_pr ~ normal(0, 1);
+    to_vector(mu_pr) ~ normal(0, 2);
+    to_vector(theta_c_pr) ~ normal(0, 1);
+    to_vector(theta_d_pr) ~ normal(0, 1);
     
-    eta_mu_pr ~ normal(0, 1);
-    eta_c_pr ~ normal(0, 1);
-    eta_d_pr ~ normal(0, 1);
+    L_c ~ lkj_corr_cholesky(2.0);
+    L_d ~ lkj_corr_cholesky(2.0);
+    sigma_c_pr ~ normal(0, 1);
+    sigma_d_pr ~ normal(0, 1);
     
-    tau_mu_pr ~ normal(0, 1);
-    tau_c_pr ~ normal(0, 1);
-    tau_d_pr ~ normal(0, 1);
-    
-    nu_mu_pr ~ normal(0, 1);
-    nu_c_pr ~ normal(0, 1);
-    nu_d_pr ~ normal(0, 1);
-    
-    sigma_c ~ normal(0, 2);
-    sigma_d ~ normal(0, 2);
-    
+    // Main loop
     for (i in 1:2) {
     
         // Generated quantities
@@ -148,18 +127,10 @@ model {
         
 }
 generated quantities {
-
-    // Group-level parameters
-    vector[2] beta_mu = Phi_approx(beta_mu_pr) * ul;
-    vector[2] eta_mu = Phi_approx(eta_mu_pr);
-    vector[2] tau_mu  = tanh(tau_mu_pr);
-    vector[2] nu_mu  = tanh(nu_mu_pr);
     
     // Test-retest parameters
-    vector[4] rho;
-    for (i in 1:4) {
-        rho[i] = (sigma_c[i]^2 - sigma_d[i]^2) / (sigma_c[i]^2 + sigma_d[i]^2);
-    }
-
+    vector[4] sigma_c = exp(sigma_c_pr) .* exp(sigma_c_pr);
+    vector[4] sigma_d = exp(sigma_d_pr) .* exp(sigma_d_pr);
+    vector[4] rho = (sigma_c - sigma_d) ./ (sigma_c + sigma_d);
 
 }

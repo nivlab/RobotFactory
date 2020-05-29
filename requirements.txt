@@ -2,6 +2,7 @@
 numpy
 pandas
 numba
+h5py
 
 ## Probabilistic programming libraries
 pystan >= 2.19
