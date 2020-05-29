@@ -1,5 +1,5 @@
 // Pavlovian Instrumental Transfer (PIT) Task
-// Model variant 1 (no pooling)
+// Model variant 1
 //
 // Parameters (4): 
 //   - beta: inverse temperature
