@@ -37,6 +37,7 @@ Subject,Session,Total,age,gender-categorical,gender-free-response,ethnicity,race
 4czoxtp58q3xntzt3xinuxym,3,25.92,,,,,,,,,1,3,4,5,Just tried to remember what typically paid out what.,,12.725735000000103
 4dymnxa4iq2lis85044q2d18,1,21.71,30,Female,,Not Hispanic or Latino,White,Yes,Very well,15.010689999908209,1,3,2,4,no strategies ,no issues or concerns,19.68036999972537
 4dymnxa4iq2lis85044q2d18,2,19.34,,,,,,,,,1,3,4,5,didn't write anything down but just went with a answer for each until it was proven incorrect etc,no issues or concerns,44.23644499992952
+4dymnxa4iq2lis85044q2d18,3,18.64,,,,,,,,,1,5,4,5,didn't write anything down but just went with a answer for each until it was proven incorrect etc,"no issues or concerns, enjoyable task. ",23.123124999925494
 4h35z4tknl9w66kawo0m99q7,1,17.07,21,Female,,Not Hispanic or Latino,White,Yes,Very well,6.923630000004778,1,4,3,5,no,,10.733859999993001
 4h35z4tknl9w66kawo0m99q7,2,20.99,,,,,,,,,1,3,4,5,None,,9.046360000000336
 4h35z4tknl9w66kawo0m99q7,3,16.5,,,,,,,,,1,5,5,5,I did not,,8.504495000001043
@@ -49,6 +50,7 @@ Subject,Session,Total,age,gender-categorical,gender-free-response,ethnicity,race
 4slss2knn07mc55jjvf9mr9n,3,18.01,,,,,,,,,1,3,4,5,"Most of the time I memorize the symbols, sometimes I just use intuition",,25.01043500006199
 4v07twzd8u7flz37znyp5ahi,1,24.59,31,Male,,Hispanic or Latino,White,Yes,Very well,12.663,1,2,4,5,"I basically just tried to remember, by memory, which patterns/shapes were good or bad based on trial and error.",This was a fun and interesting study. Thank you for the opportunity to participate!,66.949
 4v07twzd8u7flz37znyp5ahi,2,19.15,,,,,,,,,1,4,4,5,"My stategy was to use trial and error at first. I would memorize which shapes would, on average, give the better payout. Once I felt comfortable knowing which were the ""good"" shapes, I would memorize them.",Thank you!,95.60300000000001
+4v07twzd8u7flz37znyp5ahi,3,19.08,,,,,,,,,1,4,4,5,"I just used trial and error at first to learn which symbols I should press space for, and which ones I shouldn't. Then, once I had them memorized, I knew what to do.",Thank you!,86.568
 4v17v6gmgneye8dtdtc24edi,1,21.98,31,Male,,Not Hispanic or Latino,White,Yes,Very well,15.726090000011027,1,4,3,4,"trial and error, once I feel one is locked down focus on the next until all are clear.",Thanks!,55.542444999999134
 4v17v6gmgneye8dtdtc24edi,2,18.3,,,,,,,,,1,5,4,5,first guess was a guess then after a few sticking with which seems correct. ,Thanks!,33.68310999998357
 4v17v6gmgneye8dtdtc24edi,3,27.44,,,,,,,,,1,5,4,5,"It's usually clear after 1 set of 4, maybe needs 2 or 3 if I get a badly timed malfunction. ","Curious what you could be studying, thanks!",70.60300499999732
@@ -71,8 +73,10 @@ Subject,Session,Total,age,gender-categorical,gender-free-response,ethnicity,race
 6jh3218tkyseo1xlzimcqvys,3,19.86,,,,,,,,,1,5,4,5,No.,No.,35.20866999999993
 6p1y7pl0nlfw1wn9m9hgqftk,1,21.31,47,Female,,Not Hispanic or Latino,White,Yes,Very well,15.693999999999535,1,2,4,5,tried to remember,Thank You,26.65100000000163
 6p1y7pl0nlfw1wn9m9hgqftk,2,19.77,,,,,,,,,1,3,5,5,tried to remember,"Thank You, it was fun.",31.860000000000465
+6p1y7pl0nlfw1wn9m9hgqftk,3,17.88,,,,,,,,,1,4,5,5,tried to remember,I like this game. ,22.413000000000583
 6ueg047d0lkoiwaz3lddkv03,1,20.51,27,Male,,Not Hispanic or Latino,White,Yes,Very well,14.310279999976046,2,4,4,5,No,No,15.639244999969378
 6ueg047d0lkoiwaz3lddkv03,2,19.53,,,,,,,,,1,4,4,5,No,No,11.37335000000894
+6ueg047d0lkoiwaz3lddkv03,3,16.94,,,,,,,,,1,5,4,5,No,No,12.15293000001111
 6v44zezjk7c1zcphfa0gtc1c,1,22.3,30,Female,,Not Hispanic or Latino,White,Yes,Very well,14.595290000000968,1,5,5,5,"yes, i noticed which ones gave 10 more often and minus 10 .",thanks was unique,48.6351800000011
 6v44zezjk7c1zcphfa0gtc1c,2,18.97,,,,,,,,,1,3,5,5,"yes, i noticed which ones gave 10 more often and minus 10 .Also stick with with the ones that gave better numbers despite the error of the scanner once in a while.",thank you,68.51491500000166
 6v44zezjk7c1zcphfa0gtc1c,3,19.36,,,,,,,,,1,3,5,5,after figuring out which ones give me more and less and which ones took off less and more i  kept selecting them even if there was glitches at times.,thank you,120.17929499999445
@@ -86,6 +90,7 @@ Subject,Session,Total,age,gender-categorical,gender-free-response,ethnicity,race
 7gafs5x9i6b9bxf0gh9icj2g,1,22.59,54,Male,,Not Hispanic or Latino,White,Yes,Very well,18.029694999997503,2,4,4,5,no,,19.218635000001175
 7iv5iyrqps4pg6vrc61221ul,1,28.06,38,Male,,Not Hispanic or Latino,White,Yes,Very well,23.15329500000016,1,4,3,4,"I found that two shapes in each block were the ones to approve. I made some initial guesses to determine them, then stuck with those two.",none,39.05451999999792
 7iv5iyrqps4pg6vrc61221ul,2,20.48,,,,,,,,,1,3,5,5,"I tried to select many at the beginning to determine the ones to approve. Once I found that, I just stuck with those two to approve",none,83.80108499999996
+7iv5iyrqps4pg6vrc61221ul,3,212.26,,,,,,,,,1,3,4,5,I tried to focus on the two images that provided the greatest value and stuck with those the entire time,none,30.46374999999814
 82qtd6kuuhj5kbi23lh9ebcj,1,23.78,39,Female,,Not Hispanic or Latino,Asian,Yes,Very well,14.47297500000056,2,1,4,4,I memorize patterns and color patterns to gain points.,very challenging task but it was fun.,93.06478500000038
 84bneiymbaj8wii2y89ot9pm,1,23.66,33,Male,,Not Hispanic or Latino,Asian,Yes,Very well,18.362000000000002,1,3,4,5,No.,,22.939
 84bneiymbaj8wii2y89ot9pm,2,19.18,,,,,,,,,1,2,4,5,No.,,18.709
@@ -96,6 +101,7 @@ Subject,Session,Total,age,gender-categorical,gender-free-response,ethnicity,race
 97sn4yno3bhp0q9qiwh8ga0i,1,25.13,38,Female,,Not Hispanic or Latino,White,Yes,Very well,13.341799999994691,1,3,4,4,no,none,12.182200000039302
 9kg42bzf48f7hbwsvb15dcdw,1,33.78,23,Female,,Not Hispanic or Latino,Black or African American,Yes,Very well,13.607849999913014,2,3,3,4,None,none,14.823655000072904
 9kg42bzf48f7hbwsvb15dcdw,2,26.07,,,,,,,,,1,3,3,4,none,none,13.764819999996806
+9kg42bzf48f7hbwsvb15dcdw,3,18.81,,,,,,,,,2,4,4,4,none,none,20.02656999998726
 a74ii84ekpz0ewjmteuoo4tj,1,25.78,38,Female,,Hispanic or Latino,White,Yes,Very well,38.92709000001196,1,4,5,5,focus to gain bonus points,interesting task,61.71003000001656
 a999bxrmsrbho722z3h1ixwx,1,20.8,36,Male,,Not Hispanic or Latino,White,Yes,Very well,13.51878000004217,1,3,2,5,No,,12.997715000063181
 a999bxrmsrbho722z3h1ixwx,2,17.37,,,,,,,,,1,4,3,5,Just memory,,17.18144499999471
@@ -107,6 +113,7 @@ cfa2axc94u0j5uq6vkm6ws3k,1,21.09,33,Female,,Not Hispanic or Latino,White,Yes,Ver
 cfa2axc94u0j5uq6vkm6ws3k,2,20.6,,,,,,,,,1,3,4,5,memorizing and putting words to the symbols,,26.040509999962524
 coz12o3u8bejfxzrobndpgvr,1,20.69,21,Male,,Hispanic or Latino,White,Yes,Very well,13.274329999927431,1,4,5,4,took a mental note of initial incorrect/correct choices to establish the pattern of what icons were correct to pass and which to not.,n/a,69.134190000128
 coz12o3u8bejfxzrobndpgvr,2,18.47,,,,,,,,,2,5,5,5,Just memorized which icons were correct and which were incorrect. Also stopped looking at the point counter as sometimes it would malfunction and I didn't need that clouding my judgement after I already knew what was correct and what was incorrect.,"Perhaps it would be interesting if the different lights used some of the same symbols, where in one light they were correct but in the other they weren't. ",99.95617000001948
+coz12o3u8bejfxzrobndpgvr,3,17.95,,,,,,,,,1,4,5,5,Tried to establish  as early as possible what symbols were right and which were wrong (initial malfunctions made this method more difficult as it misled me as to which were right and which were wrong as opposed to earlier trials of this experiment),n/a,102.02693000002182
 cspu6oze190o8a7gb4wvbkgp,1,26.19,44,Female,,Not Hispanic or Latino,White,Yes,Very well,16.560754999998725,1,4,5,5,Didn't write anything down. I associated the symbols with yes (space) or no (nothing) to help me remember. Towards the end I thought I should see if there was a pattern to how they were coming and whether or not a change in the pattern would cause the robot to misfunction. I wish I would have thought to do this sooner because I'm curious if there was a rhyme or reason to when it would malfunction.,The malfunctioning was frustrating and very confusing at first...sometimes I thought I was going crazy until I figured out for sure which symbol went with accepting/rejecting. It was a really fun task and I'd love to do more!,232.0707449999971
 cspu6oze190o8a7gb4wvbkgp,2,24.78,,,,,,,,,1,4,5,5,No writing. Just tried to remember when to accept once I figured out which symbols meant what.,Fun! I am still not sure if there's a rhyme or reason to when/why it malfunctions. I'm determined to figure it out!,190.30896000005305
 cspu6oze190o8a7gb4wvbkgp,3,20.33,,,,,,,,,1,4,5,5,Didn't write anything down. It was pretty easy to remember once I figured out which symbols went with what. I realized early on that each color has exactly one reject and one accept so that helps me sort it out a bit quicker.,Still trying to figure out if there's a rhyme or reason to the malfunctioning...it's making me crazy! ha ha,125.15063499996904
@@ -119,6 +126,7 @@ dg4z3jsbfn20de6i05xme8h3,2,19.07,,,,,,,,,1,3,5,5,Remembering which symbols paid 
 dg4z3jsbfn20de6i05xme8h3,3,19.93,,,,,,,,,1,4,5,5,Pattern recognition for good and bad choices,"None, thank you.",66.19248500000685
 dg96lmcvm2b8cwvc7zwcmqd5,1,21.44,31,Male,,Not Hispanic or Latino,Asian,Yes,Very well,9.131450000000653,1,1,5,4,"No, I tried to juggle the signs and symbols in my head; then I tried to account for when the machine ""malfunctioned"" or flipped the signs around.",Fun task.,30.901540000006325
 dg96lmcvm2b8cwvc7zwcmqd5,2,17.09,,,,,,,,,1,3,4,5,"I tried to figure out what was right early on and I ignored the ""malfunctions.""  In other words, I stuck with one strategy and ignored any machine deviations.",N/A,28.2538249999634
+dg96lmcvm2b8cwvc7zwcmqd5,3,17.02,,,,,,,,,1,3,2,4,"No, I just tried to gauge when the machine was malfunctioning and how frequently I was getting the task right. ",No.,27.731280000007246
 dh7lweje6pjihtj1gak632sw,1,30.82,31,Male,,Not Hispanic or Latino,Asian,Yes,Very well,9.151764999998733,1,4,3,5,No,,12.40625
 drf5o1lo33plcbhrkknsm4kz,1,18.57,36,Male,,Not Hispanic or Latino,White,Yes,Very well,15.98903500000597,1,2,1,5,No I just tried to work off memory,,19.676464999996824
 drf5o1lo33plcbhrkknsm4kz,2,17.96,,,,,,,,,1,3,1,5,No I just worked off memory,,19.54893499999889
@@ -127,6 +135,7 @@ dwmjnt76sup1g25gjedh2pfb,1,24.64,43,Female,,Not Hispanic or Latino,White,Yes,Ver
 dwmjnt76sup1g25gjedh2pfb,2,21.12,,,,,,,,,1,4,4,4,No,NA,30.062050000000514
 e7ldy6mpet45xr7wqa1ne5pw,1,18.48,35,Female,,Not Hispanic or Latino,White,Yes,Very well,10.28709500003606,1,5,3,5,No,No,10.127855000086129
 e7ldy6mpet45xr7wqa1ne5pw,2,17.88,,,,,,,,,2,4,4,5,No,No,10.422919999997365
+e7ldy6mpet45xr7wqa1ne5pw,3,16.1,,,,,,,,,1,5,3,5,NO,NO,9.534750000108033
 e7mfumj1wz7iq1qi1xiysp88,1,21.24,25,Male,,Not Hispanic or Latino,White,Yes,Very well,36.783390000000594,1,5,3,1,,,12.813604999999283
 ea0k6vqrjovnxvqd2dcivslk,1,32.19,22,Female,,Not Hispanic or Latino,White,Yes,Very well,16.976309999998193,1,2,5,5,I tried to keep repeating what I named the symbols out loud like fork and flag were good or x and tiny square are good,this was a fun task. Also the reason my answers for the questionnaire are the way they are is because I have Bi-polar disorder (yes actually diganosed) so I go through avlot of manic and depressive episodes but my manic episodes are a lot more intense. ,139.4081850000075
 ea0k6vqrjovnxvqd2dcivslk,3,19.44,,,,,,,,,1,3,5,5,I tested all of the symbold at the beginning and then went with the ones that showed correct the most amount of times,"I really like this task, its more fun than most!",67.30186999985017
@@ -258,6 +267,7 @@ u1yahm3i373lvy46e68roh9k,2,17.41,,,,,,,,,1,5,4,5,remembered the correct symbols 
 u1yahm3i373lvy46e68roh9k,3,60.64,,,,,,,,,1,5,3,5,no,Thanks for the HIT!,16.669899999998975
 ubbgbypw5bvfev15ma7swm4j,1,38.11,37,Male,,Not Hispanic or Latino,White,Yes,Very well,10.929,2,4,1,4,no,no,9.554
 ubbgbypw5bvfev15ma7swm4j,2,40.83,,,,,,,,,1,4,1,5,no,no,9.411
+ubbgbypw5bvfev15ma7swm4j,3,17.68,,,,,,,,,1,4,1,5,no,no,11.681000000000001
 ul8vo5g8rz3r5jp5zbtpznof,1,24.57,45,Male,,Not Hispanic or Latino,White,Yes,Very well,21.55110999988392,1,5,5,5,concentrated and act according to the instructions,very interactive study,47.23643000004813
 ul8vo5g8rz3r5jp5zbtpznof,2,26.42,,,,,,,,,1,5,5,5,I followed the instructions as expected ,Very interactive study ,82.9598649999972
 ul8vo5g8rz3r5jp5zbtpznof,3,29.03,,,,,,,,,1,4,5,5,focused on the light and the signs ,very interactive and interesting study,47.396365000051446
@@ -287,11 +297,13 @@ wbzt9bh8zuien3221yh6rao0,2,22.27,,,,,,,,,1,4,4,5,memorization,n/a,15.41415500000
 wbzt9bh8zuien3221yh6rao0,3,16.64,,,,,,,,,1,4,4,5,memorization,n/a,12.693604999920353
 wcl8t0q0vchm8ituba7c1ls5,1,21.04,33,Female,,Not Hispanic or Latino,White,Yes,Very well,18.682000000000002,1,2,4,4,I did not write anything down. My only strategy was figuring out how many symbols there were and which I perceived as right/wrong.,,73.789
 wcl8t0q0vchm8ituba7c1ls5,2,31.0,,,,,,,,,1,4,4,5,I did not write anything down. My only strategy was figuring out how many symbols there were and which I perceived as right/wrong.,,26.893
+wcl8t0q0vchm8ituba7c1ls5,3,17.29,,,,,,,,,1,2,3,5,I just memorized what symbols I thought were best to hit space on.,,40.89
 wstj8ff7bh0vzer63dwmis3z,1,23.93,46,Male,,Hispanic or Latino,White,Yes,Very well,43.82115000009071,1,2,4,5,no strategies,its good,51.23526999994647
 wzsrt9rz6ebtuf7xqlsmaha4,1,28.07,25,Male,,Not Hispanic or Latino,White,Yes,Very well,7.422665000000038,2,4,4,5,,,5.21418999999878
 xb2gf4at9tcsmrsjjqubddrl,1,71.68,26,Male,,Not Hispanic or Latino,White,Yes,Very well,12.029009999997914,1,4,5,5,I focused on which symbols gave me +1 or +10,,28.516824999998324
 xe4y3wjth90p0vfgki0beff4,1,18.7,57,Female,,Not Hispanic or Latino,White,Yes,Very well,18.908325000004144,1,4,4,5,no,none,16.442770000001417
 xe4y3wjth90p0vfgki0beff4,2,17.88,,,,,,,,,1,4,4,5,no,none,12.384649999963585
+xe4y3wjth90p0vfgki0beff4,3,18.49,,,,,,,,,1,4,4,5,no,none,20.06832000007853
 xet0i5hcytbgz14tmtwlr9dy,1,20.25,43,Male,,Not Hispanic or Latino,White,Yes,Very well,17.115829999998677,1,3,4,5,Just tried to remember the robots,,32.04200499999919
 xet0i5hcytbgz14tmtwlr9dy,2,17.62,,,,,,,,,1,3,4,5,I just tried to remember the robots,,24.20731500000693
 xet0i5hcytbgz14tmtwlr9dy,3,15.72,,,,,,,,,1,3,4,5,I just tried to remember the robots,It went well.,16.33684499998344
@@ -308,16 +320,19 @@ y6mtiyl0fovt18hy2cyjyhtf,1,22.83,34,Male,,Hispanic or Latino,White,Yes,Very well
 y6mtiyl0fovt18hy2cyjyhtf,2,19.1,,,,,,,,,1,5,5,5,only memorization,,17.249895000015385
 y6mtiyl0fovt18hy2cyjyhtf,3,19.33,,,,,,,,,1,5,5,5,only memorization,,18.965599999995902
 yewselly2twm866hfeimbufp,1,20.07,33,Female,,Not Hispanic or Latino,Asian,Yes,Very well,18.08712999999989,1,3,4,5,I didn't write anything down. I tried to rely on my memory,,36.838669999997364
+yewselly2twm866hfeimbufp,3,17.51,,,,,,,,,1,4,5,5,I didn't write anything down and just relied on my memory,none,36.33145499999961
 yioiqliweevmi62w56el04vm,1,19.84,27,Male,,Hispanic or Latino,Rather not say,Yes,Very well,9.420895000003046,1,4,5,5,"I did not use any strategy at all, I tried my best to memorize the rules as they came.",no comments,28.04946999999811
 yioiqliweevmi62w56el04vm,2,20.52,,,,,,,,,1,5,5,5,"I did not use any strategies, just my memorization skills",,29.02215000000433
 yioiqliweevmi62w56el04vm,3,19.68,,,,,,,,,1,5,5,5,I only used my memorization of which robots were complete and which ones were incomplete to complete the task.,,36.244965000019874
 yjj3v9gcp2jguget50879m0g,1,22.79,35,Female,,Not Hispanic or Latino,White,Yes,Very well,28.51996499998495,1,5,4,5,,,8.466699999989942
 yynz7n0qxjkm01alpqutecfa,1,18.36,29,Female,,Not Hispanic or Latino,White,Yes,Very well,9.841000000000001,1,5,4,5,no,no,10.945
 yynz7n0qxjkm01alpqutecfa,2,18.14,,,,,,,,,1,5,4,5,no,no,11.297590000001714
+yynz7n0qxjkm01alpqutecfa,3,16.21,,,,,,,,,1,5,4,5,no,no,14.046000000000001
 zfw3qz2zykuc3bgav1o9g1mv,1,25.31,40,Male,,Not Hispanic or Latino,White,Yes,Very well,9.675384999951348,1,4,4,5,no,,9.12538000009954
 zjklcju9qpwp67b3ve3bixgp,1,23.56,41,Female,,Not Hispanic or Latino,White,Yes,Very well,16.28033000000869,1,5,5,5,I tried to only click when it would light up yellow to get more points.,Thank you for the fun survey!,42.34997999999905
 zkvrjxd1s6y0lm29zrko2iab,1,21.89,25,Male,,Not Hispanic or Latino,White,Yes,Very well,11.155694999994244,1,4,4,4,,,4.090864999998128
 zp309icv0mikrt590td60goa,1,22.12,22,Female,,Not Hispanic or Latino,White,Yes,Very well,17.38442000001669,1,2,5,5,"During the second round I decided to reject everything and memorize the shapes/color combinations that shouldn't have been rejected, then make changes based on that",,63.72550499998033
 zp309icv0mikrt590td60goa,2,18.83,,,,,,,,,1,4,4,5,I rejected the first 4 robots of each batch to determine which I should have approved and remembered those symbols.,I am interested to know if the machine malfunctions in intervals.  I am attempting to track/remember the malfunctions but have not yet determined an obvious pattern.,89.21454500011168
+zp309icv0mikrt590td60goa,3,17.93,,,,,,,,,1,4,4,5,I let the first 4 robots be rejected so I know which ones I should accept for the rest of the session.,,35.536805000156164
 zs0ivt9u3ettlwl99p77nrl8,1,20.7,52,Female,,Not Hispanic or Latino,White,Yes,Very well,14.280249999836087,1,4,4,5,none,none,15.22410500003025
 zs0ivt9u3ettlwl99p77nrl8,3,18.53,,,,,,,,,2,2,4,5,none,none,11.089625000007684
