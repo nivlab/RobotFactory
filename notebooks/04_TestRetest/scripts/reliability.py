@@ -18,7 +18,7 @@ stan_model = 'pit_trt_m1'
 samples = 5000
 warmup = 4000
 chains = 4
-thin = 2
+thin = 1
 n_jobs = 4
 
 ## Metadata parameters.
@@ -35,13 +35,16 @@ data = read_csv(os.path.join(ROOT_DIR,'data','data.csv'))
 reject = read_csv(os.path.join(ROOT_DIR,'data','reject.csv'))
 data = data[~data.Subject.isin(reject.query('Reject == 1').Subject)].reset_index(drop=True)
 
-## Restrict to single session.
-data = data.query(f'Session == {arg1}')
+## Restrict to two sessions.
+data = data.query(f'Session != {arg1}')
+
+## Restrict to participants present in both sessions.
+data = data.groupby('Subject').filter(lambda x: x.Session.nunique() > 1)
 
 ## Reformat columns.
 f = lambda x: np.arange(x.size) + 1
 data['Robot'] = data.Robot.replace({'GW':0, 'NGW':1, 'GAL':2, 'NGAL':3})
-data['Exposure'] = data.groupby(['Subject','Block','Robot']).Trial.transform(f)
+data['Exposure'] = data.groupby(['Subject','Session','Block','Robot']).Trial.transform(f)
 data['Outcome'] = data.Outcome.replace({10:1, 1:0, -1:0, -10:-1})
 data['Congruent'] = 1 - np.logical_xor(data.Valence == 'Win', data.Choice)
 
@@ -51,11 +54,11 @@ data['Congruent'] = 1 - np.logical_xor(data.Valence == 'Win', data.Choice)
 
 ## Define metadata.
 T = data.Exposure.max()
-H = data.Subject.nunique() * data.Robot.nunique()
+H = data.Subject.nunique() * data.Block.nunique() * data.Robot.nunique()
 
 ## Define data.
-R = data.pivot_table('Outcome',('Block','Subject','Robot'),'Exposure').values
-Y = data.pivot_table('Choice',('Block','Subject','Robot'),'Exposure').values
+R = data.pivot_table('Outcome',('Session','Subject','Block','Robot'),'Exposure').values
+Y = data.pivot_table('Choice',('Session','Subject','Block','Robot'),'Exposure').values
 K = data.pivot_table('Congruent',('Session','Subject','Block','Robot'),'Exposure').values
 
 ## Reshape data.
@@ -64,7 +67,7 @@ Y = np.moveaxis(Y.reshape(2,H,T).T, 2, 0)
 K = np.moveaxis(K.reshape(2,H,T).T, 2, 0)
 
 ## Define mappings.
-pivot = data.pivot_table('Choice',('Subject','Robot'),'Exposure')
+pivot = data.pivot_table('Choice',('Subject','Block','Robot'),'Exposure')
 sub_ix = np.unique(pivot.index.get_level_values(0), return_inverse=True)[-1] + 1
 pav_ix = np.where(pivot.index.get_level_values(1) < 2, 1, -1)
 
@@ -89,7 +92,7 @@ StanDict = StanFit.extract()
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
 
 ## Define output paths.
-filepath = os.path.join(ROOT_DIR,'stan_results',f'dependability_t{session}')
+filepath = os.path.join(ROOT_DIR,'stan_results',f'reliability_t{session}')
 
 ## Save summary file.
 summary = StanFit.summary()
