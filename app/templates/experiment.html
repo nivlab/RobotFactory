@@ -15,7 +15,7 @@
 
   <!-- Load CSS styles -->
   <link href="../static/lib/jspsych-6.1.0/css/jspsych.css" rel="stylesheet" type="text/css"></link>
-  <link href="../static/css/cards-css.min.css" rel="stylesheet" type="text/css"></link>
+  <link href="../static/css/pit-css.min.css" rel="stylesheet" type="text/css"></link>
 
 </head>
 <body></body>
@@ -30,9 +30,15 @@
   };
   window.addEventListener("beforeunload", verify_unload);
 
+  var trial = {
+    type: 'pit-trial',
+    valence: 'win',
+    image: '../static/img/animals/svg/albatross-bird-shape.svg',
+    animation_duration: 1200
+  }
 
   // Initialize timeline.
-  var timeline = [likert_page];
+  var timeline = [trial, trial, trial, trial, trial];
 
   jsPsych.init({
     timeline: timeline,
@@ -47,10 +53,10 @@
       jsPsych.data.get().addToLast({interactions: interaction_data.json()});
 
       // Display jsPsych data in viewport.
-      // jsPsych.data.displayData();
+      jsPsych.data.displayData();
 
       // Save complete dataset to disk.
-      redirect_success("{{workerId}}", "{{assignmentId}}", "{{hitId}}", "{{code_success}}");
+      // redirect_success("{{workerId}}", "{{assignmentId}}", "{{hitId}}", "{{code_success}}");
 
       // Save rejected dataset to disk.
       // redirect_reject("{{workerId}}", "{{assignmentId}}", "{{hitId}}", "{{code_reject}}");

@@ -77,35 +77,37 @@ jsPsych.plugins["pit-trial"] = (function() {
     // Add card game wrap.
     new_html += '<div class="pit-game-wrap">';
 
-    //
-    new_html += '<div class="border" side="left"></div>';
-    new_html += '<div class="border" side="right"></div>';
-
     // Iteratively draw cards.
     for (let i = 4; i > 0; i--) {
 
-        // Start drawing card.
-        new_html += `<div class="flip-card" id="card-${i}">`;
-        new_html += `<div class="flip-card-inner">`;
+      // Start drawing card.
+      const id = ( i == 1 ) ? 'card-1' : '';
+      new_html += `<div class="flip-card" id="${id}" style="visibility: hidden">`;
+      new_html += '<div class="flip-card-inner">';
 
-        // Draw card front.
-        new_html += `<div class="flip-card-front" valence="${trial.valence}">`;
-        new_html += '<div class="background"></div>';
-        // if ( i == 1 ) { new_html += `<img src="${trial.image}">`; }
+      // Draw card front.
+      new_html += `<div class="flip-card-front">`;
+      new_html += '<div class="background"></div>';
+      if ( i == 1 ) {
+        new_html += `<img id="symbol" src="${trial.image}">`;
+      }
+      new_html += '</div>';
+
+      if ( i == 1 ){
+
+        // Start card back.
+        new_html += `<div class="flip-card-back">`;
         new_html += '</div>';
 
-        if ( i == 1 ){
+      }
 
-          // Start card back.
-          new_html += `<div class="flip-card-back">`;
-          new_html += '</div>';
-
-        }
-
-        // Finish card.
-        new_html += '</div></div>';
+      // Finish card.
+      new_html += '</div></div>';
 
     }
+
+    new_html += '<div class="border" side="left"></div>';
+    new_html += '<div class="border" side="right"></div>';
 
     // Close wrapper.
     new_html += '</div>';
@@ -151,9 +153,9 @@ jsPsych.plugins["pit-trial"] = (function() {
 
       // Display card flip animation.
       if ( response.key >= 0 ) {
-        document.getElementById(`card-1`).setAttribute('status', 'flip-right');
+        document.getElementById('card-1').setAttribute('status', 'flip-right');
       } else {
-        document.getElementById(`card-1`).setAttribute('status', 'flip-left');
+        document.getElementById('card-1').setAttribute('status', 'flip-left');
       }
 
       jsPsych.pluginAPI.setTimeout(function() {
@@ -188,29 +190,30 @@ jsPsych.plugins["pit-trial"] = (function() {
 
     };
 
-    // Start the response listener
-    if (trial.valid_responses != jsPsych.NO_KEYS) {
 
-      // Task keyboardListener
-      var keyboardListener = "";
-      setTimeout(function() {
-        keyboardListener = jsPsych.pluginAPI.getKeyboardResponse({
-          callback_function: after_response,
-          valid_responses: trial.valid_responses,
-          rt_method: 'performance',
-          persist: false,
-          allow_held_key: false
-        });
-      }, trial.animation_duration);
+    var keyboardListener = "";
+    setTimeout(function() {
 
-    }
+      // display stimuli
+      display_element.querySelectorAll('.flip-card').forEach( function(card) {
+          card.style['visibility'] = 'visible';
+      })
 
-    // End trial if trial_duration is set
-    if (trial.trial_duration !== null) {
+      // Start the response listener
+      keyboardListener = jsPsych.pluginAPI.getKeyboardResponse({
+        callback_function: after_response,
+        valid_responses: trial.valid_responses,
+        rt_method: 'performance',
+        persist: false,
+        allow_held_key: false
+      });
+
+      // Start the trial countdown
       jsPsych.pluginAPI.setTimeout(function() {
         after_response();
-      }, trial.animation_duration + trial.choice_duration);
-    }
+      }, trial.choice_duration);
+
+    }, trial.animation_duration);
 
 
   };

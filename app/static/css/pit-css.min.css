@@ -11,10 +11,9 @@
 }
 
 /*  */
-
 .border {
   position: absolute;
-  top: 50%;
+  top: 20%;
   width: calc(1.00 * 20vw + 3px);
   height: calc(1.33 * 20vw + 3px);
   background-color: transparent;
@@ -23,13 +22,13 @@
 }
 .border[side='left'] {
   left: calc(50% - 10vw - 20px);
-  -webkit-transform: translate(-100%, -50%);
-  transform: translate(-100%, -50%);
+  -webkit-transform: translateX(-100%);
+  transform: translateX(-100%);
 }
 .border[side='right'] {
   left: calc(50% + 10vw + 20px);
-  -webkit-transform: translate(0%, -50%);
-  transform: translate(0%, -50%);
+  -webkit-transform: translateX(0%);
+  transform: translateX(0%);
 }
 
 /* ---------------------------------- */
@@ -40,9 +39,9 @@
 .flip-card {
   position: absolute;
   left: 50%;
-  top: 50%;
-  -webkit-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
+  top: 20%;
+  -webkit-transform: translateX(-50%);
+  transform: translateX(-50%);
   width: calc(1.00 * 20vw);
   height: calc(1.33 * 20vw);
   background-color: transparent;
@@ -51,16 +50,16 @@
 
 /* Position stacks of cards */
 .flip-card:nth-child(1) {
-  top: 49.0%;
+  top: calc(19.00% + 2px);
 }
 .flip-card:nth-child(2) {
-  top: 49.33%;
+  top: calc(19.33% + 2px);
 }
 .flip-card:nth-child(3) {
-  top: 49.66%;
+  top: calc(19.66% + 2px);
 }
 .flip-card:nth-child(4) {
-  top: 50%;
+  top: calc(20.00% + 2px);
 }
 
 /* This container is needed to position the front and back side */
@@ -78,12 +77,12 @@
 .flip-card[status="flip-left"] .flip-card-inner {
   transform: rotateY(-180deg) translateX(23.5px);
   transform-origin: left;
-  transition: transform 0.5s ease-in-out;
+  transition: transform 0.35s ease-in-out;
 }
 .flip-card[status="flip-right"] .flip-card-inner {
   transform: rotateY(180deg) translateX(-24.5px);
   transform-origin: right;
-  transition: transform 0.5s;
+  transition: transform 0.35s;
 }
 
 /* Position the front and back side */
@@ -122,8 +121,6 @@
   width: 50%;
   object-fit: contain;
   backface-visibility: hidden;
-  -webkit-filter: invert(90%);
-  filter: invert(90%);
 }
 
 /* Style the back side */
@@ -141,6 +138,67 @@
   object-fit: contain;
   padding: 2px 0 2px 0;
 }
+
+/* ---------------------------------- */
+/* Loader Animation                   */
+/* ---------------------------------- */
+
+.lds-ellipsis {
+  display: inline-block;
+  position: absolute;
+  width: 80px;
+  height: 80px;
+}
+.lds-ellipsis div {
+  position: absolute;
+  top: 33px;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: #fff;
+  animation-timing-function: cubic-bezier(0, 1, 1, 0);
+}
+.lds-ellipsis div:nth-child(1) {
+  left: 8px;
+  animation: lds-ellipsis1 0.6s infinite;
+}
+.lds-ellipsis div:nth-child(2) {
+  left: 8px;
+  animation: lds-ellipsis2 0.6s infinite;
+}
+.lds-ellipsis div:nth-child(3) {
+  left: 32px;
+  animation: lds-ellipsis2 0.6s infinite;
+}
+.lds-ellipsis div:nth-child(4) {
+  left: 56px;
+  animation: lds-ellipsis3 0.6s infinite;
+}
+@keyframes lds-ellipsis1 {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes lds-ellipsis3 {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0);
+  }
+}
+@keyframes lds-ellipsis2 {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(24px, 0);
+  }
+}
+
 
 /* ---------------------------------- */
 /* Instructions                       */
