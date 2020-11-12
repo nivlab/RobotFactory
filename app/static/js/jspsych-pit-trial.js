@@ -1,10 +1,10 @@
 /**
-* jspsych-pit-trial
-* Sam Zorowitz
-*
-* plugin for running a trial of modified risk sensitivity task
-*
-**/
+ * jspsych-pit-instructions
+ * Sam Zorowitz
+ *
+ * plugin for running one trial of the robot factory PIT task
+ *
+ **/
 
 jsPsych.plugins["pit-trial"] = (function() {
 
@@ -14,41 +14,63 @@ jsPsych.plugins["pit-trial"] = (function() {
     name: 'pit-trial',
     description: '',
     parameters: {
-      valence: {
+      robot_rune: {
         type: jsPsych.plugins.parameterType.HTML_STRING,
-        pretty_name: 'Valence',
-        description: ''
+        pretty_name: 'Robot rune',
+        description: 'Filename of rune image in static folder.'
       },
-      image: {
+      scanner_color: {
         type: jsPsych.plugins.parameterType.HTML_STRING,
-        pretty_name: 'Card suit left',
-        description: ''
+        pretty_name: 'Scanner color',
+        description: 'Color of scanner light.'
+      },
+      outcome_correct: {
+        type: jsPsych.plugins.parameterType.HTML_STRING,
+        pretty_name: 'Outcome correct',
+        default: '+10',
+        description: 'Outcome to present on correct action.',
+      },
+      outcome_incorrect: {
+        type: jsPsych.plugins.parameterType.HTML_STRING,
+        pretty_name: 'Outcome incorrect',
+        default: '+10',
+        description: 'Outcome to present on incorrect action.',
+      },
+      outcome_color: {
+        type: jsPsych.plugins.parameterType.HTML_STRING,
+        pretty_name: 'Outcome color',
+        description: 'Color of outcome text.'
+      },
+      correct: {
+        type: jsPsych.plugins.parameterType.KEYCODE,
+        pretty_name: 'Correct response',
+        description: 'Correct response for trial.'
       },
       valid_responses: {
         type: jsPsych.plugins.parameterType.KEYCODE,
         array: true,
-        pretty_name: 'Valid responses',
+        pretty_name: 'Choices',
         default: [32],
         description: 'The keys the subject is allowed to press to respond to the stimulus.'
       },
-      choice_duration: {
+      animation_duration: {
+        type: jsPsych.plugins.parameterType.INT,
+        pretty_name: 'Animation duration',
+        default: 1500,
+        description: 'How long before keyboard listener should start.'
+      },
+      trial_duration: {
         type: jsPsych.plugins.parameterType.INT,
         pretty_name: 'Trial duration',
-        default: 1000,
+        default: 2000,
         description: 'How long to show trial before it ends.'
       },
       feedback_duration: {
         type: jsPsych.plugins.parameterType.INT,
         pretty_name: 'Feedback duration',
-        default: 1500,
+        default: 500,
         description: 'How long to show feedback before it ends.'
       },
-      animation_duration: {
-        type: jsPsych.plugins.parameterType.INT,
-        pretty_name: 'Feedback duration',
-        default: 900,
-        description: 'How long to show feedback before it ends.'
-      }
     }
   }
 
@@ -61,71 +83,93 @@ jsPsych.plugins["pit-trial"] = (function() {
     // Initialize HTML.
     var new_html = '';
 
-    // Insert CSS.
+    // Insert CSS (window animation).
     new_html += `<style>
     body {
       height: 100vh;
       max-height: 100vh;
       overflow: hidden;
       position: fixed;
+      background: -webkit-gradient(linear, left bottom, left top, from(#808080), color-stop(50%, #606060), color-stop(50%, rgba(28, 25, 23, 0.5)), to(rgba(179, 230, 230, 0.5)));
+      background: linear-gradient(0deg, #808080 0%, #606060 50%, #A0A0A0 50%, #D3D3D3 100%);
     }
     .jspsych-content-wrapper {
       overflow: hidden;
     }
-    </style>`;
-
-    // Add card game wrap.
-    new_html += '<div class="pit-game-wrap">';
-
-    // Iteratively draw cards.
-    for (let i = 4; i > 0; i--) {
-
-      // Start drawing card.
-      const id = ( i == 1 ) ? 'card-1' : '';
-      new_html += `<div class="flip-card" id="${id}" style="visibility: hidden">`;
-      new_html += '<div class="flip-card-inner">';
-
-      // Draw card front.
-      new_html += `<div class="flip-card-front">`;
-      new_html += '<div class="background"></div>';
-      if ( i == 1 ) {
-        new_html += `<img id="symbol" src="${trial.image}">`;
-      }
-      new_html += '</div>';
-
-      if ( i == 1 ){
-
-        // Start card back.
-        new_html += `<div class="flip-card-back">`;
-        new_html += '</div>';
-
-      }
-
-      // Finish card.
-      new_html += '</div></div>';
-
+    @-webkit-keyframes pavlovian {
+      0%    {border-bottom-color: rgba(0, 0, 0, 0);}
+      90%   {border-bottom-color: rgba(0, 0, 0, 0);}
+      100%  {border-bottom-color: ${trial.scanner_color};}
     }
+    @keyframes pavlovian {
+      0%    {border-bottom-color: rgba(0, 0, 0, 0);}
+      90%   {border-bottom-color: rgba(0, 0, 0, 0);}
+      100%  {border-bottom-color: ${trial.scanner_color};}
+    }
+     </style>`;
 
-    new_html += '<div class="border" side="left"></div>';
-    new_html += '<div class="border" side="right"></div>';
+    // Add robot factor wrapper.
+    new_html += '<div class="factory-wrap">';
+
+    // Add factory machine parts (back).
+    new_html += '<div class="machine-back"></div>';
+    new_html += '<div class="conveyor"></div>';
+    new_html += '<div class="shadows"></div>';
+
+    // Add robot 1 (active).
+    new_html += '<div class="robot" status="active">';
+    new_html += '<div class="antenna"></div>';
+    new_html += '<div class="head"></div>';
+    new_html += '<div class="torso">';
+    new_html += '<div class="left"></div>';
+    new_html += '<div class="right"></div>';
+    new_html += `<div class="rune">${trial.robot_rune}</div></div>`;
+    new_html += '<div class="foot"></div></div>';
+
+    // Add robot 2 (hidden).
+    new_html += '<div class="robot" status="hidden">';
+    new_html += '<div class="antenna"></div>';
+    new_html += '<div class="head"></div>';
+    new_html += '<div class="torso">';
+    new_html += '<div class="left"></div>';
+    new_html += '<div class="right"></div>';
+    new_html += `<div class="rune"></div></div>`;
+    new_html += '<div class="foot"></div></div>';
+
+    // Add factory window.
+    new_html += `<div class="scanner-light" style="border-bottom-color: ${trial.scanner_color}"></div>`;
+
+    // Add factory machine parts (front).
+    new_html += '<div class="machine-front">';
+    new_html += '<div class="score-container">';
+    new_html += `<div class="score" id="outcome">${trial.outcome_correct}</div>`;
+    new_html += `<div class="score" id="outcome">${trial.outcome_incorrect}</div>`;
+    new_html += '</div></div>';
+    new_html += '<div class="machine-top"></div>';
 
     // Close wrapper.
     new_html += '</div>';
 
-    // draw HTML
+    // Display HTML
     display_element.innerHTML = new_html;
 
     //---------------------------------------//
     // Response handling.
     //---------------------------------------//
 
-    // store response
+    // Initialize response
+    var all_responses = [];
     var response = {
       rt: -1,
       key: -1
     };
 
-    // function to handle responses by the subject
+    // Record any response
+    var any_response = function(info) {
+      all_responses.push(info.rt);
+    }
+
+    // Feedback phase
     var after_response = function(info) {
 
       // Kill any timeout handlers / keyboard listeners
@@ -138,25 +182,22 @@ jsPsych.plugins["pit-trial"] = (function() {
       }
 
       // Define accuracy
-      // if (trial.correct == response.key) {
-      //   response.accuracy = 1;
-      // } else {
-      //   response.accuracy = 0;
-      // };
+      if (trial.correct == response.key) {
+        response.accuracy = 1;
+      } else {
+        response.accuracy = 0;
+      };
 
       // Define outcome
-      // if (response.accuracy == 1) {
-      //   trial.outcome = trial.outcome_correct;
-      // } else {
-      //   trial.outcome = trial.outcome_incorrect;
-      // }
-
-      // Display card flip animation.
-      if ( response.key >= 0 ) {
-        document.getElementById('card-1').setAttribute('status', 'flip-right');
+      if (response.accuracy == 1) {
+        trial.outcome = trial.outcome_correct;
       } else {
-        document.getElementById('card-1').setAttribute('status', 'flip-left');
+        trial.outcome = trial.outcome_incorrect;
       }
+
+      // Present outcome
+      document.getElementById("outcome").innerHTML = trial.outcome;
+      document.getElementById("outcome").style['color'] = trial.outcome_color;
 
       jsPsych.pluginAPI.setTimeout(function() {
         end_trial();
@@ -164,57 +205,69 @@ jsPsych.plugins["pit-trial"] = (function() {
 
     };
 
-    // function to end trial when it is time
+    // End trial
     var end_trial = function() {
 
       // Kill any timeout handlers / keyboard listeners
       jsPsych.pluginAPI.clearAllTimeouts();
-      jsPsych.pluginAPI.cancelAllKeyboardResponses();
+      jsPsych.pluginAPI.cancelKeyboardResponse(keyboardSuperListener);
       if (typeof keyboardListener !== 'undefined') {
         jsPsych.pluginAPI.cancelKeyboardResponse(keyboardListener);
       }
 
-      // gather the data to store for the trial
+      // Store data
       var trial_data = {
-        "valence": trial.valence,
-        "key_press": response.key,
-        "choice": response.choice,
-        "rt": response.rt,
+        "Rune": trial.robot_rune,
+        "Hex": trial.scanner_color,
+        "Correct": trial.correct,
+        "Choice": response.key,
+        "RT": response.rt,
+        "Accuracy": response.accuracy,
+        "Outcome": trial.outcome,
+        "Keys": all_responses,
+        "TotalKeys": all_responses.length
       };
 
-      // clear the display
+      // Clear the display
       display_element.innerHTML = '';
 
-      // move on to the next trial
+      // End trial
       jsPsych.finishTrial(trial_data);
 
     };
 
+    // Start the response listener
+    if (trial.valid_responses != jsPsych.NO_KEYS) {
 
-    var keyboardListener = "";
-    setTimeout(function() {
+      // Task keyboardListener
+      var keyboardListener = "";
+      setTimeout(function() {
+        keyboardListener = jsPsych.pluginAPI.getKeyboardResponse({
+          callback_function: after_response,
+          valid_responses: trial.valid_responses,
+          rt_method: 'performance',
+          persist: false,
+          allow_held_key: false
+        });
+      }, trial.animation_duration);
 
-      // display stimuli
-      display_element.querySelectorAll('.flip-card').forEach( function(card) {
-          card.style['visibility'] = 'visible';
-      })
+      // Universal keyboardListener
+      var keyboardSuperListener = jsPsych.pluginAPI.getKeyboardResponse({
+          callback_function: any_response,
+          valid_responses: trial.valid_responses,
+          rt_method: 'performance',
+          persist: true,
+          allow_held_key: false
+        });
 
-      // Start the response listener
-      keyboardListener = jsPsych.pluginAPI.getKeyboardResponse({
-        callback_function: after_response,
-        valid_responses: trial.valid_responses,
-        rt_method: 'performance',
-        persist: false,
-        allow_held_key: false
-      });
+    }
 
-      // Start the trial countdown
+    // End trial if trial_duration is set
+    if (trial.trial_duration !== null) {
       jsPsych.pluginAPI.setTimeout(function() {
         after_response();
-      }, trial.choice_duration);
-
-    }, trial.animation_duration);
-
+      }, trial.animation_duration + trial.trial_duration);
+    }
 
   };
 

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Decision Making Experiment</title>
+  <title>Robot Factory</title>
 
   <!-- Load libraries -->
   <script src="../static/lib/jquery-3.3.1/jquery.min.js"></script>
@@ -15,7 +15,7 @@
 
   <!-- Load CSS styles -->
   <link href="../static/lib/jspsych-6.1.0/css/jspsych.css" rel="stylesheet" type="text/css"></link>
-  <link href="../static/css/pit-css.min.css" rel="stylesheet" type="text/css"></link>
+  <link href="../static/css/factory-css.min.css" rel="stylesheet" type="text/css"></link>
 
 </head>
 <body></body>
@@ -30,15 +30,21 @@
   };
   window.addEventListener("beforeunload", verify_unload);
 
-  var trial = {
+  const trial = {
     type: 'pit-trial',
-    valence: 'win',
-    image: '../static/img/animals/svg/albatross-bird-shape.svg',
-    animation_duration: 1200
-  }
+    robot_rune: 'A',
+    scanner_color: '#3366ff99',
+    outcome_color: '#00539C',
+    outcome_correct: '+10',
+    outcome_incorrect: '+0',
+    correct: 32,
+    valid_responses: [32],
+    trial_duration: 1500,
+    feedback_duration: 1000000000,
+  };
 
   // Initialize timeline.
-  var timeline = [trial, trial, trial, trial, trial];
+  var timeline = [trial, trial];
 
   jsPsych.init({
     timeline: timeline,
