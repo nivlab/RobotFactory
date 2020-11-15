@@ -1,5 +1,5 @@
 @import url("https://fonts.googleapis.com/css?family=Orbitron|Quicksand:500");
-@font-face { font-family: Blanka; src: url('Blanka-Regular.ttf'); }
+@font-face { font-family: Elianto; src: url('Elianto-Regular.ttf'); }
 
 /* ---------------------------------- */
 /* Factory Machine Components         */
@@ -253,7 +253,7 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-family: "Orbitron", sans-serif, sans-serif;
+  font-family: "Elianto", sans-serif, sans-serif;
   font-size: 1.75vw;
 }
 
@@ -377,7 +377,7 @@
   transform: translate(-50%, -200%);
   -webkit-animation: action-cue 1.5s;
   animation: action-cue 1.5s;
-  font-family: "Blanka", sans-serif, sans-serif;
+  font-family: "nidus_sansregular", sans-serif, sans-serif;
   font-size: 2vw;
 }
 @-webkit-keyframes action-cue {
@@ -446,30 +446,6 @@
   background: #ccc;
   border: 0.5vw solid #999;
   border-radius: 5vw;
-}
-
-/* ---------------------------------- */
-/* Pause screen                       */
-/* ---------------------------------- */
-
-.pause-container {
-  position: absolute;
-  height: 100vh;
-  width: 100vw;
-  top: 0;
-  left: 0;
-  background-color: rgba(32,32,32,0.9);
-  line-height: 6vh;
-  text-align: center;
-}
-
-.pause-container .pause-message {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 4vh;
-  color: #F8F8F8;
 }
 
 /* ---------------------------------- */
