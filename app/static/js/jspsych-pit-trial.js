@@ -33,7 +33,7 @@ jsPsych.plugins["pit-trial"] = (function() {
       outcome_incorrect: {
         type: jsPsych.plugins.parameterType.HTML_STRING,
         pretty_name: 'Outcome incorrect',
-        default: '+10',
+        default: '-10',
         description: 'Outcome to present on incorrect action.',
       },
       outcome_color: {
@@ -62,13 +62,13 @@ jsPsych.plugins["pit-trial"] = (function() {
       trial_duration: {
         type: jsPsych.plugins.parameterType.INT,
         pretty_name: 'Trial duration',
-        default: 2000,
+        default: 1500,
         description: 'How long to show trial before it ends.'
       },
       feedback_duration: {
         type: jsPsych.plugins.parameterType.INT,
         pretty_name: 'Feedback duration',
-        default: 500,
+        default: 1000,
         description: 'How long to show feedback before it ends.'
       },
     }
@@ -142,8 +142,7 @@ jsPsych.plugins["pit-trial"] = (function() {
     // Add factory machine parts (front).
     new_html += '<div class="machine-front">';
     new_html += '<div class="score-container">';
-    new_html += `<div class="score" id="outcome">${trial.outcome_correct}</div>`;
-    new_html += `<div class="score" id="outcome">${trial.outcome_incorrect}</div>`;
+    new_html += '<div class="score" id="outcome"></div>';
     new_html += '</div></div>';
     new_html += '<div class="machine-top"></div>';
 
@@ -217,15 +216,15 @@ jsPsych.plugins["pit-trial"] = (function() {
 
       // Store data
       var trial_data = {
-        "Rune": trial.robot_rune,
-        "Hex": trial.scanner_color,
-        "Correct": trial.correct,
-        "Choice": response.key,
-        "RT": response.rt,
-        "Accuracy": response.accuracy,
-        "Outcome": trial.outcome,
-        "Keys": all_responses,
-        "TotalKeys": all_responses.length
+        "rune": trial.robot_rune,
+        "hex": trial.scanner_color,
+        "correct": trial.correct,
+        "choice": response.key,
+        "rt": response.rt,
+        "accuracy": response.accuracy,
+        "outcome": trial.outcome,
+        "keys": all_responses,
+        "total_keys": all_responses.length
       };
 
       // Clear the display
