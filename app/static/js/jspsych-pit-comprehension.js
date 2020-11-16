@@ -13,35 +13,29 @@ jsPsych.plugins['pit-comprehension'] = (function() {
     name: 'pit-comprehension',
     description: '',
     parameters: {
+      prompts: {
+        type: jsPsych.plugins.parameterType.HTML_STRING,
+        array: true,
+        pretty_name: 'Prompts',
+        description: 'Comprehension check questions'
+      },
+      options: {
+        type: jsPsych.plugins.parameterType.HTML_STRING,
+        array: true,
+        pretty_name: 'Options',
+        description: 'Comprehension check question options'
+      },
+      correct: {
+        type: jsPsych.plugins.parameterType.STRING,
+        array: true,
+        pretty_name: 'Correct',
+        description: 'Answers to comprehension check questions'
+      },
       button_label: {
         type: jsPsych.plugins.parameterType.STRING,
         pretty_name: 'Button label',
         default:  'Continue',
         description: 'Label of the button.'
-      },
-      win_color_text: {
-        type: jsPsych.plugins.parameterType.STRING,
-        pretty_name: 'Win color name',
-        default:  'black',
-        description: 'Name of the win color.'
-      },
-      loss_color_text: {
-        type: jsPsych.plugins.parameterType.STRING,
-        pretty_name: 'Loss color name',
-        default:  'black',
-        description: 'Name of the loss color.'
-      },
-      win_color_hex: {
-        type: jsPsych.plugins.parameterType.STRING,
-        pretty_name: 'Win color hex',
-        default:  'black',
-        description: 'Hex code of the win color.'
-      },
-      loss_color_hex: {
-        type: jsPsych.plugins.parameterType.STRING,
-        pretty_name: 'Loss color hex',
-        default:  'black',
-        description: 'Hex code of the loss color.'
       }
     }
   }
@@ -56,38 +50,7 @@ jsPsych.plugins['pit-comprehension'] = (function() {
     }
 
     // ---------------------------------- //
-    // Section 1: Define Prompts          //
-    // ---------------------------------- //
-
-    // Define comprehension check questions.
-    var prompts = [
-      "To reject a robot (i.e. judge as incomplete), what do you do?",
-      `When the scanner light is <b><font color=${trial.win_color_hex}>${trial.win_color_text}</font></b>, how many points will you earn for a correct judgment?`,
-      `When the scanner light is <b><font color=${trial.lose_color_hex}>${trial.lose_color_text}</font></b>, how many points will you earn for a correct judgment?`,
-      "<i>True</i> or <i>False</i>: the scanner will sometimes malfunction and provide incorrect feedback.",
-      "Will the number of points I earn affect my performance bonus?"
-    ];
-
-    // Define response options.
-    var options = [
-      ["Press SPACE", "Do nothing", "Press ENTER"],
-      ["+10", "+1", "-1", "-10"],
-      ["+10", "+1", "-1", "-10"],
-      ["True", "False"],
-      ["Yes" ,"No"]
-    ];
-
-    // Define correct answers.
-    var correct = [
-      "Do nothing",
-      "+10",
-      "-1",
-      "True",
-      "Yes"
-    ]
-
-    // ---------------------------------- //
-    // Section 2: Define HTML             //
+    // Section 1: Define HTML             //
     // ---------------------------------- //
 
     // Initialize HTML
@@ -123,27 +86,27 @@ jsPsych.plugins['pit-comprehension'] = (function() {
 
     // Show preamble text
     html += '<div class="comprehension-box">'
-    html += '<div class="jspsych-survey-multi-choice-preamble"><h4>Please answer the questions below:</h4></div>';
+    html += '<div class="jspsych-survey-multi-choice-preamble"><h4>To continue, please answer the questions below:</h4></div>';
 
     // Initialize form element
     html += '<form id="jspsych-survey-multi-choice-form">';
 
     // Iteratively add comprehension questions.
-    for (i = 0; i < prompts.length; i++) {
+    for (i = 0; i < trial.prompts.length; i++) {
 
       // Initialize item
       html += `<div id="jspsych-survey-multi-choice-${i}" class="jspsych-survey-multi-choice-question jspsych-survey-multi-choice-horizontal" data-name="Q${i}">`;
 
       // Add question text
-      html += `<p class="jspsych-survey-multi-choice-text survey-multi-choice">${prompts[i]}</p>`;
+      html += `<p class="jspsych-survey-multi-choice-text survey-multi-choice">${trial.prompts[i]}</p>`;
 
       // Iteratively add options.
-      for (j = 0; j < options[i].length; j++) {
+      for (j = 0; j < trial.options[i].length; j++) {
 
         // Option 1: True
         html += `<div id="jspsych-survey-multi-choice-option-${i}-${j}" class="jspsych-survey-multi-choice-option">`;
-        html += `<input type="radio" name="jspsych-survey-multi-choice-response-${i}" id="jspsych-survey-multi-choice-response-${i}-${j}" value="${options[i][j]}" required>`;
-        html += `<label class="jspsych-survey-multi-choice-text" for="jspsych-survey-multi-choice-response-${i}-${j}">${options[i][j]}</label>`;
+        html += `<input type="radio" name="jspsych-survey-multi-choice-response-${i}" id="jspsych-survey-multi-choice-response-${i}-${j}" value="${trial.options[i][j]}" required>`;
+        html += `<label class="jspsych-survey-multi-choice-text" for="jspsych-survey-multi-choice-response-${i}-${j}">${trial.options[i][j]}</label>`;
         html += '</div>';
 
       }
@@ -178,7 +141,7 @@ jsPsych.plugins['pit-comprehension'] = (function() {
       // Gather responses
       var responses = [];
       var num_errors = 0;
-      for (var i=0; i<prompts.length; i++) {
+      for (var i=0; i<trial.prompts.length; i++) {
 
         // Find matching question.
         var match = display_element.querySelector('#jspsych-survey-multi-choice-'+i);
@@ -188,7 +151,7 @@ jsPsych.plugins['pit-comprehension'] = (function() {
         responses.push(val)
 
         // Check accuracy
-        if ( correct[i] != val ) {
+        if ( trial.correct[i] != val ) {
           num_errors++;
         }
 

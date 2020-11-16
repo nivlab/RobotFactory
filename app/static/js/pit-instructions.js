@@ -1,37 +1,29 @@
 //------------------------------------//
-// Define parameters.
+// Instructions block #1.
 //------------------------------------//
 
-// Define comprehension threshold.
-var max_errors = 0;
-var max_loops = 2;
-var num_loops = 0;
-
-//------------------------------------//
-// Define instructions.
-//------------------------------------//
-
-var INSTRUCTIONS_01 = {
-    type: 'pit-instructions',
-    pages: [
-      "Welcome to the<br><b>Robot Factory!</b>",
-      "In this task, you will be inspecting robots as they move down the assembly line into the <b>scanner</b>.",
-      "When a robot is scanned, you must decide whether to:<br><b>Approve</b> a robot as complete (press SPACE).<br><b>Reject</b> a robot as incomplete (do nothing).",
-      "Next we will practice these actions.<br>Four robots will come down the assembly line.<br><b>Approve</b> each robot by pressing SPACE.",
-      "<b>HINT:</b> Only press once the robot is in the scanner<br>and the scanner light comes on."
-    ],
-    show_clickable_nav: true,
-    button_label_previous: "Prev",
-    button_label_next: "Next",
-    on_start: function(trial) {
-      pass_message('starting instructions');
-    }
+var instructions_01 = {
+  type: 'pit-instructions',
+  pages: [
+    "Welcome to the<br><b>Robot Factory!</b>",
+    "In this game, you will be inspecting robots as they move down the assembly line into the <b>scanner</b>.",
+    "The robots in the factory are sometimes in need of repair.",
+    "When a robot is scanned, you must decide whether to:<br>Repair the robot (press SPACE). <br>Pass the robot (do nothing).",
+    "Next we will practice these actions.<br>Four robots will come down the assembly line.<br><b>Repair</b> each robot by pressing SPACE.",
+    "<b>HINT:</b> Only press once the robot is in the scanner<br>and the scanner light comes on."
+  ],
+  show_clickable_nav: true,
+  button_label_previous: "Prev",
+  button_label_next: "Next",
+  on_start: function(trial) {
+    pass_message('starting instructions');
+  }
 }
 
-var PRACTICE_GO = {
+var practice_go = {
   timeline: [{
     type: 'pit-trial',
-    robot_rune: 'rune_00_ingz',
+    robot_rune: '',
     scanner_color: '#FFFFF080',
     outcome_color: '#000000',
     outcome_correct: '+10',
@@ -43,25 +35,24 @@ var PRACTICE_GO = {
   }],
   repetitions: 4,
   data: {
-    Block: 0,
-    Action: 'Go',
+    block: 0
   }
 }
 
-var INSTRUCTIONS_02 = {
-    type: 'pit-instructions',
-    pages: [
-      "Great job!<br>Four more robots will come down the assembly line.<br><b>Reject</b> each robot by doing nothing.",
-    ],
-    show_clickable_nav: true,
-    button_label_previous: "Prev",
-    button_label_next: "Next"
+var instructions_02 = {
+  type: 'pit-instructions',
+  pages: [
+    "Great job!<br>Four more robots will come down the assembly line.<br>Pass each robot by doing nothing.",
+  ],
+  show_clickable_nav: true,
+  button_label_previous: "Prev",
+  button_label_next: "Next"
 }
 
-var PRACTICE_NO_GO = {
+var practice_no_go = {
   timeline: [{
     type: 'pit-trial',
-    robot_rune: 'rune_00_isaz',
+    robot_rune: '',
     scanner_color: '#FFFFF080',
     outcome_color: '#000000',
     outcome_correct: '+10',
@@ -73,64 +64,102 @@ var PRACTICE_NO_GO = {
   }],
   repetitions: 4,
   data: {
-    Block: 0,
-    Action: 'No-Go',
+    block: 0
   }
 }
 
-var INSTRUCTIONS_03 = {
-    type: 'pit-instructions',
-    pages: [
-      "During the task, the scanner will shine<br>one of two colors.",
-      `If the scanner is <b><font color=${outcome_color_win}>${instr_color_win}</font></b>, you will earn +10 points for<br>correctly judging a robot as complete or incomplete.<br>Incorrect judgments will earn you +1 points.`,
-      `If the scanner is <b><font color=${outcome_color_lose}>${instr_color_lose}</font></b>, you will earn -1 points for<br>correctly judging a robot as complete or incomplete.<br>Incorrect judgments will earn you -10 points.`,
-      "When a robot is scanned, it will reveal a <b>symbol</b> on its<br>chestplate. This symbol will mark whether a robot is<br>complete or incomplete.",
-      "Pay close attention to the symbol as it will help you<br>decide whether to accept (press SPACE)<br>or reject (do nothing) the robot.",
-      "<b>Be aware:</b> Sometimes the scanner will malfunction and<br>provide you incorrect feedback. That is, it may provide<br>you the wrong number of points based on your judgment.",
-      "At the end of the task, the total number of points you've<br>earned will be converted into a <b>performance bonus.</b>",
-      "Next, we will ask you some questions about the task.<br>You need to answer all questions correctly to proceed.",
-    ],
-    robot_runes: [
-      undefined,
-      undefined,
-      undefined,
-      'rune_00_ingz',
-      'rune_00_ingz',
-      undefined,
-      undefined,
-      undefined,
-    ],
-    scanner_colors: [
-      '#FFFFFF00',
-      scanner_color_win,
-      scanner_color_lose,
-      '#FFFFF080',
-      '#FFFFF080',
-      '#FFFFFF00',
-      '#FFFFFF00',
-      '#FFFFFF00'
-    ],
-    show_clickable_nav: true,
-    button_label_previous: "Prev",
-    button_label_next: "Next"
-}
-
-var COMPREHENSION = {
+var quiz_01 = {
   type: 'pit-comprehension',
-  win_color_text: instr_color_win,
-  lose_color_text: instr_color_lose,
-  win_color_hex: outcome_color_win,
-  lose_color_hex: outcome_color_lose,
+  prompts: [
+    "To <b>repair</b> a robot, what do you do?",
+    "To <b>pass</b> a robot (i.e. do not repair), what do you do?",
+  ],
+  options: [
+    ["Press SPACE", "Do nothing", "Press ENTER"],
+    ["Press SPACE", "Do nothing", "Press ENTER"],
+  ],
+  correct: [
+    "Press SPACE",
+    "Do nothing",
+  ]
 }
 
-var INSTRUCTIONS = {
+//------------------------------------//
+// Instructions block #2.
+//------------------------------------//
+
+var instructions_03 = {
+  type: 'pit-instructions',
+  pages: [
+    "There are different types of robots in the factory.<br>Some types of robot will need repair <b>more often</b> than others.",
+    "You can tell a robot's type by the <b>letter</b> on its<br>chestplate as revealed by the scanner.",
+    "During the game, you can win or avoid losing points by fixing robots that need pair and passing robots that do not.",
+    "Importantly, whether you can win or lose points<br>depends on whether the robot is SAFE or DANGEROUS.",
+    `If the scanner is <b><font color=${outcome_color_win}>${instr_color_win}</font></b>, the robot is SAFE. You will earn +10 points for correctly fixing or passing a safe robot. Incorrect actions will earn you +1 point.`,
+    `If the scanner is <b><font color=${outcome_color_win}>${instr_color_win}</font></b>, the robot is DANGEROUS. You will lose only -1 points for correctly fixing or passing a dangerous robot. Incorrect actions will cost you -10 points.`,
+    "Pay close attention to the robot's symbol as it will help you<br>decide whether to fix the robot (press SPACE)<br>or pass the robot (do nothing).",
+    "<b>HINT:</b> Not all robots of a type will need repair, but some<br>types of robots will need fixing more often than others.",
+    "You should try to earn as many points as you can, even if it's not possibe to win points or avoid losing points on every round.",
+    "At the end of the task, the total number of points you've<br>earned will be converted into a <b>performance bonus.</b>",
+  ],
+  robot_runes: [
+    '',
+    '',
+    '',
+    'a',
+    'a',
+    '',
+    '',
+    '',
+  ],
+  scanner_colors: [
+    '#FFFFFF00',
+    scanner_color_win,
+    scanner_color_lose,
+    '#FFFFF080',
+    '#FFFFF080',
+    '#FFFFFF00',
+    '#FFFFFF00',
+    '#FFFFFF00'
+  ],
+  show_clickable_nav: true,
+  button_label_previous: "Prev",
+  button_label_next: "Next"
+}
+
+var quiz_02 = {
+  type: 'pit-comprehension',
+  prompts: [
+    `When the scanner light is <b><font color=${outcome_color_win}>${instr_color_win}</font></b>, how many points will you earn for a correct decision?`,
+    `When the scanner light is <b><font color=${outcome_color_lose}>${instr_color_lose}</font></b>, how many points will you earn for a correct decision?`,
+    "<i>True</i> or <i>False</i>: Some robots will need repair more often than others.",
+    "<i>True</i> or <i>False</i>: The points I earn will affect my performance bonus."
+  ],
+  options: [
+    ["+10", "+1", "-1", "-10"],
+    ["+10", "+1", "-1", "-10"],
+    ["True", "False"],
+    ["True", "False"],
+  ],
+  correct: [
+    "+10",
+    "-1",
+    "True",
+    "True"
+  ]
+}
+
+//------------------------------------//
+// Construct instructions blocks.
+//------------------------------------//
+
+var INSTRUCTIONS_LOOP_01 = {
   timeline: [
-    INSTRUCTIONS_01,
-    PRACTICE_GO,
-    INSTRUCTIONS_02,
-    PRACTICE_NO_GO,
-    INSTRUCTIONS_03,
-    COMPREHENSION
+    instructions_01,
+    practice_go,
+    instructions_02,
+    practice_no_go,
+    quiz_01
   ],
   loop_function: function(data) {
 
@@ -138,25 +167,33 @@ var INSTRUCTIONS = {
     const num_errors = data.values().slice(-1)[0].num_errors;
 
     // Check if instructions should repeat.
-    if (num_errors > max_errors) {
-      num_loops++;
-      if (num_loops >= max_loops) {
-        low_quality = true;
-        return false;
-      } else {
-        return true;
-      }
+    if (num_errors > 0) {
+      return true;
     } else {
       return false;
     }
 
   }
+
 }
 
-var COMPREHENSION_CHECK = {
-  type: 'call-function',
-  func: function(){},
-  on_finish: function(trial) {
-    if (low_quality) { jsPsych.endExperiment(); }
+var INSTRUCTIONS_LOOP_02 = {
+  timeline: [
+    instructions_03,
+    quiz_02
+  ],
+  loop_function: function(data) {
+
+    // Extract number of errors.
+    const num_errors = data.values().slice(-1)[0].num_errors;
+
+    // Check if instructions should repeat.
+    if (num_errors > 0) {
+      return true;
+    } else {
+      return false;
+    }
+
   }
+
 }

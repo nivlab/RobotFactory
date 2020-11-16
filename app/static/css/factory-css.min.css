@@ -253,7 +253,7 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-family: "Elianto", sans-serif, sans-serif;
+  font-family: "Orbitron", sans-serif, sans-serif;
   font-size: 1.75vw;
 }
 
@@ -377,7 +377,7 @@
   transform: translate(-50%, -200%);
   -webkit-animation: action-cue 1.5s;
   animation: action-cue 1.5s;
-  font-family: "nidus_sansregular", sans-serif, sans-serif;
+  font-family: "Elianto", sans-serif, sans-serif;
   font-size: 2vw;
 }
 @-webkit-keyframes action-cue {

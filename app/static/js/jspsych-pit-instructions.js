@@ -127,7 +127,7 @@ jsPsych.plugins["pit-instructions"] = (function() {
     // Prepare robot runes.
     var robot_runes = [];
     for (var i=0; i<trial.pages.length; i++){
-      robot_runes.push( trial.robot_runes[i] == undefined ? '' : `<img src="../static/img/${trial.robot_runes[i]}.png" style="height: 100%; width: 100%; object-fit: contain">` );
+      robot_runes.push( trial.robot_runes[i] == undefined ? '' : trial.robot_runes[i] );
     }
 
     // Initialize scanner colors.

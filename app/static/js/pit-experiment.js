@@ -23,7 +23,7 @@ if ( Math.random() < 0.5 ) {
 }
 
 // Define runes.
-const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+const alphabet = 'BCDEFGHIJKLMNPQRSTUVWXYZ'.split('');
 const runes = jsPsych.randomization.sampleWithoutReplacement(alphabet, 24);
 
 // Define go key.
