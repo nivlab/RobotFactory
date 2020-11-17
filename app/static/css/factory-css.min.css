@@ -455,8 +455,8 @@
   left: 50%;
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
-  width: 30vw;
-  height: 5.5vw;
+  width: calc(0.32 * var(--scale));
+  height: calc(0.065 * var(--scale));
   background: white;
   border: 2px solid black;
   border-radius: 12px;
@@ -470,14 +470,14 @@
   width: 95%;
 }
 .instructions p {
-  font-size: 0.95vw;
+  font-size: 12px;
   line-height: 1.5em;
   margin-block-start: 0em;
   margin-block-end: 0em;
 }
 .instructions br {
-  font-size: 0vh;
-  line-height: 0vh;
+  font-size: 0;
+  line-height: 0;
   margin-block-start: 0em;
   margin-block-end: 0em;
 }
@@ -492,7 +492,7 @@
 }
 .machine-front .jspsych-instructions-nav .jspsych-btn {
   padding: 4px 8px;
-  font-size: 0.7vw;
+  font-size: 9px;
 }
 .machine-front .jspsych-instructions-nav .jspsych-btn:focus {
   outline: none;
@@ -508,12 +508,12 @@
   left: 50%;
   -webkit-transform: translate3d(-50%, -65%, 0);
   transform: translate3d(-50%, -65%, 0);
-  width: 42vw;
-  height: 24vw;
+  width: calc(0.46 * var(--scale));
+  height: calc(0.27 * var(--scale));
   background: #ffffff;
   border: 2px solid black;
   border-radius: 12px;
-  font-size: 0.85vw;
+  font-size: 11px;
   line-height: 1.5em;
 }
 .comprehension-box .jspsych-survey-multi-choice-preamble h4 {
@@ -537,8 +537,8 @@
 }
 .comprehension-box .jspsych-survey-multi-choice-option input[type='radio'] {
   margin-right: 0.5em;
-  width: 8px;
-  height: 8px;
+  width: 10px;
+  height: 10px;
 }
 .comprehension-box input[type='submit'] {
   position: absolute;
@@ -546,6 +546,6 @@
   left: 50%;
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
-  font-size: 0.75vw;
+  font-size: 9px;
   padding: 4px 8px;
 }
