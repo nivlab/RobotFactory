@@ -6,20 +6,20 @@
 runsheets = jsPsych.randomization.shuffle(runsheets)
 
 // Define aesthetics.
-if ( Math.random() < 0.5 ) {
+if ( Math.random() < 1 ) {
   var instr_color_win    = 'blue';
   var scanner_color_win  = '#3366ff99';
-  var outcome_color_win  = '#00539C';
-  var instr_color_lose   = 'yellow';
-  var scanner_color_lose = '#ffcc3399';
-  var outcome_color_lose = '#ee9c00';
+  var outcome_color_win  = '#1a3ea7';
+  var instr_color_lose   = 'red';
+  var scanner_color_lose = '#f73b6a7A';
+  var outcome_color_lose = '#930a25';
 } else {
-  var instr_color_win    = 'yellow';
-  var scanner_color_win  = '#ffcc3399';
-  var outcome_color_win  = '#ee9c00';
+  var instr_color_win    = 'red';
+  var scanner_color_win  = '#f73b6a7A';
+  var outcome_color_win  = '#930a25';
   var instr_color_lose   = 'blue';
   var scanner_color_lose = '#3366ff99';
-  var outcome_color_lose = '#00539C';
+  var outcome_color_lose = '#1a3ea7';
 }
 
 // Define runes.

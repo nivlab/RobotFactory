@@ -245,7 +245,7 @@
   -webkit-transform: translate3d(-50%, -115%, 0);
   transform: translate3d(-50%, -115%, 0);
   height: calc(0.035 * var(--scale));
-  width: calc(0.035 * var(--scale));
+  width: calc(0.040 * var(--scale));
   border: calc(0.003 * var(--scale)) solid #92a6a6;
   -webkit-box-shadow: inset 0 0 2px #000000;
   box-shadow:        inset 0 0 2px #000000;
@@ -375,7 +375,7 @@
   -webkit-animation: action-cue 1.5s;
   animation: action-cue 1.5s;
   font-family: "Elianto", sans-serif, sans-serif;
-  font-size: calc(0.025 * var(--scale));
+  font-size: calc(0.0225 * var(--scale));
 }
 @-webkit-keyframes action-cue {
   0%   {
