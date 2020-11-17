@@ -16,7 +16,7 @@ var instructions_01 = {
   button_label_previous: "Prev",
   button_label_next: "Next",
   on_start: function(trial) {
-    pass_message('starting instructions');
+    pass_message('instructions loop 1');
   }
 }
 
@@ -112,7 +112,10 @@ var instructions_03 = {
   ],
   show_clickable_nav: true,
   button_label_previous: "Prev",
-  button_label_next: "Next"
+  button_label_next: "Next",
+  on_start: function(trial) {
+    pass_message('instructions loop 2');
+  }
 }
 
 var quiz_02 = {

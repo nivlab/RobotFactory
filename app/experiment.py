@@ -43,7 +43,7 @@ def experiment():
         write_metadata(session, ['experiment'], 'a')
 
         ## Present experiment.
-        return render_template('experiment.html', workerId=session['workerId'], assignmentId=session['assignmentId'], hitId=session['hitId'], code_success=session['code_success'], code_reject=session['code_reject'])
+        return render_template('experiment.html', workerId=session['workerId'], assignmentId=session['assignmentId'], hitId=session['hitId'], a=session['a'], tp_a=session['tp_a'], b=session['b'], tp_b=session['tp_b'], c=session['c'], tp_c=session['tp_c'])
 
 @bp.route('/experiment', methods=['POST'])
 def pass_message():
@@ -79,7 +79,7 @@ def redirect_success():
 
     ## Flag experiment as complete.
     session['complete'] = 'success'
-    write_metadata(session, ['complete','code_success'], 'a')
+    write_metadata(session, ['complete'], 'a')
 
     ## DEV NOTE:
     ## This function returns the HTTP response status code: 200
@@ -103,7 +103,7 @@ def redirect_reject():
 
     ## Flag experiment as complete.
     session['complete'] = 'reject'
-    write_metadata(session, ['complete','code_reject'], 'a')
+    write_metadata(session, ['complete'], 'a')
 
     ## DEV NOTE:
     ## This function returns the HTTP response status code: 200

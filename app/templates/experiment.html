@@ -19,6 +19,9 @@
   <script src="../static/js/jspsych-pit-trial.js" type="text/javascript"></script>
   <script src="../static/js/jspsych-pit-instructions.js" type="text/javascript"></script>
   <script src="../static/js/jspsych-pit-comprehension.js" type="text/javascript"></script>
+  <script src="../static/js/jspsych-survey-demo.js" type="text/javascript"></script>
+  <script src="../static/js/jspsych-survey-debrief.js" type="text/javascript"></script>
+  <script src="../static/lib/jspsych-6.1.0/plugins/jspsych-instructions.js" type="text/javascript"></script>
 
   <!-- Load CSS styles -->
   <link href="../static/lib/jspsych-6.1.0/css/jspsych.css" rel="stylesheet" type="text/css"></link>
@@ -51,6 +54,8 @@
   timeline = timeline.concat(READY_02);                // Ready check (block 2)
   timeline = timeline.concat(PIT.slice(120,240));      // PIT task (block 2)
   timeline = timeline.concat(FINISHED);                // End of task
+  timeline = timeline.concat(DEMO);                    // Demographics form
+  timeline = timeline.concat(DEBRIEF);                 // Debriefing form
 
   jsPsych.init({
     timeline: timeline,
@@ -65,13 +70,13 @@
       jsPsych.data.get().addToLast({interactions: interaction_data.json()});
 
       // Display jsPsych data in viewport.
-      jsPsych.data.displayData();
+      // jsPsych.data.displayData();
 
       // Save complete dataset to disk.
-      // redirect_success("{{workerId}}", "{{assignmentId}}", "{{hitId}}", "{{code_success}}");
+      redirect_success("{{workerId}}", "{{assignmentId}}", "{{hitId}}",  "{{a}}", "{{tp_a}}", "{{b}}", "{{tp_b}}", "{{c}}", "{{tp_c}}");
 
       // Save rejected dataset to disk.
-      // redirect_reject("{{workerId}}", "{{assignmentId}}", "{{hitId}}", "{{code_reject}}");
+      // redirect_reject("1005");
 
     }
   })
