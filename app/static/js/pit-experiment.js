@@ -1,9 +1,13 @@
 //------------------------------------//
-// Define parameters.
+// Define experiment parameters.
 //------------------------------------//
 
-// Define runsheets
+// Define trial structure.
 runsheets = jsPsych.randomization.shuffle(runsheets)
+
+// Define rune sets.
+const rune_sets = ['elianto','bacs1','bacs2'];
+const rune_prob = [0.33,0.33,0.33];
 
 // Define aesthetics.
 if ( Math.random() < 1 ) {
@@ -22,10 +26,6 @@ if ( Math.random() < 1 ) {
   var outcome_color_lose = '#1a3ea7';
 }
 
-// Define runes.
-const alphabet = 'BCDEFGHIJKLMNPQRSTUVWXYZ'.split('');
-const runes = jsPsych.randomization.sampleWithoutReplacement(alphabet, 24);
-
 // Define go key.
 const key_go = 32;
 
@@ -36,6 +36,31 @@ const feedback_duration = 1200;      // Duration of feedback (minimum)
 // Define payment.
 const completion_bonus = 0.00;
 const performance_bonus = 1.50;
+
+//------------------------------------//
+// Define rune order.
+//------------------------------------//
+
+// Randomly select rune set.
+const rune_set = jsPsych.randomization.sampleWithReplacement(rune_sets, 1, rune_prob)[0];
+jsPsych.data.addProperties({rune_set: rune_set});
+
+// Gather rune orders.
+if ( rune_set == 'elianto' ) {
+  var runes_a = ['U', 'L', 'A', 'G', 'P', 'S', 'W', 'E', 'K', 'D', 'J', 'V'];
+  var runes_b = ['M', 'R', 'Y', 'H', 'Z', 'C', 'B', 'T', 'X', 'F', 'N', 'Q'];
+} else if ( rune_set == 'bacs1' ) {
+  var runes_a = ['B', 'Z', 'J', 'R', 'V', 'E', 'T', 'F', 'A', 'C', 'L', 'Q'];
+  var runes_b = ['Y', 'H', 'P', 'M', 'U', 'S', 'K', 'D', 'O', 'I', 'G', 'N'];
+} else if ( rune_set == 'bacs2' ) {
+  var runes_a = ['J', 'W', 'X', 'Z', 'G', 'O', 'C', 'E', 'H', 'Q', 'T', 'Y'];
+  var runes_b = ['M', 'B', 'K', 'V', 'R', 'P', 'L', 'S', 'U', 'A', 'F', 'N'];
+}
+
+// Randomize presentation order.
+if ( Math.random() < 0.5 ) { runes_a = runes_a.reverse(); }
+if ( Math.random() < 0.5 ) { runes_b = runes_b.reverse(); }
+var runes = ( Math.random() < 0.5 ) ? [runes_a, runes_b] : [runes_b, runes_a];
 
 //------------------------------------//
 // Define experiment.
@@ -82,18 +107,20 @@ for (let i=0; i<runsheets.length; i++) {
       // Define trial.
       const trial = {
         type: 'pit-trial',
-        robot_rune: runes[i*12 + stimulus],
+        robot_rune: runes[i][stimulus],
         scanner_color: valence == 'win' ? scanner_color_win : scanner_color_lose,
         outcome_color: valence == 'win' ? outcome_color_win : outcome_color_lose,
         outcome_correct: outcome_correct,
         outcome_incorrect: outcome_incorrect,
         correct: robot % 2 == 0 ? key_go : -1,
+        rune_set: rune_set,
         valid_responses: [key_go],
         trial_duration: trial_duration,
         feedback_duration: feedback_duration,
         data: {
           block: i + 1,
           trial: n + 1,
+          stimulus: stimulus,
           robot: robot + 1,
           valence: valence,
           action: action,

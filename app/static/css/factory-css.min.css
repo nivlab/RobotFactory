@@ -1,5 +1,7 @@
 @import url("https://fonts.googleapis.com/css?family=Orbitron|Quicksand:500");
 @font-face { font-family: Elianto; src: url('Elianto-Regular.ttf'); }
+@font-face { font-family: BACS1; src: url('BACS1.otf'); }
+@font-face { font-family: BACS2; src: url('BACS2serif.otf'); }
 
 /* Controls scale of game */
 :root {
@@ -374,8 +376,20 @@
   transform: translate(-50%, calc(-0.05 * var(--scale)));
   -webkit-animation: action-cue 1.5s;
   animation: action-cue 1.5s;
+}
+.torso .rune[set="elianto"] {
   font-family: "Elianto", sans-serif, sans-serif;
-  font-size: calc(0.0225 * var(--scale));
+  font-size: calc(0.0240 * var(--scale));
+}
+.torso .rune[set="bacs1"] {
+  font-family: "BACS1", sans-serif, sans-serif;
+  font-size: calc(0.0325 * var(--scale));
+  font-weight: bold;
+}
+.torso .rune[set="bacs2"] {
+  font-family: "BACS2", sans-serif, sans-serif;
+  font-size: calc(0.0325 * var(--scale));
+  font-weight: bold;
 }
 @-webkit-keyframes action-cue {
   0%   {

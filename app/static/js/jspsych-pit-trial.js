@@ -46,6 +46,12 @@ jsPsych.plugins["pit-trial"] = (function() {
         pretty_name: 'Correct response',
         description: 'Correct response for trial.'
       },
+      rune_set: {
+        type: jsPsych.plugins.parameterType.HTML_STRING,
+        pretty_name: 'Rune font',
+        default: 'elianto',
+        description: 'Rune font style [elianto, bacs1, bacs2].'
+      },
       valid_responses: {
         type: jsPsych.plugins.parameterType.KEYCODE,
         array: true,
@@ -123,7 +129,7 @@ jsPsych.plugins["pit-trial"] = (function() {
     new_html += '<div class="torso">';
     new_html += '<div class="left"></div>';
     new_html += '<div class="right"></div>';
-    new_html += `<div class="rune">${trial.robot_rune}</div></div>`;
+    new_html += `<div class="rune" set="${trial.rune_set}">${trial.robot_rune}</div></div>`;
     new_html += '<div class="foot"></div></div>';
 
     // Add robot 2 (hidden).
