@@ -90,7 +90,7 @@ jsPsych.plugins["pit-instructions"] = (function() {
     new_html += '<div class="torso">';
     new_html += '<div class="left"></div>';
     new_html += '<div class="right"></div>';
-    new_html += `<div class="rune" style="animation: none; -webkit-animation: none;"></div></div>`;
+    new_html += `<div class="rune" set="elianto" style="animation: none; -webkit-animation: none;"></div></div>`;
     new_html += '<div class="foot"></div></div>';
 
     // Add factory window.

@@ -48,8 +48,7 @@
 
   // Define timeline.
   var timeline = [];
-  timeline = timeline.concat(INSTRUCTIONS_LOOP_01);    // Instructions (part 1)
-  timeline = timeline.concat(INSTRUCTIONS_LOOP_02);    // Instructions (part 2)
+  timeline = timeline.concat(INSTRUCTIONS);            // Instructions block
   timeline = timeline.concat(READY_01);                // Ready check (block 1)
   timeline = timeline.concat(PIT.slice(0,120));        // PIT task (block 1)
   timeline = timeline.concat(READY_02);                // Ready check (block 2)

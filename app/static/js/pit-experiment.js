@@ -43,7 +43,6 @@ const performance_bonus = 1.50;
 
 // Randomly select rune set.
 const rune_set = jsPsych.randomization.sampleWithReplacement(rune_sets, 1, rune_prob)[0];
-jsPsych.data.addProperties({rune_set: rune_set});
 
 // Gather rune orders.
 if ( rune_set == 'elianto' ) {
