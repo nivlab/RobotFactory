@@ -276,14 +276,14 @@ var quiz = {
 
 var INSTRUCTIONS = {
   timeline: [
-    // instructions_01,
-    // practice_01,
-    // instructions_02,
-    // practice_02,
-    // instructions_03,
-    // practice_03,
-    // instructions_04,
-    // practice_04,
+    instructions_01,
+    practice_01,
+    instructions_02,
+    practice_02,
+    instructions_03,
+    practice_03,
+    instructions_04,
+    practice_04,
     instructions_05,
     quiz
   ]
