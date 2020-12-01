@@ -223,6 +223,7 @@ jsPsych.plugins["pit-trial"] = (function() {
       // Store data
       var trial_data = {
         "rune": trial.robot_rune,
+        "rune_set": trial.rune_set,
         "hex": trial.scanner_color,
         "correct": trial.correct,
         "choice": response.key,
