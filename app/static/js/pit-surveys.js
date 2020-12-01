@@ -129,7 +129,7 @@ var dass = {
   on_finish: function(data) {
 
     // Score response on infrequncy item.
-    const scores = [1,1,1,0.5,0];
+    const scores = [1,1,0.5,0];
     data.infrequency = scores[data.responses['Q08']];
 
   }
