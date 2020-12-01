@@ -25,7 +25,7 @@ def experiment():
         return redirect(url_for('complete.complete'))
 
     ## Case 2: repeat visit.
-    elif 'experiment' in session:
+    elif 'surveys' in session:
 
         ## Update participant metadata.
         session['ERROR'] = "1004: Revisited experiment."
@@ -57,6 +57,10 @@ def pass_message():
         ## Update participant metadata.
         session['MESSAGE'] = msg
         write_metadata(session, ['MESSAGE'], 'a')
+
+        ## Update status of progress.
+        if 'surveys' in msg:
+            session['surveys'] = True
 
     ## DEV NOTE:
     ## This function returns the HTTP response status code: 200
