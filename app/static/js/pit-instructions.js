@@ -1,4 +1,15 @@
 //------------------------------------//
+// Define instructions parameters.
+//------------------------------------//
+
+// Define practice trial counts.
+const practice_thresh = 60;
+var practice_count = 0;
+
+// Define practice block parameters.
+const min_practice = 4;
+
+//------------------------------------//
 // Define instructions text.
 //------------------------------------//
 
@@ -34,8 +45,8 @@ var instructions_01 = {
 var instructions_02 = {
   type: 'pit-instructions',
   pages: [
-    "Good job! You learned this type of robot needed repair.",
-    "Now let's practice for another type of safe robot.<br>Try to learn if you should repair this robot (press SPACE)<br>or ignore it (do nothing)."
+    "Now let's practice for another type of safe robot.<br>Try to learn if you should repair this robot (press SPACE)<br>or ignore it (do nothing).",
+    "<b>Remember:</b> not every robot will need repair, and<br>you will earn +10 points for the correct action."
   ],
   show_clickable_nav: true,
   button_label_previous: "Prev",
@@ -56,8 +67,8 @@ var instructions_03 = {
 var instructions_04 = {
   type: 'pit-instructions',
   pages: [
-    "Good job! You learned this type of robot did NOT need repair.",
-    "Now let's practice for another type of dangerous robot.<br>Try to learn if you should repair this robot (press SPACE)<br>or ignore it (do nothing)."
+    "Now let's practice for another type of dangerous robot.<br>Try to learn if you should repair this robot (press SPACE)<br>or ignore it (do nothing).",
+    "<b>Remember:</b> some dangerous robots need repair, and<br>you will lose only -1 points for the correct action."
   ],
   show_clickable_nav: true,
   button_label_previous: "Prev",
@@ -72,13 +83,23 @@ var instructions_05 = {
     "Pay close attention to the robot's symbol as it will help you<br>decide whether to repair the robot (press SPACE)<br>or ignore the robot (do nothing).",
     "Try to earn, and avoid losing, as many points as you can.",
     "At the end of the task, the total number of points you've<br>earned will be converted into a <b>performance bonus.</b>",
-    "Next, we will ask you some questions about the task.<br>You need to answer all questions correctly to proceed.",
+    "Next, we will ask you some questions about the task."
   ]
 }
 
 //------------------------------------//
 // Define practice blocks.
 //------------------------------------//
+
+// Function to end experiment if maximum practice trials
+// have been reached
+var attention_check = {
+  type: 'call-function',
+  func: function(){},
+  on_finish: function(trial) {
+    if (low_quality) { jsPsych.endExperiment(); }
+  }
+}
 
 // Practice block (GW robot)
 const practice_01_trial = {
@@ -99,13 +120,20 @@ var practice_01 = {
   timeline: [practice_01_trial],
   loop_function: function(data) {
 
+    // Increment counter. Check for experiment termination.
+    practice_count++;
+    if ( practice_count > practice_thresh ) {
+      low_quality = true;
+      return false;
+    }
+
     // Extract accuracy from practice trials (type 1).
     const reducer = (accumulator, currentValue) => accumulator + currentValue;
     const practice = jsPsych.data.get().filter({practice: 1}).select('accuracy').values;
     const score = practice.slice(Math.max(practice.length - 3, 0)).reduce(reducer);
 
     // If less than 4 practice trials: loop.
-    if ( practice.length < 4 ) {
+    if ( practice.length < min_practice ) {
       return true;
 
     // If last 3 not at all correct: loop.
@@ -139,13 +167,20 @@ var practice_02 = {
   timeline: [practice_02_trial],
   loop_function: function(data) {
 
+    // Increment counter. Check for experiment termination.
+    practice_count++;
+    if ( practice_count > practice_thresh ) {
+      low_quality = true;
+      return false;
+    }
+
     // Extract accuracy from practice trials (type 2).
     const reducer = (accumulator, currentValue) => accumulator + currentValue;
     const practice = jsPsych.data.get().filter({practice: 2}).select('accuracy').values;
     const score = practice.slice(Math.max(practice.length - 3, 0)).reduce(reducer);
 
     // If less than 4 practice trials: loop.
-    if ( practice.length < 4 ) {
+    if ( practice.length < min_practice ) {
       return true;
 
     // If last 3 not at all correct: loop.
@@ -179,13 +214,20 @@ var practice_03 = {
   timeline: [practice_03_trial],
   loop_function: function(data) {
 
+    // Increment counter. Check for experiment termination.
+    practice_count++;
+    if ( practice_count > practice_thresh ) {
+      low_quality = true;
+      return false;
+    }
+
     // Extract accuracy from practice trials (type 3).
     const reducer = (accumulator, currentValue) => accumulator + currentValue;
     const practice = jsPsych.data.get().filter({practice: 3}).select('accuracy').values;
     const score = practice.slice(Math.max(practice.length - 3, 0)).reduce(reducer);
 
     // If less than 4 practice trials: loop.
-    if ( practice.length < 4 ) {
+    if ( practice.length < min_practice ) {
       return true;
 
     // If last 3 not at all correct: loop.
@@ -215,10 +257,16 @@ const practice_04_trial = {
   data: {block: 0, practice: 4}
 }
 
-// Practice block (GAL robot)
 var practice_04 = {
   timeline: [practice_04_trial],
   loop_function: function(data) {
+
+    // Increment counter. Check for experiment termination.
+    practice_count++;
+    if ( practice_count > practice_thresh ) {
+      low_quality = true;
+      return false;
+    }
 
     // Extract accuracy from practice trials (type 4).
     const reducer = (accumulator, currentValue) => accumulator + currentValue;
@@ -226,7 +274,7 @@ var practice_04 = {
     const score = practice.slice(Math.max(practice.length - 3, 0)).reduce(reducer);
 
     // If less than 4 practice trials: loop.
-    if ( practice.length < 4 ) {
+    if ( practice.length < min_practice ) {
       return true;
 
     // If last 3 not at all correct: loop.
@@ -278,12 +326,16 @@ var INSTRUCTIONS = {
   timeline: [
     instructions_01,
     practice_01,
+    attention_check,
     instructions_02,
     practice_02,
+    attention_check,
     instructions_03,
     practice_03,
+    attention_check,
     instructions_04,
     practice_04,
+    attention_check,
     instructions_05,
     quiz
   ]
