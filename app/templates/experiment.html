@@ -22,6 +22,8 @@
   <script src="../static/js/jspsych-pit-comprehension.js" type="text/javascript"></script>
   <script src="../static/js/jspsych-survey-demo.js" type="text/javascript"></script>
   <script src="../static/js/jspsych-survey-debrief.js" type="text/javascript"></script>
+  <script src="../static/js/jspsych-survey-template.js" type="text/javascript"></script>
+  <script src="../static/js/jspsych-affective-slider.js" type="text/javascript"></script>
   <script src="../static/lib/jspsych-6.1.0/plugins/jspsych-instructions.js" type="text/javascript"></script>
   <script src="../static/lib/jspsych-6.1.0/plugins/jspsych-call-function.js" type="text/javascript"></script>
 
@@ -44,14 +46,16 @@
 
   // Add version metadata.
   jsPsych.data.addProperties({
-    task_version: 'battery-v0.2',
+    task_version: 'battery-v0.2-trt',
   });
 
   // Define global variables.
   var low_quality = false;
 
   // Define timeline.
-  var timeline = [];
+  var timeline = [];  
+  timeline = timeline.concat(WELCOME);                 // Welcome screen
+  timeline = timeline.concat(SURVEYS);                 // Survey block
   timeline = timeline.concat(INSTRUCTIONS);            // Instructions block
   timeline = timeline.concat(READY_01);                // Ready check (block 1)
   timeline = timeline.concat(PIT.slice(0,120));        // PIT task (block 1)
@@ -63,6 +67,7 @@
 
   jsPsych.init({
     timeline: timeline,
+    preload_images: slider_stimuli,
     show_progress_bar: true,
     on_finish: function() {
 
@@ -73,7 +78,7 @@
       var interaction_data = jsPsych.data.getInteractionData();
       jsPsych.data.get().addToLast({interactions: interaction_data.json()});
 
-      // Display jsPsych data in viewport.
+      // Testing
       // jsPsych.data.displayData();
 
       if (low_quality) {
