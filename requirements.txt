@@ -1,12 +1,14 @@
 ## Numerical computing libraries
 numpy
+scipy
 pandas
 numba
-h5py
+tqdm
 
 ## Probabilistic programming libraries
-pystan >= 2.19
+cmdstanpy
+arviz
 
 ## Visualization libraries
 matplotlib
-seaborn
+seaborn >= 0.11.1
