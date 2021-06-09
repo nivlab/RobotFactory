@@ -2,92 +2,76 @@ data {
 
     // Metadata
     int<lower=1>  N;                   // Number of total observations
-    int<lower=1>  M;                   // Number of total fixed effects
-    int<lower=1>  K;                   // Number of total random effects (subject-level)
+    int<lower=1>  M;                   // Number of total endogenous effects
+    int<lower=0>  K;                   // Number of total exogenous effects
     int<lower=1>  J[N];                // Subject-indicator per observation
+    int<lower=1>  G[N];                // Session-indicator per observation
     
     // Data
     int  Y[N];                         // Response variable
     
     // Design matrix
-    matrix[N,M]  X;                    // Group-level design matrix
-    row_vector[K]  Z[N];               // Subject-level predictors
-
-}
-transformed data {
-
-    // Hard-coded metadata
-    int  S = 3;                        // Number of sessions
-    int  U = K/S;                      // Number of fixed effects
+    row_vector[M]  X[N];               // Endogenous variables
+    row_vector[K]  Z[N];               // Exogenous variables
 
 }
 parameters {
 
     // Group-level effects
-    vector[M]  beta_mu;                // Group-level effects
+    matrix[M,2]  beta_mu;              // Group-level effects (endogenous)
+    vector[K]    alpha;                // Group-level effects (exogenous)
     
     // Subject-level effects
-    matrix[K, max(J)]  beta_pr;        // Standardized subject-level effects
+    matrix[M,max(J)]  beta_c_pr;       // Between-subject effects
+    matrix[M,max(J)]  beta_d_pr;       // Within-subject effects
     
     // Subject-level covariance
-    cholesky_factor_corr[S] L[U];      // Cholesky factor of correlation matrix
-    vector<lower=0>[K] sigma;          // Subject-level standard deviations
+    cholesky_factor_corr[M] L_c;       // Cholesky factor of correlation matrix
+    cholesky_factor_corr[M] L_d;       // Cholesky factor of correlation matrix
+    matrix<lower=0>[M,2] sigma;        // Subject-level standard deviations
 
 }
 model {
 
     // Priors
-    target += normal_lpdf(beta_mu | 0, 2.5);
-    target += std_normal_lpdf(to_vector(beta_pr));
-    target += student_t_lpdf(sigma | 3, 0, 2.5) - 3 * student_t_lccdf(0 | 3, 0, 2.5);
-    for (u in 1:U) { target += lkj_corr_cholesky_lpdf(L[u] | 1); }
+    target += normal_lpdf(to_vector(beta_mu) | 0, 2.5);
+    target += normal_lpdf(alpha | 0, 2.5);
+    target += std_normal_lpdf(to_vector(beta_c_pr));
+    target += std_normal_lpdf(to_vector(beta_d_pr));
+    target += student_t_lpdf(to_vector(sigma) | 3, 0, 2.5);
+    target += lkj_corr_cholesky_lpdf(L_c | 1);
+    target += lkj_corr_cholesky_lpdf(L_d | 1);
     
     // Likelihood block
     {
-    
-    // Preallocate space
-    matrix[K, K]      LBD = identity_matrix(K);
-    matrix[K, max(J)] beta;
-    
-    // Construct lower block diagonal matrix
-    for (u in 1:U) {
-        int v = S*(u-1);
-        LBD[v+2,v+1] = L[u,2,1];
-        LBD[v+3,v+1] = L[u,3,1];
-        LBD[v+3,v+2] = L[u,3,2];
+     
+    // Rotate random effects
+    matrix[M,max(J)]  beta_c = diag_pre_multiply(sigma[:,1], L_c) * beta_c_pr;
+    matrix[M,max(J)]  beta_d = diag_pre_multiply(sigma[:,2], L_d) * beta_d_pr;
+                
+    // Construct random effects
+    vector[M] beta[2, max(J)];
+    for (j in 1:max(J)) {
+        beta[1,j] = beta_mu[,1] + beta_c[,j] - beta_d[,j];
+        beta[2,j] = beta_mu[,2] + beta_c[,j] + beta_d[,j];
     }
     
-    // Scale subject-level effects
-    beta = diag_pre_multiply(sigma, LBD) * beta_pr;
-    
-    // Initialize linear predictor term
+    // Construct linear predictor terms
     vector[N] mu = rep_vector(0, N);
-    
-    // Add random effects to linear predictor
-    for (n in 1:N) { mu[n] += Z[n] * beta[,J[n]]; }
+    for (n in 1:N) {
+        mu[n] += X[n] * beta[G[n],J[n]] + Z[n] * alpha;
+    }
     
     // Likelihood
-    target += bernoulli_logit_glm_lpmf(Y | X, mu, beta_mu);
+    target += bernoulli_logit_lpmf(Y | mu);
     
     }
 
 }
 generated quantities {
+    
+    // Intra-class correlations
+    vector[M]  rho = ( square(sigma[,1]) - square(sigma[,2]) )
+                  ./ ( square(sigma[,1]) + square(sigma[,2]) );
 
-    // Intra-class correlations 
-    vector[K] rho = rep_vector(0, K);
-    
-    for (u in 1:U) {
-    
-        // Construct correlation matrix
-        matrix[U,U] Omega = multiply_lower_tri_self_transpose(L[u]);
-        
-        // Extract ICCs
-        int v = S*(u-1);
-        rho[v+1] = Omega[2,1];
-        rho[v+2] = Omega[3,1];
-        rho[v+3] = Omega[3,2];
-    
-    }
-    
 }

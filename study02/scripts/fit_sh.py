@@ -3,7 +3,6 @@ import numpy as np
 from os.path import dirname
 from pandas import read_csv
 from cmdstanpy import CmdStanModel, set_cmdstan_path
-set_cmdstan_path('/path/to/cmdstan')
 ROOT_DIR = dirname(dirname(os.path.realpath(__file__)))
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#

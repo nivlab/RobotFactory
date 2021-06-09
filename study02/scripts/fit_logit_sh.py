@@ -37,20 +37,13 @@ reject = read_csv(os.path.join(ROOT_DIR,'data','reject.csv'))
 data = data[data.subject.isin(reject.query('reject==0').subject)]
 
 ## Restrict sessions.
-if session == 1:
-    data = data.query('session == 1 or session == 2')
-elif session == 2:
-    data = data.query('session == 1 or session == 3')
-elif session == 3:
-    data = data.query('session == 2 or session == 3')
+if session in [1,2,3]:
+    data = data.query(f'session == {session}')
 else:
     raise ValueError(f'session type = {session} not implemented.')
 
-## Restrict to participants with all data available.
-data = data.groupby('subject').filter(lambda x: x.session.nunique() >= 2)
-
 ## Sort data.
-data = data.sort_values(['subject','session','rune','trial']).reset_index(drop=True)
+data = data.sort_values(['subject','block','rune','trial']).reset_index(drop=True)
 
 ## Filter data.
 data = data.query('rt.isnull() or rt >= 0.2')      # Remove fast RTs
@@ -66,15 +59,15 @@ data = data.merge(get_dummies(data.robot), left_index=True, right_index=True)
 
 ## Prepare endogenous variables.
 demean = lambda x: x - np.nanmean(x)
-data['valence'] = data.groupby(['subject','session']).valence.transform(demean)
-data['action'] = data.groupby(['subject','session']).action.transform(demean)
-data['incongruent'] = data.groupby(['subject','session']).incongruent.transform(demean)
-data['interaction_1'] = data.groupby(['subject','session']).interaction_1.transform(demean)
-data['interaction_2'] = data.groupby(['subject','session']).interaction_2.transform(demean)
+data['valence'] = data.groupby(['subject','block']).valence.transform(demean)
+data['action'] = data.groupby(['subject','block']).action.transform(demean)
+data['incongruent'] = data.groupby(['subject','block']).incongruent.transform(demean)
+data['interaction_1'] = data.groupby(['subject','block']).interaction_1.transform(demean)
+data['interaction_2'] = data.groupby(['subject','block']).interaction_2.transform(demean)
 
 ## Prepare exogenous variables.
 zscore = lambda x: (x - np.nanmean(x)) / np.nanstd(x)
-data['sham'] = zscore(data.groupby(['subject','session','robot']).sham.transform(lambda x: x.mean()))
+data['sham'] = zscore(data.groupby(['subject','block','robot']).sham.transform(lambda x: x.mean()))
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
 ### Assemble data for Stan.
@@ -105,7 +98,7 @@ Y = data.accuracy.values.astype(int)
 N, M = X.shape
 N, K = Z.shape
 J = np.unique(data.subject, return_inverse=True)[-1] + 1
-G = np.unique(data.session, return_inverse=True)[-1] + 1
+G = np.unique(data.block, return_inverse=True)[-1] + 1
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
 ### Fit Stan Model.
@@ -126,7 +119,7 @@ StanFit = StanModel.sample(data=dd, chains=chains, iter_warmup=iter_warmup, iter
 print('Saving data.')
 
 ## Define output file.
-fout = f'{stan_model}_trt_s{session}_m{endogenous}'
+fout = f'{stan_model}_sh_s{session}_m{endogenous}'
 
 ## Extract and save Stan summary.
 summary = StanFit.summary()
