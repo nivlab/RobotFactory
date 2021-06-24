@@ -10,11 +10,10 @@ data {
     
     // Task variables
     vector[N]  R[M];                   // Rewards (Reinforced = 1, Lessened = 0)
-    vector[N]  V[M];                   // Valence (Win = 1, Lose = 0)
         
     // Mappings
     vector[N]  C[M];                   // Censored data (Observed = 1, Censored = 0)      
-    
+
 }
 transformed data {
     
@@ -30,35 +29,33 @@ transformed data {
 parameters {
     
     // Group-level parameters
-    vector[4] mu_pr;
+    vector[3] mu_pr;
 
     // Subject-level parameters
-    matrix[4,max(J)]  theta_pr;
+    matrix[3,max(J)]  theta_pr;
     
     // Subject-level covariance
-    cholesky_factor_corr[4]  L;
-    vector[4]  sigma_pr;
+    cholesky_factor_corr[3]  L;
+    vector[3]  sigma_pr;
 
 }
 transformed parameters {
 
     // Subject-level parameters
     vector[max(J)]  b0;                // Choice sensitivity
-    vector[max(J)]  b1;                // Go bias (win trials)
-    vector[max(J)]  b2;                // Go bias (lose trials)
+    vector[max(J)]  b1;                // Go bias (all trials)
     vector[max(J)]  a1;                // Learning rate
     
     // Construction block
     {
     
     // Rotate random effects
-    matrix[max(J),4] theta = transpose(rep_matrix(mu_pr, max(J)) + diag_pre_multiply(exp(sigma_pr), L) * theta_pr);
+    matrix[max(J),3] theta = transpose(rep_matrix(mu_pr, max(J)) + diag_pre_multiply(exp(sigma_pr), L) * theta_pr);
     
     // Extract random effects
     b0 = theta[,1] * 5;
     b1 = theta[,2] * 5;
-    b2 = theta[,3] * 5;
-    a1 = Phi_approx(theta[,4]);
+    a1 = Phi_approx(theta[,3]);
     
     }
 
@@ -77,7 +74,6 @@ model {
     // Parameter expansion
     vector[N]  b0_vec = b0[J];
     vector[N]  b1_vec = b1[J];
-    vector[N]  b2_vec = b2[J];
     vector[N]  a1_vec = a1[J];
 
     // Initialize Q-values
@@ -90,7 +86,7 @@ model {
     for (m in 1:M) {
 
         // Define bias
-        vector[N] bias = b1_vec + V[m] .* b2_vec;
+        vector[N] bias = b1_vec;
 
         // Precompute predictor
         mu[,m] = C[m] .* (Q1 - Q2 + bias);

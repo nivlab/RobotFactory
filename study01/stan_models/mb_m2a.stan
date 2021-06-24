@@ -90,7 +90,7 @@ model {
     for (m in 1:M) {
 
         // Define bias
-        vector[N] bias = b1_vec + V[m] .* b2_vec;
+        vector[N] bias = V[m] .* b1_vec + (1-V[m]) .* b2_vec;
 
         // Precompute predictor
         mu[,m] = C[m] .* (Q1 - Q2 + bias);

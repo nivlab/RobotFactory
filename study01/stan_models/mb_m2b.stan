@@ -10,7 +10,7 @@ data {
     
     // Task variables
     vector[N]  R[M];                   // Rewards (Reinforced = 1, Lessened = 0)
-    vector[N]  V[M];                   // Valence (Win = 1, Lose = 0)
+    vector[N]  W[M,3];                 // Instrumental learning bias
         
     // Mappings
     vector[N]  C[M];                   // Censored data (Observed = 1, Censored = 0)      
@@ -44,9 +44,10 @@ transformed parameters {
 
     // Subject-level parameters
     vector[max(J)]  b0;                // Choice sensitivity
-    vector[max(J)]  b1;                // Go bias (win trials)
-    vector[max(J)]  b2;                // Go bias (lose trials)
-    vector[max(J)]  a1;                // Learning rate
+    vector[max(J)]  b1;                // Go bias (all trials)
+    vector[max(J)]  a1;                // Learning rate (go, rewarded)
+    vector[max(J)]  a2;                // Learning rate (no-go, punished)
+    vector[max(J)]  a3;                // Learning rate (all else)
     
     // Construction block
     {
@@ -57,8 +58,9 @@ transformed parameters {
     // Extract random effects
     b0 = theta[,1] * 5;
     b1 = theta[,2] * 5;
-    b2 = theta[,3] * 5;
-    a1 = Phi_approx(theta[,4]);
+    a1 = Phi_approx(theta[,3] + theta[,4]);
+    a2 = Phi_approx(theta[,3] - theta[,4]);
+    a3 = Phi_approx(theta[,3]);
     
     }
 
@@ -77,8 +79,9 @@ model {
     // Parameter expansion
     vector[N]  b0_vec = b0[J];
     vector[N]  b1_vec = b1[J];
-    vector[N]  b2_vec = b2[J];
     vector[N]  a1_vec = a1[J];
+    vector[N]  a2_vec = a2[J];
+    vector[N]  a3_vec = a3[J];
 
     // Initialize Q-values
     vector[N]  Q1 = 0.5 * b0_vec;
@@ -90,13 +93,13 @@ model {
     for (m in 1:M) {
 
         // Define bias
-        vector[N] bias = b1_vec + V[m] .* b2_vec;
+        vector[N] bias = b1_vec;
 
         // Precompute predictor
         mu[,m] = C[m] .* (Q1 - Q2 + bias);
         
         // Define learning rate
-        vector[N] eta_vec = a1_vec;
+        vector[N] eta_vec = W[m,1] .* a1_vec + W[m,2] .* a2_vec + W[m,3] .* a3_vec;
         
         // Update Q-value (go)
         Q1 += one_hot[m] .* ( eta_vec .* ( b0_vec .* R[m] - Q1 ) );
