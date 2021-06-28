@@ -10,10 +10,10 @@ ROOT_DIR = dirname(dirname(os.path.realpath(__file__)))
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
 
 ## I/O parameters.
-stan_model = 'mb'
+stan_model = sys.argv[1]
 
 ## Data parameters.
-session = int(sys.argv[1])
+session = int(sys.argv[2])
 
 ## Sampling parameters.
 iter_warmup   = 2000
@@ -58,8 +58,8 @@ data['valence'] = data.valence.replace({'win':1, 'lose':0})
 ## Define metadata.
 N = data.stimulus.nunique() // 2
 M = data.exposure.nunique()
-J = np.unique(data.query(f'runsheet=="{data.runsheet[0]}" and exposure==1').subject, return_inverse=True)[-1] + 1
-cols = ['runsheet','stimulus']
+J = np.unique(data.query(f'block=={data.block[0]} and exposure==1').subject, return_inverse=True)[-1] + 1
+cols = ['block','stimulus']
 
 ## Prepare censored mappings.
 C = data.fillna(99).pivot_table('rt','exposure',cols).values.reshape(M,2,N).swapaxes(0,1)
