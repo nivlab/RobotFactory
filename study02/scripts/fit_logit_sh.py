@@ -43,7 +43,7 @@ else:
     raise ValueError(f'session type = {session} not implemented.')
 
 ## Sort data.
-data = data.sort_values(['subject','block','rune','trial']).reset_index(drop=True)
+data = data.sort_values(['subject','runsheet','rune','trial']).reset_index(drop=True)
 
 ## Filter data.
 data = data.query('rt.isnull() or rt >= 0.2')      # Remove fast RTs
@@ -59,15 +59,15 @@ data = data.merge(get_dummies(data.robot), left_index=True, right_index=True)
 
 ## Prepare endogenous variables.
 demean = lambda x: x - np.nanmean(x)
-data['valence'] = data.groupby(['subject','block']).valence.transform(demean)
-data['action'] = data.groupby(['subject','block']).action.transform(demean)
-data['incongruent'] = data.groupby(['subject','block']).incongruent.transform(demean)
-data['interaction_1'] = data.groupby(['subject','block']).interaction_1.transform(demean)
-data['interaction_2'] = data.groupby(['subject','block']).interaction_2.transform(demean)
+data['valence'] = data.groupby(['subject','runsheet']).valence.transform(demean)
+data['action'] = data.groupby(['subject','runsheet']).action.transform(demean)
+data['incongruent'] = data.groupby(['subject','runsheet']).incongruent.transform(demean)
+data['interaction_1'] = data.groupby(['subject','runsheet']).interaction_1.transform(demean)
+data['interaction_2'] = data.groupby(['subject','runsheet']).interaction_2.transform(demean)
 
 ## Prepare exogenous variables.
 zscore = lambda x: (x - np.nanmean(x)) / np.nanstd(x)
-data['sham'] = zscore(data.groupby(['subject','block','robot']).sham.transform(lambda x: x.mean()))
+data['sham'] = zscore(data.groupby(['subject','runsheet','robot']).sham.transform(lambda x: x.mean()))
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
 ### Assemble data for Stan.
@@ -98,7 +98,7 @@ Y = data.accuracy.values.astype(int)
 N, M = X.shape
 N, K = Z.shape
 J = np.unique(data.subject, return_inverse=True)[-1] + 1
-G = np.unique(data.block, return_inverse=True)[-1] + 1
+G = np.unique(data.runsheet, return_inverse=True)[-1] + 1
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
 ### Fit Stan Model.
