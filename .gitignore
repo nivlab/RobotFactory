@@ -108,3 +108,11 @@ venv.bak/
 .DS_Store
 **.hpp
 **.tsv.gz
+
+#stan
+**.tsv
+**.json
+**.txt
+**.log
+**.err
+**.csv
