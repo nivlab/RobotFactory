@@ -106,5 +106,7 @@ venv.bak/
 
 # project specific
 .DS_Store
-**.hpp
-**.tsv.gz
+*.gz
+*.hpp
+**/stan_models/*
+!**/stan_models/*.stan
