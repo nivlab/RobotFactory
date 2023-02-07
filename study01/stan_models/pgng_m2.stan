@@ -8,7 +8,6 @@ data {
     // Data
     array[N] int<lower=0, upper=1>  Y;      // Response (go = 1, no-go = 0)
     array[N] int<lower=0, upper=1>  R;      // Outcome (better = 1, worse = 0)
-    array[N] int<lower=0, upper=1>  V;      // Valence (positive = 1, negative = 0)
 
 }
 transformed data {
@@ -30,7 +29,7 @@ parameters {
 transformed parameters {
 
     vector[NJ]  b1;                         // Inverse temperature
-    vector[NJ]  b2;                         // Pavlovian bias
+    vector[NJ]  b2;                         // Go bias
     vector[NJ]  a1;                         // Learning rate
 
     // Construction block
@@ -57,7 +56,7 @@ model {
     for (n in 1:N) {
     
         // Compute (scaled) difference in expected values
-        mu[n] = b1[J[n]] * (Q[J[n],K[n],2] - Q[J[n],K[n],1]) + b2[J[n]] * V[n];
+        mu[n] = b1[J[n]] * (Q[J[n],K[n],2] - Q[J[n],K[n],1]) + b2[J[n]];
         
         // Compute prediction error
         real delta = R[n] - Q[J[n],K[n],Y[n]+1];

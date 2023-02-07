@@ -30,8 +30,8 @@ parameters {
 transformed parameters {
 
     vector[NJ]  b1;                         // Inverse temperature
-    vector[NJ]  b2;                         // Pavlovian bias
-    vector[NJ]  b3;                         // Go bias
+    vector[NJ]  b2;                         // Go bias
+    vector[NJ]  b3;                         // Pavlovian bias
     vector[NJ]  a1;                         // Learning rate (go action & rewarded)
     vector[NJ]  a2;                         // Learning rate (no-go action & punished)
     vector[NJ]  a3;                         // Learning rate (all else)
@@ -63,7 +63,7 @@ model {
     for (n in 1:N) {
     
         // Compute (scaled) difference in expected values
-        mu[n] = b1[J[n]] * (Q[J[n],K[n],2] - Q[J[n],K[n],1]) + b2[J[n]] * V[n] + b3[J[n]];
+        mu[n] = b1[J[n]] * (Q[J[n],K[n],2] - Q[J[n],K[n],1]) + b2[J[n]] + b3[J[n]] * V[n];
         
         // Compute prediction error
         real delta = R[n] - Q[J[n],K[n],Y[n]+1];

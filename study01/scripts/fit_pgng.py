@@ -49,7 +49,7 @@ M = np.unique(data.block, return_inverse=True)[-1] + 1
 ## Define data.
 Y = data.choice.values.astype(int)
 R = data.outcome.values.astype(int)
-V = data.outcome.values.astype(int)
+V = data.valence.values.astype(int)
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
 ### Fit Stan Model.
