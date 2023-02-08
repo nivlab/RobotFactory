@@ -1,6 +1,6 @@
 # experiment-study02
 
-This branch contains the experiment code for Study 01. The Robot Factory task is programmed using [jsPsych](https://www.jspsych.org/latest). The experiment was served to participants using [NivTurk](https://nivlab.github.io/nivturk/).
+This branch contains the experiment code for Study 02. The Robot Factory task is programmed using [jsPsych](https://www.jspsych.org/latest). The experiment was served to participants using [NivTurk](https://nivlab.github.io/nivturk/).
 
 ## Contact
 
