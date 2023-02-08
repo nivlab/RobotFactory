@@ -31,21 +31,27 @@ Models (See full documentation here: https://www.overleaf.com/2342646366xndvzcqr
     - \[eta_gain ,eta_loss\] (learning rate)
     - beta (inverse temp)
     - beta_p (Pavlovian bias)
-    - beta_GO (Go bias) in a verion, b version does not include go bias
+    - versions
+        - a: including beta_GO (Go bias) 
+        - b: does not include go bias
     
     
 - m5.stan: RW Qlearning model + pavlovian bias + go bias + contex(robot)-dependent asymmetry eta: 
     - \[eta_congurent ,eta_incongruent\] (learning rate, cong-GW, NGAL incong-NGW,GAL)
     - beta (inverse temp)
     - beta_p (Pavlovian bias)
-    - beta_GO (Go bias) in a verion, b version does not include go bias
+    - versions
+        - a: including beta_GO (Go bias) 
+        - b: does not include go bias
 
     
 - m6.stan: RW Qlearning model + pavlovian bias + go bias + outcome-dependent asymmetry eta: 
-    - \[eta_congurent ,eta_incongruent\] (learning rate, cong-GW, NGAL incong-NGW,GAL)
+    - \[eta_congurent ,eta_incongruent\] (G(+) // NOGO(-))
     - beta (inverse temp)
     - beta_p (Pavlovian bias)
-    - beta_GO (Go bias) in a verion, b version does not include go bias
+    - versions
+        - a: including beta_GO (Go bias) 
+        - b: does not include go bias
     
     
     

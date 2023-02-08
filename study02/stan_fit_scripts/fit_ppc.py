@@ -23,9 +23,14 @@ def inv_logit(x):
     return 1. / (1 + np.exp(-x))
 
 def waic(log_lik):
+    ## (lppd - pWAIC)
+    ## lppd:  log pointwise predictive density
+    ## pWAIC: the effective number of parameters
     lppd = np.log( np.exp(log_lik).mean(axis=0) )
     pwaic = np.var(log_lik, axis=0)
     return lppd - pwaic
+
+
 
 ##############################################################
 

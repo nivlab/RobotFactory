@@ -116,3 +116,6 @@ venv.bak/
 **.log
 **.err
 **.csv
+
+
+**.out
