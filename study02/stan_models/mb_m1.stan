@@ -77,8 +77,7 @@ model {
     vector[N]  a1_vec = a1[J];
 
     // Initialize Q-values
-    vector[N]  Q1 = 0.5 * b0_vec;
-    vector[N]  Q2 = 0.5 * b0_vec;
+    vector[N]  Q[2] = 0.5 * b0_vec;
     
     // Construct predictor terms
     matrix[N,M] mu = rep_matrix(0, N, M);
