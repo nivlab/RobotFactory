@@ -13,7 +13,7 @@ data {
     vector[N]  V[M];                   // Valence (Win = 1, Lose = 0)
         
     // Mappings
-    vector[N]  C[M];                   // Censored data (Observed = 1, Censored = 0)      
+    matrix[M, N]  C;                    // Censored data (Observed = 1, Censored = 0)      
     
 }
 transformed data {
@@ -85,7 +85,7 @@ model {
     vector[N]  Q2 = 0.5 * b0_vec;
     
     // Construct predictor terms
-    matrix[N,M] mu = rep_matrix(0, N, M);
+    matrix[N, M] mu = rep_matrix(0, N, M);
     
     for (m in 1:M) {
 
