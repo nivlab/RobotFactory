@@ -1,477 +1,0 @@
-INFO:cmdstanpy:found newer exe file, not recompiling
-INFO:cmdstanpy:CmdStan start processing
-chain 1 |[33m          [0m| 00:00 Status
-chain 2 |[33m          [0m| 00:00 Status[A
-
-chain 3 |[33m          [0m| 00:00 Status[A[A
-
-
-chain 4 |[33m          [0m| 00:00 Status[A[A[A
-chain 2 |[33m▏         [0m| 00:01 Status[A
-
-
-chain 4 |[33m▏         [0m| 00:01 Status[A[A[A
-
-chain 3 |[33m▏         [0m| 00:01 Status[A[Achain 1 |[33m▏         [0m| 00:01 Status
-chain 2 |[33m▎         [0m| 11:47 Iteration:    1 / 7500 [  0%]  (Warmup)[A
-
-
-chain 4 |[33m▎         [0m| 13:05 Iteration:    1 / 7500 [  0%]  (Warmup)[A[A[Achain 1 |[33m▎         [0m| 14:10 Iteration:    1 / 7500 [  0%]  (Warmup)
-
-chain 3 |[33m▎         [0m| 14:52 Iteration:    1 / 7500 [  0%]  (Warmup)[A[A
-chain 2 |[33m▍         [0m| 21:03 Iteration:  100 / 7500 [  1%]  (Warmup)[A
-
-
-chain 4 |[33m▍         [0m| 24:30 Iteration:  100 / 7500 [  1%]  (Warmup)[A[A[Achain 1 |[33m▍         [0m| 25:45 Iteration:  100 / 7500 [  1%]  (Warmup)
-
-chain 3 |[33m▍         [0m| 27:44 Iteration:  100 / 7500 [  1%]  (Warmup)[A[A
-chain 2 |[33m▌         [0m| 30:05 Iteration:  200 / 7500 [  2%]  (Warmup)[A
-
-
-chain 4 |[33m▌         [0m| 35:43 Iteration:  200 / 7500 [  2%]  (Warmup)[A[A[Achain 1 |[33m▌         [0m| 37:33 Iteration:  200 / 7500 [  2%]  (Warmup)
-
-chain 3 |[33m▌         [0m| 39:25 Iteration:  200 / 7500 [  2%]  (Warmup)[A[A
-chain 2 |[33m▋         [0m| 40:16 Iteration:  300 / 7500 [  4%]  (Warmup)[A
-
-
-chain 4 |[33m▋         [0m| 46:17 Iteration:  300 / 7500 [  4%]  (Warmup)[A[A[Achain 1 |[33m▋         [0m| 48:17 Iteration:  300 / 7500 [  4%]  (Warmup)
-
-chain 3 |[33m▋         [0m| 49:02 Iteration:  300 / 7500 [  4%]  (Warmup)[A[A
-chain 2 |[33m▊         [0m| 52:53 Iteration:  400 / 7500 [  5%]  (Warmup)[Achain 1 |[33m▊         [0m| 55:56 Iteration:  400 / 7500 [  5%]  (Warmup)
-
-
-chain 4 |[33m▊         [0m| 1:00:15 Iteration:  400 / 7500 [  5%]  (Warmup)[A[A[A
-
-chain 3 |[33m▊         [0m| 1:01:29 Iteration:  400 / 7500 [  5%]  (Warmup)[A[A
-chain 2 |[33m▉         [0m| 1:01:54 Iteration:  500 / 7500 [  6%]  (Warmup)[Achain 1 |[33m▉         [0m| 1:05:05 Iteration:  500 / 7500 [  6%]  (Warmup)
-
-
-chain 4 |[33m▉         [0m| 1:09:40 Iteration:  500 / 7500 [  6%]  (Warmup)[A[A[A
-chain 2 |[33m█         [0m| 1:09:48 Iteration:  600 / 7500 [  8%]  (Warmup)[A
-
-chain 3 |[33m▉         [0m| 1:11:01 Iteration:  500 / 7500 [  6%]  (Warmup)[A[Achain 1 |[33m█         [0m| 1:12:16 Iteration:  600 / 7500 [  8%]  (Warmup)
-
-chain 3 |[33m█         [0m| 1:17:25 Iteration:  600 / 7500 [  8%]  (Warmup)[A[A
-chain 2 |[33m█▏        [0m| 1:18:53 Iteration:  700 / 7500 [  9%]  (Warmup)[A
-
-
-chain 4 |[33m█         [0m| 1:19:46 Iteration:  600 / 7500 [  8%]  (Warmup)[A[A[Achain 1 |[33m█▏        [0m| 1:20:54 Iteration:  700 / 7500 [  9%]  (Warmup)
-chain 2 |[33m█▎        [0m| 1:25:54 Iteration:  800 / 7500 [ 10%]  (Warmup)[A
-
-chain 3 |[33m█▏        [0m| 1:27:22 Iteration:  700 / 7500 [  9%]  (Warmup)[A[A
-
-
-chain 4 |[33m█▏        [0m| 1:28:42 Iteration:  700 / 7500 [  9%]  (Warmup)[A[A[Achain 1 |[33m█▎        [0m| 1:29:38 Iteration:  800 / 7500 [ 10%]  (Warmup)
-
-
-chain 4 |[33m█▎        [0m| 1:35:45 Iteration:  800 / 7500 [ 10%]  (Warmup)[A[A[Achain 1 |[33m█▍        [0m| 1:38:23 Iteration:  900 / 7500 [ 12%]  (Warmup)
-chain 2 |[33m█▍        [0m| 1:38:28 Iteration:  900 / 7500 [ 12%]  (Warmup)[A
-
-chain 3 |[33m█▎        [0m| 1:40:25 Iteration:  800 / 7500 [ 10%]  (Warmup)[A[A
-
-
-chain 4 |[33m█▍        [0m| 1:44:30 Iteration:  900 / 7500 [ 12%]  (Warmup)[A[A[Achain 1 |[33m█▌        [0m| 1:47:06 Iteration: 1000 / 7500 [ 13%]  (Warmup)
-chain 2 |[33m█▌        [0m| 1:50:21 Iteration: 1000 / 7500 [ 13%]  (Warmup)[A
-
-chain 3 |[33m█▍        [0m| 1:50:29 Iteration:  900 / 7500 [ 12%]  (Warmup)[A[A
-
-
-chain 4 |[33m█▌        [0m| 1:53:41 Iteration: 1000 / 7500 [ 13%]  (Warmup)[A[A[Achain 1 |[33m█▋        [0m| 1:55:21 Iteration: 1100 / 7500 [ 14%]  (Warmup)
-
-chain 3 |[33m█▌        [0m| 1:59:34 Iteration: 1000 / 7500 [ 13%]  (Warmup)[A[A
-chain 2 |[33m█▋        [0m| 2:02:36 Iteration: 1100 / 7500 [ 14%]  (Warmup)[A
-
-
-chain 4 |[33m█▋        [0m| 2:02:59 Iteration: 1100 / 7500 [ 14%]  (Warmup)[A[A[Achain 1 |[33m█▊        [0m| 2:03:48 Iteration: 1200 / 7500 [ 16%]  (Warmup)
-
-chain 3 |[33m█▋        [0m| 2:07:37 Iteration: 1100 / 7500 [ 14%]  (Warmup)[A[Achain 1 |[33m█▉        [0m| 2:10:22 Iteration: 1300 / 7500 [ 17%]  (Warmup)
-
-
-chain 4 |[33m█▊        [0m| 2:10:23 Iteration: 1200 / 7500 [ 16%]  (Warmup)[A[A[A
-chain 2 |[33m█▊        [0m| 2:11:43 Iteration: 1200 / 7500 [ 16%]  (Warmup)[A
-
-chain 3 |[33m█▊        [0m| 2:17:42 Iteration: 1200 / 7500 [ 16%]  (Warmup)[A[Achain 1 |[33m██        [0m| 2:18:35 Iteration: 1400 / 7500 [ 18%]  (Warmup)
-
-
-chain 4 |[33m█▉        [0m| 2:18:44 Iteration: 1300 / 7500 [ 17%]  (Warmup)[A[A[A
-chain 2 |[33m█▉        [0m| 2:21:04 Iteration: 1300 / 7500 [ 17%]  (Warmup)[A
-
-chain 3 |[33m█▉        [0m| 2:25:27 Iteration: 1300 / 7500 [ 17%]  (Warmup)[A[Achain 1 |[33m██▏       [0m| 2:26:39 Iteration: 1500 / 7500 [ 20%]  (Warmup)
-
-
-chain 4 |[33m██        [0m| 2:27:09 Iteration: 1400 / 7500 [ 18%]  (Warmup)[A[A[A
-chain 2 |[33m██        [0m| 2:31:15 Iteration: 1400 / 7500 [ 18%]  (Warmup)[A
-
-
-chain 4 |[33m██▏       [0m| 2:35:20 Iteration: 1500 / 7500 [ 20%]  (Warmup)[A[A[A
-
-chain 3 |[33m██        [0m| 2:35:30 Iteration: 1400 / 7500 [ 18%]  (Warmup)[A[Achain 1 |[33m██▎       [0m| 2:36:10 Iteration: 1600 / 7500 [ 21%]  (Warmup)
-chain 2 |[33m██▏       [0m| 2:39:18 Iteration: 1500 / 7500 [ 20%]  (Warmup)[Achain 1 |[33m██▍       [0m| 2:44:46 Iteration: 1700 / 7500 [ 22%]  (Warmup)
-
-
-chain 4 |[33m██▎       [0m| 2:45:53 Iteration: 1600 / 7500 [ 21%]  (Warmup)[A[A[A
-
-chain 3 |[33m██▏       [0m| 2:45:53 Iteration: 1500 / 7500 [ 20%]  (Warmup)[A[Achain 1 |[33m██▌       [0m| 2:51:40 Iteration: 1800 / 7500 [ 24%]  (Warmup)
-chain 2 |[33m██▎       [0m| 2:52:35 Iteration: 1600 / 7500 [ 21%]  (Warmup)[A
-
-
-chain 4 |[33m██▍       [0m| 2:53:45 Iteration: 1700 / 7500 [ 22%]  (Warmup)[A[A[Achain 1 |[33m██▋       [0m| 2:59:32 Iteration: 1900 / 7500 [ 25%]  (Warmup)
-
-chain 3 |[33m██▎       [0m| 3:00:05 Iteration: 1600 / 7500 [ 21%]  (Warmup)[A[A
-
-
-chain 4 |[33m██▌       [0m| 3:00:55 Iteration: 1800 / 7500 [ 24%]  (Warmup)[A[A[A
-chain 2 |[33m██▍       [0m| 3:02:51 Iteration: 1700 / 7500 [ 22%]  (Warmup)[Achain 1 |[33m██▊       [0m| 3:09:04 Iteration: 2000 / 7500 [ 26%]  (Warmup)
-
-chain 3 |[33m██▍       [0m| 3:09:26 Iteration: 1700 / 7500 [ 22%]  (Warmup)[A[A
-
-
-chain 4 |[33m██▋       [0m| 3:10:14 Iteration: 1900 / 7500 [ 25%]  (Warmup)[A[A[A
-chain 2 |[33m██▌       [0m| 3:12:23 Iteration: 1800 / 7500 [ 24%]  (Warmup)[A
-
-chain 3 |[33m██▌       [0m| 3:16:50 Iteration: 1800 / 7500 [ 24%]  (Warmup)[A[Achain 1 |[33m██▉       [0m| 3:17:34 Iteration: 2100 / 7500 [ 28%]  (Warmup)
-
-
-chain 4 |[33m██▊       [0m| 3:21:30 Iteration: 2000 / 7500 [ 26%]  (Warmup)[A[A[A
-chain 2 |[33m██▋       [0m| 3:21:53 Iteration: 1900 / 7500 [ 25%]  (Warmup)[A
-
-chain 3 |[33m██▋       [0m| 3:25:33 Iteration: 1900 / 7500 [ 25%]  (Warmup)[A[Achain 1 |[33m███       [0m| 3:26:30 Iteration: 2200 / 7500 [ 29%]  (Warmup)
-chain 2 |[33m██▊       [0m| 3:29:41 Iteration: 2000 / 7500 [ 26%]  (Warmup)[A
-
-
-chain 4 |[33m██▉       [0m| 3:31:24 Iteration: 2100 / 7500 [ 28%]  (Warmup)[A[A[A
-
-chain 3 |[33m██▊       [0m| 3:31:58 Iteration: 2000 / 7500 [ 26%]  (Warmup)[A[Achain 1 |[33m███▏      [0m| 3:35:35 Iteration: 2300 / 7500 [ 30%]  (Warmup)
-chain 2 |[33m██▉       [0m| 3:38:05 Iteration: 2100 / 7500 [ 28%]  (Warmup)[A
-
-
-chain 4 |[33m███       [0m| 3:40:15 Iteration: 2200 / 7500 [ 29%]  (Warmup)[A[A[A
-
-chain 3 |[33m██▉       [0m| 3:40:24 Iteration: 2100 / 7500 [ 28%]  (Warmup)[A[Achain 1 |[33m███▍      [0m| 3:43:11 Iteration: 2400 / 7500 [ 32%]  (Warmup)
-chain 2 |[33m███       [0m| 3:45:58 Iteration: 2200 / 7500 [ 29%]  (Warmup)[A
-
-
-chain 4 |[33m███▏      [0m| 3:48:24 Iteration: 2300 / 7500 [ 30%]  (Warmup)[A[A[A
-
-chain 3 |[33m███       [0m| 3:49:42 Iteration: 2200 / 7500 [ 29%]  (Warmup)[A[Achain 1 |[33m███▌      [0m| 3:52:34 Iteration: 2500 / 7500 [ 33%]  (Warmup)
-chain 2 |[33m███▏      [0m| 3:54:45 Iteration: 2300 / 7500 [ 30%]  (Warmup)[A
-
-
-chain 4 |[33m███▍      [0m| 3:57:50 Iteration: 2400 / 7500 [ 32%]  (Warmup)[A[A[A
-
-chain 3 |[33m███▏      [0m| 3:57:57 Iteration: 2300 / 7500 [ 30%]  (Warmup)[A[Achain 1 |[33m███▋      [0m| 4:00:09 Iteration: 2600 / 7500 [ 34%]  (Warmup)
-chain 2 |[33m███▍      [0m| 4:04:06 Iteration: 2400 / 7500 [ 32%]  (Warmup)[A
-
-
-chain 4 |[33m███▌      [0m| 4:06:48 Iteration: 2500 / 7500 [ 33%]  (Warmup)[A[A[A
-
-chain 3 |[33m███▍      [0m| 4:07:07 Iteration: 2400 / 7500 [ 32%]  (Warmup)[A[Achain 1 |[33m███▊      [0m| 4:08:13 Iteration: 2700 / 7500 [ 36%]  (Warmup)
-chain 2 |[33m███▌      [0m| 4:11:04 Iteration: 2500 / 7500 [ 33%]  (Warmup)[A
-
-chain 3 |[33m███▌      [0m| 4:14:19 Iteration: 2500 / 7500 [ 33%]  (Warmup)[A[A
-
-
-chain 4 |[33m███▋      [0m| 4:15:43 Iteration: 2600 / 7500 [ 34%]  (Warmup)[A[A[Achain 1 |[33m███▉      [0m| 4:16:32 Iteration: 2800 / 7500 [ 37%]  (Warmup)
-chain 2 |[33m███▋      [0m| 4:19:33 Iteration: 2600 / 7500 [ 34%]  (Warmup)[A
-
-chain 3 |[33m███▋      [0m| 4:21:56 Iteration: 2600 / 7500 [ 34%]  (Warmup)[A[A
-
-
-chain 4 |[33m███▊      [0m| 4:23:00 Iteration: 2700 / 7500 [ 36%]  (Warmup)[A[A[Achain 1 |[33m████      [0m| 4:25:11 Iteration: 2900 / 7500 [ 38%]  (Warmup)
-chain 2 |[33m███▊      [0m| 4:28:38 Iteration: 2700 / 7500 [ 36%]  (Warmup)[A
-
-chain 3 |[33m███▊      [0m| 4:30:14 Iteration: 2700 / 7500 [ 36%]  (Warmup)[A[A
-
-
-chain 4 |[33m███▉      [0m| 4:31:15 Iteration: 2800 / 7500 [ 37%]  (Warmup)[A[A[Achain 1 |[33m████▏     [0m| 4:34:34 Iteration: 3000 / 7500 [ 40%]  (Warmup)
-chain 2 |[33m███▉      [0m| 4:36:17 Iteration: 2800 / 7500 [ 37%]  (Warmup)[A
-
-chain 3 |[33m███▉      [0m| 4:36:56 Iteration: 2800 / 7500 [ 37%]  (Warmup)[A[A
-
-
-chain 4 |[33m████      [0m| 4:38:37 Iteration: 2900 / 7500 [ 38%]  (Warmup)[A[A[Achain 1 |[33m████▎     [0m| 4:42:09 Iteration: 3100 / 7500 [ 41%]  (Warmup)
-
-chain 3 |[33m████      [0m| 4:44:52 Iteration: 2900 / 7500 [ 38%]  (Warmup)[A[A
-chain 2 |[33m████      [0m| 4:45:34 Iteration: 2900 / 7500 [ 38%]  (Warmup)[A
-
-
-chain 4 |[33m████▏     [0m| 4:46:47 Iteration: 3000 / 7500 [ 40%]  (Warmup)[A[A[Achain 1 |[33m████▍     [0m| 4:50:34 Iteration: 3200 / 7500 [ 42%]  (Warmup)
-
-chain 3 |[33m████▏     [0m| 4:52:51 Iteration: 3000 / 7500 [ 40%]  (Warmup)[A[A
-chain 2 |[33m████▏     [0m| 4:53:33 Iteration: 3000 / 7500 [ 40%]  (Warmup)[A
-
-
-chain 4 |[33m████▎     [0m| 4:55:01 Iteration: 3100 / 7500 [ 41%]  (Warmup)[A[A[Achain 1 |[33m████▌     [0m| 4:59:39 Iteration: 3300 / 7500 [ 44%]  (Warmup)
-
-chain 3 |[33m████▎     [0m| 5:01:55 Iteration: 3100 / 7500 [ 41%]  (Warmup)[A[A
-chain 2 |[33m████▎     [0m| 5:01:57 Iteration: 3100 / 7500 [ 41%]  (Warmup)[A
-
-
-chain 4 |[33m████▍     [0m| 5:04:03 Iteration: 3200 / 7500 [ 42%]  (Warmup)[A[A[Achain 1 |[33m████▋     [0m| 5:06:58 Iteration: 3400 / 7500 [ 45%]  (Warmup)
-chain 2 |[33m████▍     [0m| 5:10:27 Iteration: 3200 / 7500 [ 42%]  (Warmup)[A
-
-chain 3 |[33m████▍     [0m| 5:10:31 Iteration: 3200 / 7500 [ 42%]  (Warmup)[A[A
-
-
-chain 4 |[33m████▌     [0m| 5:12:15 Iteration: 3300 / 7500 [ 44%]  (Warmup)[A[A[Achain 1 |[33m████▊     [0m| 5:15:05 Iteration: 3500 / 7500 [ 46%]  (Warmup)
-chain 2 |[33m████▌     [0m| 5:18:32 Iteration: 3300 / 7500 [ 44%]  (Warmup)[A
-
-chain 3 |[33m████▌     [0m| 5:19:00 Iteration: 3300 / 7500 [ 44%]  (Warmup)[A[A
-
-
-chain 4 |[33m████▋     [0m| 5:20:30 Iteration: 3400 / 7500 [ 45%]  (Warmup)[A[A[Achain 1 |[33m████▉     [0m| 5:24:23 Iteration: 3600 / 7500 [ 48%]  (Warmup)
-chain 2 |[33m████▋     [0m| 5:26:50 Iteration: 3400 / 7500 [ 45%]  (Warmup)[A
-
-chain 3 |[33m████▋     [0m| 5:27:36 Iteration: 3400 / 7500 [ 45%]  (Warmup)[A[A
-
-
-chain 4 |[33m████▊     [0m| 5:30:26 Iteration: 3500 / 7500 [ 46%]  (Warmup)[A[A[Achain 1 |[33m█████     [0m| 5:34:13 Iteration: 3700 / 7500 [ 49%]  (Warmup)
-chain 2 |[33m████▊     [0m| 5:34:42 Iteration: 3500 / 7500 [ 46%]  (Warmup)[A
-
-chain 3 |[33m████▊     [0m| 5:37:40 Iteration: 3500 / 7500 [ 46%]  (Warmup)[A[A
-
-
-chain 4 |[33m████▉     [0m| 5:38:23 Iteration: 3600 / 7500 [ 48%]  (Warmup)[A[A[Achain 1 |[33m█████▏    [0m| 5:42:43 Iteration: 3800 / 7500 [ 50%]  (Warmup)
-chain 2 |[33m████▉     [0m| 5:43:40 Iteration: 3600 / 7500 [ 48%]  (Warmup)[A
-
-chain 3 |[33m████▉     [0m| 5:44:04 Iteration: 3600 / 7500 [ 48%]  (Warmup)[A[A
-
-
-chain 4 |[33m█████     [0m| 5:46:44 Iteration: 3700 / 7500 [ 49%]  (Warmup)[A[A[Achain 1 |[33m█████▎    [0m| 5:51:34 Iteration: 3900 / 7500 [ 52%]  (Warmup)
-chain 2 |[33m█████     [0m| 5:52:13 Iteration: 3700 / 7500 [ 49%]  (Warmup)[A
-
-chain 3 |[33m█████     [0m| 5:53:42 Iteration: 3700 / 7500 [ 49%]  (Warmup)[A[A
-
-
-chain 4 |[33m█████▏    [0m| 5:55:06 Iteration: 3800 / 7500 [ 50%]  (Warmup)[A[A[Achain 1 |[33m█████▍    [0m| 5:58:58 Iteration: 4000 / 7500 [ 53%]  (Warmup)
-chain 2 |[33m█████▏    [0m| 6:00:18 Iteration: 3800 / 7500 [ 50%]  (Warmup)[A
-
-chain 3 |[33m█████▏    [0m| 6:02:27 Iteration: 3800 / 7500 [ 50%]  (Warmup)[A[A
-
-
-chain 4 |[33m█████▎    [0m| 6:03:39 Iteration: 3900 / 7500 [ 52%]  (Warmup)[A[A[Achain 1 |[33m█████▌    [0m| 6:06:34 Iteration: 4100 / 7500 [ 54%]  (Warmup)
-chain 2 |[33m█████▎    [0m| 6:08:40 Iteration: 3900 / 7500 [ 52%]  (Warmup)[A
-
-chain 3 |[33m█████▎    [0m| 6:11:05 Iteration: 3900 / 7500 [ 52%]  (Warmup)[A[A
-
-
-chain 4 |[33m█████▍    [0m| 6:12:31 Iteration: 4000 / 7500 [ 53%]  (Warmup)[A[A[Achain 1 |[33m█████▋    [0m| 6:15:18 Iteration: 4200 / 7500 [ 56%]  (Warmup)
-chain 2 |[33m█████▍    [0m| 6:17:21 Iteration: 4000 / 7500 [ 53%]  (Warmup)[A
-
-
-chain 4 |[33m█████▌    [0m| 6:19:54 Iteration: 4100 / 7500 [ 54%]  (Warmup)[A[A[A
-
-chain 3 |[33m█████▍    [0m| 6:21:08 Iteration: 4000 / 7500 [ 53%]  (Warmup)[A[Achain 1 |[33m█████▊    [0m| 6:24:08 Iteration: 4300 / 7500 [ 57%]  (Warmup)
-chain 2 |[33m█████▌    [0m| 6:27:14 Iteration: 4100 / 7500 [ 54%]  (Warmup)[A
-
-
-chain 4 |[33m█████▋    [0m| 6:29:40 Iteration: 4200 / 7500 [ 56%]  (Warmup)[A[A[A
-
-chain 3 |[33m█████▌    [0m| 6:29:44 Iteration: 4100 / 7500 [ 54%]  (Warmup)[A[Achain 1 |[33m█████▉    [0m| 6:32:02 Iteration: 4400 / 7500 [ 58%]  (Warmup)
-chain 2 |[33m█████▋    [0m| 6:35:29 Iteration: 4200 / 7500 [ 56%]  (Warmup)[A
-
-chain 3 |[33m█████▋    [0m| 6:37:36 Iteration: 4200 / 7500 [ 56%]  (Warmup)[A[A
-
-
-chain 4 |[33m█████▊    [0m| 6:37:39 Iteration: 4300 / 7500 [ 57%]  (Warmup)[A[A[Achain 1 |[33m██████    [0m| 6:41:33 Iteration: 4500 / 7500 [ 60%]  (Warmup)
-chain 2 |[33m█████▊    [0m| 6:43:52 Iteration: 4300 / 7500 [ 57%]  (Warmup)[A
-
-
-chain 4 |[33m█████▉    [0m| 6:45:37 Iteration: 4400 / 7500 [ 58%]  (Warmup)[A[A[A
-
-chain 3 |[33m█████▊    [0m| 6:45:54 Iteration: 4300 / 7500 [ 57%]  (Warmup)[A[Achain 1 |[33m██████▏   [0m| 6:50:39 Iteration: 4600 / 7500 [ 61%]  (Warmup)
-chain 2 |[33m█████▉    [0m| 6:52:33 Iteration: 4400 / 7500 [ 58%]  (Warmup)[A
-
-chain 3 |[33m█████▉    [0m| 6:52:35 Iteration: 4400 / 7500 [ 58%]  (Warmup)[A[A
-
-
-chain 4 |[33m██████    [0m| 6:53:43 Iteration: 4500 / 7500 [ 60%]  (Warmup)[A[A[A
-
-chain 3 |[33m██████    [0m| 6:59:10 Iteration: 4500 / 7500 [ 60%]  (Warmup)[A[Achain 1 |[33m██████▎   [0m| 6:59:58 Iteration: 4700 / 7500 [ 62%]  (Warmup)
-chain 2 |[33m██████    [0m| 7:01:33 Iteration: 4500 / 7500 [ 60%]  (Warmup)[A
-
-
-chain 4 |[33m██████▏   [0m| 7:02:38 Iteration: 4600 / 7500 [ 61%]  (Warmup)[A[A[Achain 1 |[33m██████▍   [0m| 7:07:39 Iteration: 4800 / 7500 [ 64%]  (Warmup)
-
-chain 3 |[33m██████▏   [0m| 7:08:08 Iteration: 4600 / 7500 [ 61%]  (Warmup)[A[A
-
-
-chain 4 |[33m██████▎   [0m| 7:10:41 Iteration: 4700 / 7500 [ 62%]  (Warmup)[A[A[A
-chain 2 |[33m██████▏   [0m| 7:12:23 Iteration: 4600 / 7500 [ 61%]  (Warmup)[A
-
-chain 3 |[33m██████▎   [0m| 7:17:04 Iteration: 4700 / 7500 [ 62%]  (Warmup)[A[Achain 1 |[33m██████▌   [0m| 7:18:13 Iteration: 4900 / 7500 [ 65%]  (Warmup)chain 1 |[34m██████▊   [0m| 7:18:24 Iteration: 5000 / 7500 [ 66%]  (Warmup)
-
-
-chain 4 |[33m██████▍   [0m| 7:19:27 Iteration: 4800 / 7500 [ 64%]  (Warmup)[A[A[A
-chain 2 |[33m██████▎   [0m| 7:20:53 Iteration: 4700 / 7500 [ 62%]  (Warmup)[A
-
-chain 3 |[33m██████▍   [0m| 7:23:50 Iteration: 4800 / 7500 [ 64%]  (Warmup)[A[Achain 1 |[34m██████▉   [0m| 7:27:04 Iteration: 5001 / 7500 [ 66%]  (Sampling)
-
-
-chain 4 |[33m██████▌   [0m| 7:31:03 Iteration: 4900 / 7500 [ 65%]  (Warmup)[A[A[A
-
-
-chain 4 |[34m██████▊   [0m| 7:31:14 Iteration: 5000 / 7500 [ 66%]  (Warmup)[A[A[A
-chain 2 |[33m██████▍   [0m| 7:31:26 Iteration: 4800 / 7500 [ 64%]  (Warmup)[A
-
-chain 3 |[33m██████▌   [0m| 7:33:58 Iteration: 4900 / 7500 [ 65%]  (Warmup)[A[A
-
-chain 3 |[34m██████▊   [0m| 7:34:00 Iteration: 5000 / 7500 [ 66%]  (Warmup)[A[Achain 1 |[34m███████   [0m| 7:35:51 Iteration: 5100 / 7500 [ 68%]  (Sampling)
-
-
-chain 4 |[34m██████▉   [0m| 7:39:51 Iteration: 5001 / 7500 [ 66%]  (Sampling)[A[A[A
-chain 2 |[33m██████▌   [0m| 7:42:15 Iteration: 4900 / 7500 [ 65%]  (Warmup)[A
-chain 2 |[34m██████▊   [0m| 7:42:24 Iteration: 5000 / 7500 [ 66%]  (Warmup)[A
-
-chain 3 |[34m██████▉   [0m| 7:42:27 Iteration: 5001 / 7500 [ 66%]  (Sampling)[A[Achain 1 |[34m███████▏  [0m| 7:44:21 Iteration: 5200 / 7500 [ 69%]  (Sampling)
-
-
-chain 4 |[34m███████   [0m| 7:48:27 Iteration: 5100 / 7500 [ 68%]  (Sampling)[A[A[A
-chain 2 |[34m██████▉   [0m| 7:50:54 Iteration: 5001 / 7500 [ 66%]  (Sampling)[A
-
-chain 3 |[34m███████   [0m| 7:51:11 Iteration: 5100 / 7500 [ 68%]  (Sampling)[A[Achain 1 |[34m███████▎  [0m| 7:53:08 Iteration: 5300 / 7500 [ 70%]  (Sampling)
-
-
-chain 4 |[34m███████▏  [0m| 7:57:09 Iteration: 5200 / 7500 [ 69%]  (Sampling)[A[A[A
-chain 2 |[34m███████   [0m| 7:59:28 Iteration: 5100 / 7500 [ 68%]  (Sampling)[A
-
-chain 3 |[34m███████▏  [0m| 7:59:53 Iteration: 5200 / 7500 [ 69%]  (Sampling)[A[Achain 1 |[34m███████▍  [0m| 8:01:43 Iteration: 5400 / 7500 [ 72%]  (Sampling)
-
-
-chain 4 |[34m███████▎  [0m| 8:05:47 Iteration: 5300 / 7500 [ 70%]  (Sampling)[A[A[A
-chain 2 |[34m███████▏  [0m| 8:07:54 Iteration: 5200 / 7500 [ 69%]  (Sampling)[A
-
-chain 3 |[34m███████▎  [0m| 8:08:18 Iteration: 5300 / 7500 [ 70%]  (Sampling)[A[Achain 1 |[34m███████▌  [0m| 8:10:14 Iteration: 5500 / 7500 [ 73%]  (Sampling)
-
-
-chain 4 |[34m███████▍  [0m| 8:14:19 Iteration: 5400 / 7500 [ 72%]  (Sampling)[A[A[A
-chain 2 |[34m███████▎  [0m| 8:16:29 Iteration: 5300 / 7500 [ 70%]  (Sampling)[A
-
-chain 3 |[34m███████▍  [0m| 8:16:49 Iteration: 5400 / 7500 [ 72%]  (Sampling)[A[Achain 1 |[34m███████▋  [0m| 8:18:56 Iteration: 5600 / 7500 [ 74%]  (Sampling)
-
-
-chain 4 |[34m███████▌  [0m| 8:23:09 Iteration: 5500 / 7500 [ 73%]  (Sampling)[A[A[A
-chain 2 |[34m███████▍  [0m| 8:25:12 Iteration: 5400 / 7500 [ 72%]  (Sampling)[A
-
-chain 3 |[34m███████▌  [0m| 8:25:35 Iteration: 5500 / 7500 [ 73%]  (Sampling)[A[Achain 1 |[34m███████▊  [0m| 8:27:52 Iteration: 5700 / 7500 [ 76%]  (Sampling)
-
-
-chain 4 |[34m███████▋  [0m| 8:33:14 Iteration: 5600 / 7500 [ 74%]  (Sampling)[A[A[A
-chain 2 |[34m███████▌  [0m| 8:35:00 Iteration: 5500 / 7500 [ 73%]  (Sampling)[A
-
-chain 3 |[34m███████▋  [0m| 8:35:41 Iteration: 5600 / 7500 [ 74%]  (Sampling)[A[Achain 1 |[34m███████▉  [0m| 8:37:47 Iteration: 5800 / 7500 [ 77%]  (Sampling)
-
-
-chain 4 |[34m███████▊  [0m| 8:42:07 Iteration: 5700 / 7500 [ 76%]  (Sampling)[A[A[A
-chain 2 |[34m███████▋  [0m| 8:43:53 Iteration: 5600 / 7500 [ 74%]  (Sampling)[A
-
-chain 3 |[34m███████▊  [0m| 8:44:34 Iteration: 5700 / 7500 [ 76%]  (Sampling)[A[Achain 1 |[34m████████  [0m| 8:46:39 Iteration: 5900 / 7500 [ 78%]  (Sampling)
-
-
-chain 4 |[34m███████▉  [0m| 8:51:00 Iteration: 5800 / 7500 [ 77%]  (Sampling)[A[A[A
-chain 2 |[34m███████▊  [0m| 8:52:46 Iteration: 5700 / 7500 [ 76%]  (Sampling)[A
-
-chain 3 |[34m███████▉  [0m| 8:53:30 Iteration: 5800 / 7500 [ 77%]  (Sampling)[A[Achain 1 |[34m████████▏ [0m| 8:55:33 Iteration: 6000 / 7500 [ 80%]  (Sampling)
-
-
-chain 4 |[34m████████  [0m| 8:59:49 Iteration: 5900 / 7500 [ 78%]  (Sampling)[A[A[A
-chain 2 |[34m███████▉  [0m| 9:01:37 Iteration: 5800 / 7500 [ 77%]  (Sampling)[A
-
-chain 3 |[34m████████  [0m| 9:02:16 Iteration: 5900 / 7500 [ 78%]  (Sampling)[A[Achain 1 |[34m████████▎ [0m| 9:04:02 Iteration: 6100 / 7500 [ 81%]  (Sampling)
-
-
-chain 4 |[34m████████▏ [0m| 9:08:06 Iteration: 6000 / 7500 [ 80%]  (Sampling)[A[A[A
-chain 2 |[34m████████  [0m| 9:09:49 Iteration: 5900 / 7500 [ 78%]  (Sampling)[A
-
-chain 3 |[34m████████▏ [0m| 9:10:24 Iteration: 6000 / 7500 [ 80%]  (Sampling)[A[Achain 1 |[34m████████▍ [0m| 9:12:24 Iteration: 6200 / 7500 [ 82%]  (Sampling)
-
-
-chain 4 |[34m████████▎ [0m| 9:16:51 Iteration: 6100 / 7500 [ 81%]  (Sampling)[A[A[A
-chain 2 |[34m████████▏ [0m| 9:18:41 Iteration: 6000 / 7500 [ 80%]  (Sampling)[A
-
-chain 3 |[34m████████▎ [0m| 9:19:15 Iteration: 6100 / 7500 [ 81%]  (Sampling)[A[Achain 1 |[34m████████▌ [0m| 9:21:15 Iteration: 6300 / 7500 [ 84%]  (Sampling)
-
-
-chain 4 |[34m████████▍ [0m| 9:25:43 Iteration: 6200 / 7500 [ 82%]  (Sampling)[A[A[A
-chain 2 |[34m████████▎ [0m| 9:27:35 Iteration: 6100 / 7500 [ 81%]  (Sampling)[A
-
-chain 3 |[34m████████▍ [0m| 9:28:04 Iteration: 6200 / 7500 [ 82%]  (Sampling)[A[Achain 1 |[34m████████▋ [0m| 9:30:07 Iteration: 6400 / 7500 [ 85%]  (Sampling)
-
-
-chain 4 |[34m████████▌ [0m| 9:34:34 Iteration: 6300 / 7500 [ 84%]  (Sampling)[A[A[A
-
-chain 3 |[34m████████▌ [0m| 9:36:12 Iteration: 6300 / 7500 [ 84%]  (Sampling)[A[A
-chain 2 |[34m████████▍ [0m| 9:36:16 Iteration: 6200 / 7500 [ 82%]  (Sampling)[Achain 1 |[34m████████▊ [0m| 9:38:45 Iteration: 6500 / 7500 [ 86%]  (Sampling)
-
-
-chain 4 |[34m████████▋ [0m| 9:43:08 Iteration: 6400 / 7500 [ 85%]  (Sampling)[A[A[A
-
-chain 3 |[34m████████▋ [0m| 9:44:49 Iteration: 6400 / 7500 [ 85%]  (Sampling)[A[A
-chain 2 |[34m████████▌ [0m| 9:44:54 Iteration: 6300 / 7500 [ 84%]  (Sampling)[Achain 1 |[34m████████▉ [0m| 9:47:29 Iteration: 6600 / 7500 [ 88%]  (Sampling)
-
-
-chain 4 |[34m████████▊ [0m| 9:52:00 Iteration: 6500 / 7500 [ 86%]  (Sampling)[A[A[A
-
-chain 3 |[34m████████▊ [0m| 9:53:36 Iteration: 6500 / 7500 [ 86%]  (Sampling)[A[A
-chain 2 |[34m████████▋ [0m| 9:53:40 Iteration: 6400 / 7500 [ 85%]  (Sampling)[Achain 1 |[34m█████████ [0m| 9:56:21 Iteration: 6700 / 7500 [ 89%]  (Sampling)
-
-
-chain 4 |[34m████████▉ [0m| 10:00:53 Iteration: 6600 / 7500 [ 88%]  (Sampling)[A[A[A
-
-chain 3 |[34m████████▉ [0m| 10:02:25 Iteration: 6600 / 7500 [ 88%]  (Sampling)[A[A
-chain 2 |[34m████████▊ [0m| 10:02:29 Iteration: 6500 / 7500 [ 86%]  (Sampling)[Achain 1 |[34m█████████▏[0m| 10:05:14 Iteration: 6800 / 7500 [ 90%]  (Sampling)
-
-
-chain 4 |[34m█████████ [0m| 10:09:41 Iteration: 6700 / 7500 [ 89%]  (Sampling)[A[A[A
-
-chain 3 |[34m█████████ [0m| 10:11:03 Iteration: 6700 / 7500 [ 89%]  (Sampling)[A[A
-chain 2 |[34m████████▉ [0m| 10:11:11 Iteration: 6600 / 7500 [ 88%]  (Sampling)[Achain 1 |[34m█████████▎[0m| 10:13:47 Iteration: 6900 / 7500 [ 92%]  (Sampling)
-
-
-chain 4 |[34m█████████▏[0m| 10:18:17 Iteration: 6800 / 7500 [ 90%]  (Sampling)[A[A[A
-
-chain 3 |[34m█████████▏[0m| 10:19:35 Iteration: 6800 / 7500 [ 90%]  (Sampling)[A[A
-chain 2 |[34m█████████ [0m| 10:19:44 Iteration: 6700 / 7500 [ 89%]  (Sampling)[Achain 1 |[34m█████████▍[0m| 10:22:18 Iteration: 7000 / 7500 [ 93%]  (Sampling)
-
-
-chain 4 |[34m█████████▎[0m| 10:26:47 Iteration: 6900 / 7500 [ 92%]  (Sampling)[A[A[A
-
-chain 3 |[34m█████████▎[0m| 10:28:09 Iteration: 6900 / 7500 [ 92%]  (Sampling)[A[A
-chain 2 |[34m█████████▏[0m| 10:28:18 Iteration: 6800 / 7500 [ 90%]  (Sampling)[Achain 1 |[34m█████████▌[0m| 10:31:03 Iteration: 7100 / 7500 [ 94%]  (Sampling)
-
-
-chain 4 |[34m█████████▍[0m| 10:35:40 Iteration: 7000 / 7500 [ 93%]  (Sampling)[A[A[A
-
-chain 3 |[34m█████████▍[0m| 10:37:02 Iteration: 7000 / 7500 [ 93%]  (Sampling)[A[A
-chain 2 |[34m█████████▎[0m| 10:37:12 Iteration: 6900 / 7500 [ 92%]  (Sampling)[Achain 1 |[34m█████████▋[0m| 10:39:44 Iteration: 7200 / 7500 [ 96%]  (Sampling)
-
-
-chain 4 |[34m█████████▌[0m| 10:44:36 Iteration: 7100 / 7500 [ 94%]  (Sampling)[A[A[A
-
-chain 3 |[34m█████████▌[0m| 10:45:55 Iteration: 7100 / 7500 [ 94%]  (Sampling)[A[A
-chain 2 |[34m█████████▍[0m| 10:46:02 Iteration: 7000 / 7500 [ 93%]  (Sampling)[Achain 1 |[34m█████████▊[0m| 10:48:37 Iteration: 7300 / 7500 [ 97%]  (Sampling)
-
-
-chain 4 |[34m█████████▋[0m| 10:53:19 Iteration: 7200 / 7500 [ 96%]  (Sampling)[A[A[A
-
-chain 3 |[34m█████████▋[0m| 10:54:35 Iteration: 7200 / 7500 [ 96%]  (Sampling)[A[A
-chain 2 |[34m█████████▌[0m| 10:54:42 Iteration: 7100 / 7500 [ 94%]  (Sampling)[Achain 1 |[34m██████████[0m| 10:57:07 Iteration: 7400 / 7500 [ 98%]  (Sampling)
-
-
-chain 4 |[34m█████████▊[0m| 11:00:49 Iteration: 7300 / 7500 [ 97%]  (Sampling)[A[A[A
-chain 2 |[34m█████████▋[0m| 11:01:46 Iteration: 7200 / 7500 [ 96%]  (Sampling)[A
-
-chain 3 |[34m█████████▊[0m| 11:01:48 Iteration: 7300 / 7500 [ 97%]  (Sampling)[A[A
-
-
-chain 4 |[34m██████████[0m| 11:07:22 Iteration: 7400 / 7500 [ 98%]  (Sampling)[A[A[A
-chain 2 |[34m█████████▊[0m| 11:07:56 Iteration: 7300 / 7500 [ 97%]  (Sampling)[A
-
-chain 3 |[34m██████████[0m| 11:07:59 Iteration: 7400 / 7500 [ 98%]  (Sampling)[A[A
-chain 2 |[34m██████████[0m| 11:10:05 Iteration: 7400 / 7500 [ 98%]  (Sampling)[Achain 1 |[34m██████████[0m| 11:10:06 Sampling completed                       
-chain 2 |[34m██████████[0m| 11:10:06 Sampling completed                       
-chain 3 |[34m██████████[0m| 11:10:06 Sampling completed                       
-chain 4 |[34m██████████[0m| 11:10:06 Sampling completed                       
-INFO:cmdstanpy:CmdStan done processing.
-INFO:cmdstanpy:deleting tmpfiles dir: /tmp/tmpyb2qhew0
-INFO:cmdstanpy:done
