@@ -2,24 +2,22 @@
 
 ## Pavlovian go/no-go data
 
-subject         object         subject id 
-session         int64          session id {1, 2, 3}
-block           int64          block order id {1, 2} 
-runsheet       object          block groups, each session will use a different pair (pair is denotated by the digit) {'1a', '1b', '2a', '2b', '3a', '3b'}
-trial           int64          trial id \[1, 240\]
-exposure        int64          unique stim exposure (increasing) \[1- 12\]
-valence        object          trial context, if lose- robots are GAL/NGAL. if win- robots are GW/NGW {'lose', 'win'}
-action         object          correct action in words {'go', 'no-go'}
-robot          object          robot type {'GAL', 'GW', 'NGAL', 'NGW'}
-stimulus      float64          robot stim \[0-11\]
-rune           object          the randomized face (symbol) for a stimulus \[A-Z\]
-rune_set       object          font types for symbols {'bacs1', 'bacs2', 'elianto'}
-correct         int64          correct action in  T/F {0,1}
-choice          int64          subject's response  {0,1}
-rt            float64          RT (s) 
-accuracy        int64          the accuracy of the response (incorrect/correct) {0,1}
-sham          float64          1 incorrect feedback / 0 correct feedback {0,1}
-outcome         int64          reward {-10, -1, 1, 10}
-total_keys      int64          # keyboard presses during the entire trial \[0-18\]
-    
-
+- subject:    anonymized participant ID
+- session:    session number (i.e., 1, 2, 3)
+- block:      block number (i.e., 1, 2)
+- runsheet:   trial structure (i.e., 1a, 1b, 2a, 2b, 3a, 3b)
+- trial:      trial number
+- exposure:   number of presentations (so far) of a given stimulus
+- valence:    valence of trial (i.e., win, lose)
+- action:     correct action for trial (i.e., go, no-go)
+- robot:      trial type (i.e., go to win [gw], no-go to win [ngw], go to avoid losing [gal], no-go to avoid losing [ngal])
+- stimulus:   bandit ID (i.e., 1-24)
+- rune:       rune character
+- rune_set:   character set (bacs1, bacs2, elianto)
+- correct:    correct action (go = 1, no-go = 0)
+- choice:     participant's choice (go = 1, no-go = 0)
+- rt:         response time (s)
+- accuracy:   scored choice (correct = 1, incorrect = 0)
+- sham:       feedback type (correct = 0, incorrect = 1)
+- outcome:    observed outcome
+- total_keys: number of total button presses on that trial

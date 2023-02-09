@@ -39,7 +39,7 @@ for session in ['s1','s2','s3']:
         data = data.query('block > 0').reset_index(drop=True)
         
         ## Define columns of interest.
-        cols = ['block','trial','valence','action','robot','stimulus','rune','rune_set','correct',
+        cols = ['block','trial','stimulus','valence','action','robot','rune','rune_set','correct',
                 'choice','rt','accuracy','sham','outcome','total_keys']
 
         ## Limit to columns of interest.
@@ -79,5 +79,11 @@ for session in ['s1','s2','s3']:
         else: return '3a'
     DATA['runsheet'] = DATA.groupby(['subject','session','block']).robot.transform(block_version)
 
+    ## Format data.
+    DATA = DATA.rename(columns={col: col.lower() for col in DATA.columns})
+    DATA['valence'] = DATA.valence.replace({k: k.lower() for k in DATA.valence.unique()})
+    DATA['action'] = DATA.action.replace({k: k.lower() for k in DATA.action.unique()})
+    DATA['robot'] = DATA.robot.replace({k: k.lower() for k in DATA.robot.unique()})
+    
     ## Save.
     DATA.to_csv(os.path.join(DATA_DIR, session, 'pgng.csv'), index=False)
