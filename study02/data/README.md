@@ -1,4 +1,6 @@
-FULL data
+# Data dictionaries
+
+## Pavlovian go/no-go data
 
 subject         object         subject id 
 session         int64          session id {1, 2, 3}
