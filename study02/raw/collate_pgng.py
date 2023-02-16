@@ -59,7 +59,7 @@ for session in ['s1','s2','s3']:
 
         ## Add subject.
         data.insert(0,'subject',subject)
-        data.insert(1,'session',session[-1])
+        data.insert(1,'session',int(session[-1]))
         data.insert(3,'runsheet',0)
             
         ## Append.
