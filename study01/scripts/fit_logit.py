@@ -128,7 +128,7 @@ StanFit = StanModel.sample(data=dd, chains=chains, iter_warmup=iter_warmup, iter
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
 
 ## Define fout.
-fout = os.path.join(ROOT_DIR, 'stan_results', f'{stan_model}_m{ipw}')
+fout = os.path.join(ROOT_DIR, 'stan_results', f'{stan_model}')
     
 ## Extract summary and samples.
 summary = StanFit.summary(percentiles=(2.5, 50, 97.5), sig_figs=3)
