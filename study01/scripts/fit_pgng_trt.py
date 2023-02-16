@@ -38,9 +38,8 @@ elif pairing == 3:
 ## Merge datasets.
 data = concat([a, b])
 
-## Restrict participants.
-reject = read_csv(os.path.join(ROOT_DIR, 'data', 's1', 'reject.csv'))
-data = data[data.subject.isin(reject.query('reject==0').subject)].reset_index(drop=True)
+## Restrict to participants with both sessions.
+data = data.groupby('subject').filter(lambda x: x.session.nunique() == 2)
 
 ## Format data.
 data['valence'] = data.valence.replace({'win': 1, 'lose': 0})
