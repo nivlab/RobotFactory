@@ -46,12 +46,13 @@ for session in ['s1','s2','s3']:
         data = data[cols]
 
         ## Reformat columns.
-        data['block'] = data['block'].astype(int)
-        data['trial'] = data['trial'].astype(int)
-        data['correct'] = data['correct'].replace({32: 1, -1:0})
-        data['choice'] = data['choice'].replace({32: 1, -1:0})
-        data['rt'] = np.where(data['rt'] < 0, np.nan, data['rt'] * 1e-3).round(3)
-        data['robot'] = data['robot'].replace({1:'GW',2:'NGW',3:'GAL',4:'NGAL'})
+        data['block'] = data.block.astype(int)
+        data['trial'] = data.trial.astype(int)
+        data['stimulus'] = np.where(data.block == 1, 0, 12) + (data.stimulus.astype(int) + 1)
+        data['correct'] = data.correct.replace({32: 1, -1:0})
+        data['choice'] = data.choice.replace({32: 1, -1:0})
+        data['rt'] = np.where(data.rt < 0, np.nan, data['rt'] * 1e-3).round(3)
+        data['robot'] = data.robot.replace({1:'GW',2:'NGW',3:'GAL',4:'NGAL'})
 
         ## Define exposure.
         f = lambda x: np.arange(x.size)+1
