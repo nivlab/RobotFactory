@@ -34,7 +34,7 @@ if session == 's1':
 
 ## Format data.
 data['valence'] = data.valence.replace({'win': 1, 'lose': 0})
-data['outcome'] = np.where(data.valence, (data.outcome > 5).astype(int), (data.outcome > -5).astype(int))
+data['outcome'] = np.where(data.valence, data.outcome > 5, data.outcome > -5).astype(int)
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
 ### Assemble data for Stan.
