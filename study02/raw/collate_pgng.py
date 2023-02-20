@@ -86,5 +86,12 @@ for session in ['s1','s2','s3']:
     DATA['action'] = DATA.action.replace({k: k.lower() for k in DATA.action.unique()})
     DATA['robot'] = DATA.robot.replace({k: k.lower() for k in DATA.robot.unique()})
     
+    ## Standardize stimuli.
+    DATA['x1'] = DATA.robot.replace({'gw': 1, 'ngw': 2, 'gal': 3, 'ngal': 4})
+    DATA['x2'] = DATA.groupby(['subject','stimulus']).exposure.transform(np.max)
+    DATA['stimulus'] = DATA.apply(lambda x: '%s_%0.2d_%0.2d' %(x.runsheet[-1], x.x1, x.x2), 1)
+    DATA['stimulus'] = np.unique(DATA.stimulus, return_inverse=True)[-1] + 1
+    DATA.drop(columns=['x1','x2'])
+    
     ## Save.
     DATA.to_csv(os.path.join(DATA_DIR, session, 'pgng.csv'), index=False)
