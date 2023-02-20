@@ -1,3 +1,5 @@
+# python scripts/make_runsheet.py 19
+
 Latent Order
 [[2,0,3,2],
  [0,1,3,3],
