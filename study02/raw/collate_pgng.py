@@ -91,7 +91,7 @@ for session in ['s1','s2','s3']:
     DATA['x2'] = DATA.groupby(['subject','stimulus']).exposure.transform(np.max)
     DATA['stimulus'] = DATA.apply(lambda x: '%s_%0.2d_%0.2d' %(x.runsheet[-1], x.x1, x.x2), 1)
     DATA['stimulus'] = np.unique(DATA.stimulus, return_inverse=True)[-1] + 1
-    DATA.drop(columns=['x1','x2'])
+    DATA = DATA.drop(columns=['x1','x2'])
     
     ## Save.
     DATA.to_csv(os.path.join(DATA_DIR, session, 'pgng.csv'), index=False)
