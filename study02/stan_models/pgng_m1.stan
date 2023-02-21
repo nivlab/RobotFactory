@@ -53,15 +53,16 @@ model {
     vector[N] mu;
     for (n in 1:N) {
     
-        // Compute (scaled) difference in expected values
-        mu[n] = b1[J[n]] * (Q[J[n],K[n],2] - Q[J[n],K[n],1]);
+        // Assign trial-level parameters
+        real beta = b1[J[n]];
+        real eta  = a1[J[n]];
+
+        // Compute (scaled) difference in state-action values
+        mu[n] = beta * (Q[J[n],K[n],2] - Q[J[n],K[n],1]);
         
         // Compute prediction error
         real delta = R[n] - Q[J[n],K[n],Y[n]+1];
-        
-        // Assign learning rate
-        real eta = a1[J[n]];
-        
+                
         // Update state-action values
         Q[J[n],K[n],Y[n]+1] += eta * delta;
         
@@ -74,5 +75,11 @@ model {
     target += normal_lpdf(theta_mu | 0, 2);
     target += std_normal_lpdf(to_vector(theta_pr));
     target += student_t_lpdf(sigma | 3, 0, 1);
+
+}
+generated quantities {
+
+    real  b1_mu = theta_mu[1] * 10;
+    real  a1_mu = Phi_approx(theta_mu[2]);
 
 }
