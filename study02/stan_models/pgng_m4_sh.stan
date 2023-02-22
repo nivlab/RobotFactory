@@ -32,8 +32,8 @@ parameters {
 transformed parameters {
 
     array[2] vector[NJ]  b1;                // Inverse temperature
-    array[2] vector[NJ]  b2;                // Go bias
-    array[2] vector[NJ]  b3;                // Pavlovian bias
+    array[2] vector[NJ]  b3;                // Go bias (positive valence)
+    array[2] vector[NJ]  b4;                // Go bias (negative valence)
     array[2] vector[NJ]  a1;                // Learning rate (positive valence)
     array[2] vector[NJ]  a2;                // Learning rate (negative valence)
 
@@ -47,10 +47,10 @@ transformed parameters {
     // Construct random effects
     b1[1] = (theta_mu[1,1] + theta_c[,1] - theta_d[,1]) * 10;
     b1[2] = (theta_mu[1,2] + theta_c[,1] + theta_d[,1]) * 10;
-    b2[1] = (theta_mu[2,1] + theta_c[,2] - theta_d[,2]) * 5;
-    b2[2] = (theta_mu[2,2] + theta_c[,2] + theta_d[,2]) * 5;
-    b3[1] = (theta_mu[3,1] + theta_c[,3] - theta_d[,3]) * 5;
-    b3[2] = (theta_mu[3,2] + theta_c[,3] + theta_d[,3]) * 5;    
+    b3[1] = (theta_mu[2,1] + theta_c[,2] - theta_d[,2]) * 5;
+    b3[2] = (theta_mu[2,2] + theta_c[,2] + theta_d[,2]) * 5;
+    b4[1] = (theta_mu[3,1] + theta_c[,3] - theta_d[,3]) * 5;
+    b4[2] = (theta_mu[3,2] + theta_c[,3] + theta_d[,3]) * 5;    
     a1[1] = Phi_approx(theta_mu[4,1] + theta_c[,4] - theta_d[,4]);
     a1[2] = Phi_approx(theta_mu[4,2] + theta_c[,4] + theta_d[,4]);
     a2[1] = Phi_approx(theta_mu[5,1] + theta_c[,5] - theta_d[,5]);
@@ -70,14 +70,16 @@ model {
     vector[N] mu;
     for (n in 1:N) {
     
+        // Assign trial-level parameters
+        real beta = b1[M[n],J[n]];
+        real tau  = (V[n] == 1) ? b3[M[n],J[n]] : b4[M[n],J[n]];
+        real eta  = (V[n] == 1) ? a1[M[n],J[n]] : a2[M[n],J[n]];
+    
         // Compute (scaled) difference in expected values
-        mu[n] = b1[M[n],J[n]] * (Q[J[n],K[n],M[n],2] - Q[J[n],K[n],M[n],1]) + b2[M[n],J[n]] + b3[M[n],J[n]] * V[n];
+        mu[n] = beta * (Q[J[n],K[n],M[n],2] - Q[J[n],K[n],M[n],1]) + tau;
         
         // Compute prediction error
         real delta = R[n] - Q[J[n],K[n],M[n],Y[n]+1];
-        
-        // Assign learning rate
-        real eta = (V[n] == 1) ? a1[M[n],J[n]] : a2[M[n],J[n]];
         
         // Update state-action values
         Q[J[n],K[n],M[n],Y[n]+1] += eta * delta;
@@ -92,5 +94,14 @@ model {
     target += std_normal_lpdf(to_vector(theta_c_pr));
     target += std_normal_lpdf(to_vector(theta_d_pr));
     target += student_t_lpdf(to_vector(sigma) | 3, 0, 1);
+
+}
+generated quantities {
+
+    row_vector[2]  b1_mu = theta_mu[1] * 10;
+    row_vector[2]  b3_mu = theta_mu[2] * 5;
+    row_vector[2]  b4_mu = theta_mu[3] * 5;
+    row_vector[2]  a1_mu = Phi_approx(theta_mu[4]);
+    row_vector[2]  a2_mu = Phi_approx(theta_mu[5]);
 
 }
