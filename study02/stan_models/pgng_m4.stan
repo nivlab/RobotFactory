@@ -29,11 +29,11 @@ parameters {
 }
 transformed parameters {
 
-    vector[NJ]  b1;                         // Inverse temperature
+    vector[NJ]  b1;                         // Inverse temperature (positive valence)
+    vector[NJ]  b2;                         // Inverse temperature (negative valence)
     vector[NJ]  b3;                         // Go bias (positive valence)
     vector[NJ]  b4;                         // Go bias (negative valence)
-    vector[NJ]  a1;                         // Learning rate (positive valence)
-    vector[NJ]  a2;                         // Learning rate (negative valence)
+    vector[NJ]  a1;                         // Learning rate
 
     // Construction block
     {
@@ -43,10 +43,10 @@ transformed parameters {
     
     // Construct random effects
     b1 = (theta_mu[1] + theta[,1]) * 10;
-    b3 = (theta_mu[2] + theta[,2]) * 5;
-    b4 = (theta_mu[3] + theta[,3]) * 5;
-    a1 = Phi_approx(theta_mu[4] + theta[,4]);
-    a2 = Phi_approx(theta_mu[5] + theta[,5]);
+    b2 = (theta_mu[2] + theta[,2]) * 10;
+    b3 = (theta_mu[3] + theta[,3]) * 5;
+    b4 = (theta_mu[4] + theta[,4]) * 5;
+    a1 = Phi_approx(theta_mu[5] + theta[,5]);
     
     }
 
@@ -61,9 +61,9 @@ model {
     for (n in 1:N) {
     
         // Assign trial-level parameters
-        real beta = b1[J[n]];
+        real beta = (V[n] == 1) ? b1[J[n]] : b2[J[n]];
         real tau  = (V[n] == 1) ? b3[J[n]] : b4[J[n]];
-        real eta  = (V[n] == 1) ? a1[J[n]] : a2[J[n]];
+        real eta  = a1[J[n]];
 
         // Compute (scaled) difference in state-action values
         mu[n] = beta * (Q[J[n],K[n],2] - Q[J[n],K[n],1]) + tau;
@@ -80,7 +80,7 @@ model {
     target += bernoulli_logit_lpmf(Y | mu); 
     
     // Priors
-    target += normal_lpdf(theta_mu | 0, 2);
+    target += std_normal_lpdf(theta_mu);
     target += std_normal_lpdf(to_vector(theta_pr));
     target += student_t_lpdf(sigma | 3, 0, 1);
 
@@ -88,9 +88,9 @@ model {
 generated quantities {
 
     real  b1_mu = theta_mu[1] * 10;
-    real  b3_mu = theta_mu[2] * 5;
-    real  b4_mu = theta_mu[3] * 5;
-    real  a1_mu = Phi_approx(theta_mu[4]);
-    real  a2_mu = Phi_approx(theta_mu[5]);
+    real  b2_mu = theta_mu[2] * 10;
+    real  b3_mu = theta_mu[3] * 5;
+    real  b4_mu = theta_mu[4] * 5;
+    real  a1_mu = Phi_approx(theta_mu[5]);
 
 }

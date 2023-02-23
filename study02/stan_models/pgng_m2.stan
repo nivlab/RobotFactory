@@ -75,7 +75,7 @@ model {
     target += bernoulli_logit_lpmf(Y | mu); 
     
     // Priors
-    target += normal_lpdf(theta_mu | 0, 2);
+    target += std_normal_lpdf(theta_mu);
     target += std_normal_lpdf(to_vector(theta_pr));
     target += student_t_lpdf(sigma | 3, 0, 1);
 
