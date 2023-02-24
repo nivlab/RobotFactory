@@ -10,12 +10,12 @@ ROOT_DIR = dirname(dirname(os.path.realpath(__file__)))
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
 
 ## I/O parameters.
-stan_model = 'pgng_m4_sh'
-pairing = int(sys.argv[1])
+stan_model = sys.argv[1]
+pairing = int(sys.argv[2])
 
 ## Sampling parameters.
-iter_warmup   = 5#5000
-iter_sampling = 5#1250
+iter_warmup   = 5000
+iter_sampling = 1250
 chains = 4
 thin = 1
 parallel_chains = 4
@@ -78,13 +78,30 @@ StanFit = StanModel.sample(data=dd, chains=chains, iter_warmup=iter_warmup, iter
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
 print('Saving data.')
 
-## Define filename.
-fout = stan_model.replace('sh',f'trt{pairing}')
-
-## Extract and save Stan summary.
+## Define fout.
+fout = os.path.join(ROOT_DIR, 'stan_results', stan_model.replace('sh', f'trt{pairing}'))
+    
+## Extract summary and samples.
 summary = StanFit.summary(percentiles=(2.5, 50, 97.5), sig_figs=3)
-summary.to_csv(os.path.join(ROOT_DIR, 'stan_results', f'{fout}_summary.tsv'), sep='\t')
-
-## Extract and save samples.
 samples = StanFit.draws_pd()
-samples.to_csv(os.path.join(ROOT_DIR, 'stan_results', f'{fout}.tsv.gz'), sep='\t', index=False, compression='gzip')
+    
+## Define columns to save.
+cols = np.concatenate([
+    
+    ## Diagnostic variables.
+    samples.filter(regex='__').columns,
+    
+    ## Regression effects (population-level).
+    samples.filter(regex='[a,b,c][0-9]_mu').columns,
+        
+    ## Variances (group-level).
+    samples.filter(regex='sigma').columns,
+    
+    ## Regression effects (group-level).
+    samples.filter(regex='[a,b,c][0-9]\[').columns,
+    
+])
+        
+## Save.
+samples[cols].to_csv(f'{fout}.tsv.gz', sep='\t', index=False, compression='gzip')
+summary.loc[samples[cols].filter(regex='[^__]$').columns].to_csv(f'{fout}_summary.tsv', sep='\t')

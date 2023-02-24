@@ -38,7 +38,7 @@ data['outcome'] = np.where(data.valence, (data.outcome > 5).astype(int), (data.o
 N = len(data)
 J = np.unique(data.subject, return_inverse=True)[-1]
 K = np.unique(data.stimulus, return_inverse=True)[-1]
-M = np.unique(data.block, return_inverse=True)[-1]
+M = np.unique(data.runsheet, return_inverse=True)[-1]
 
 ## Define data.
 Y = data.choice.values.astype(int)
@@ -56,14 +56,17 @@ StanFit = read_csv(os.path.join(ROOT_DIR, 'stan_results', session, f'{stan_model
 b1 = StanFit.filter(regex='b1\[').values
 b2 = StanFit.filter(regex='b2\[').values
 b3 = StanFit.filter(regex='b3\[').values
+b4 = StanFit.filter(regex='b4\[').values
 a1 = StanFit.filter(regex='a1\[').values
 a2 = StanFit.filter(regex='a2\[').values
-a3 = StanFit.filter(regex='a3\[').values
+c1 = StanFit.filter(regex='c1\[').values
 
 ## Handle missing parameters.
-if not np.any(b2): b2 = np.zeros_like(b1)
+if not np.any(b2): b2 = b1.copy()
 if not np.any(b3): b3 = np.zeros_like(b1)
+if not np.any(b4): b4 = b3.copy()
 if not np.any(a2): a2 = a1.copy()
+if not np.any(c1): c1 = np.zeros_like(b1)
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
 ### Posterior predictive check.
@@ -75,7 +78,7 @@ def inv_logit(x):
 
 ## Initialize Q-values.
 n_samp = len(StanFit)
-Q = np.zeros((n_samp, J.max()+1, K.max()+1, 2))
+Q = np.ones((n_samp, J.max()+1, K.max()+1, 2)) * 0.5
 
 ## Preallocate space.
 Y_hat, Y_pred = np.zeros((2,N))
@@ -84,9 +87,15 @@ cll = np.zeros((n_samp, N))
 ## Main loop.
 for n in tqdm(range(N)):
     
-    ## Compite linear predictor.
-    mu = b1[:,J[n]] * (Q[:,J[n],K[n],1] - Q[:,J[n],K[n],0]) + b2[:,J[n]] + b3[:,J[n]] * V[n]
-    p = inv_logit(mu)
+    ## Assign trial-level parameters.
+    beta = b1[:,J[n]] if V[n] else b2[:,J[n]]
+    tau  = b3[:,J[n]] if V[n] else b4[:,J[n]]
+    eta  = a1[:,J[n]] if V[n] else a2[:,J[n]]
+    xi   = c1[:,J[n]]
+    
+    ## Compute linear predictor.
+    mu = beta * (Q[:,J[n],K[n],1] - Q[:,J[n],K[n],0]) + tau
+    p = (0.5 * xi) + (1-xi) * inv_logit(mu)
     
     ## Simulate choice.
     Y_hat[n] = np.random.binomial(1, p).mean(axis=0)
@@ -97,17 +106,6 @@ for n in tqdm(range(N)):
     
     ## Compute prediction error.
     delta = R[n] - Q[:,J[n],K[n],Y[n]]
-    
-    ## Assign learning rate.
-    if not np.any(a3):
-        eta = V[n] * a1[:,J[n]] + (1-V[n]) * a2[:,J[n]]
-    else:
-        if (V[n] == 1) and (R[n] == 1):
-            eta = a1[:,J[n]]
-        elif (V[n] == 0) and (R[n] == 0):
-            eta = a2[:,J[n]]
-        else:
-            eta = a3[:,J[n]]
     
     ## Update Q-values
     Q[:,J[n],K[n],Y[n]] += eta * delta
@@ -130,8 +128,8 @@ data['k_u'] = ku.round(6)
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
 
 ## Restrict DataFrame to columns of interest.
-cols = ['subject','session','block','trial','exposure','stimulus','valence','action','robot',
-        'choice','accuracy','rt','outcome','Y_hat','Y_pred','pwaic','k_u','loo']
+cols = ['subject','session','block','runsheet','trial','exposure','stimulus','valence','action',
+        'robot','choice','accuracy','rt','outcome','Y_hat','Y_pred','pwaic','k_u','loo']
 data = data[cols]
 
 ## Sort DataFrame.

@@ -44,7 +44,7 @@ data['outcome'] = np.where(data.valence, data.outcome > 5, data.outcome > -5).as
 N = len(data)
 J = np.unique(data.subject, return_inverse=True)[-1] + 1
 K = np.unique(data.stimulus, return_inverse=True)[-1] + 1
-M = np.unique(data.block, return_inverse=True)[-1] + 1
+M = np.unique(data.runsheet, return_inverse=True)[-1] + 1
 
 ## Define data.
 Y = data.choice.values.astype(int)
@@ -69,10 +69,30 @@ StanFit = StanModel.sample(data=dd, chains=chains, iter_warmup=iter_warmup, iter
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
 print('Saving data.')
 
-## Extract and save Stan summary.
+## Define fout.
+fout = os.path.join(ROOT_DIR, 'stan_results', session, stan_model)
+    
+## Extract summary and samples.
 summary = StanFit.summary(percentiles=(2.5, 50, 97.5), sig_figs=3)
-summary.to_csv(os.path.join(ROOT_DIR, 'stan_results', session, f'{stan_model}_summary.tsv'), sep='\t')
-
-## Extract and save samples.
 samples = StanFit.draws_pd()
-samples.to_csv(os.path.join(ROOT_DIR, 'stan_results', session, f'{stan_model}.tsv.gz'), sep='\t', index=False, compression='gzip')
+    
+## Define columns to save.
+cols = np.concatenate([
+    
+    ## Diagnostic variables.
+    samples.filter(regex='__').columns,
+    
+    ## Regression effects (population-level).
+    samples.filter(regex='[a,b,c][0-9]_mu').columns,
+        
+    ## Variances (group-level).
+    samples.filter(regex='sigma').columns,
+    
+    ## Regression effects (group-level).
+    samples.filter(regex='[a,b,c][0-9]\[').columns,
+    
+])
+        
+## Save.
+samples[cols].to_csv(f'{fout}.tsv.gz', sep='\t', index=False, compression='gzip')
+summary.loc[samples[cols].filter(regex='[^__]$').columns].to_csv(f'{fout}_summary.tsv', sep='\t')

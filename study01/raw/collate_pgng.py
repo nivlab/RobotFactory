@@ -1,6 +1,7 @@
 import os, json
 import numpy as np
 from os.path import dirname
+from itertools import product
 from pandas import DataFrame, concat
 ROOT_DIR = dirname(dirname(os.path.realpath(__file__)))
 DATA_DIR = os.path.join(ROOT_DIR, 'data')
@@ -77,6 +78,10 @@ for session in ['s1','s2','s3','s4']:
     DATA['valence'] = DATA.valence.replace({k: k.lower() for k in DATA.valence.unique()})
     DATA['action'] = DATA.action.replace({k: k.lower() for k in DATA.action.unique()})
     DATA['robot'] = DATA.robot.replace({k: k.lower() for k in DATA.robot.unique()})
+    
+    ## Standardize stimuli.
+    for i, (block, robot) in enumerate(product([1,2], ['gw','ngw','gal','ngal'])):
+        DATA.loc[np.logical_and(DATA.block == block, DATA.robot == robot), 'stimulus'] = i+1
     
     ## Save.
     DATA.to_csv(os.path.join(DATA_DIR, session, 'pgng.csv'), index=False)
