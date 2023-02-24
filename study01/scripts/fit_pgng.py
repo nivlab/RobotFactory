@@ -44,7 +44,7 @@ data['outcome'] = np.where(data.valence, data.outcome > 5, data.outcome > -5).as
 N = len(data)
 J = np.unique(data.subject, return_inverse=True)[-1] + 1
 K = np.unique(data.stimulus, return_inverse=True)[-1] + 1
-M = np.unique(data.runsheet, return_inverse=True)[-1] + 1
+M = np.unique(data.block, return_inverse=True)[-1] + 1
 
 ## Define data.
 Y = data.choice.values.astype(int)

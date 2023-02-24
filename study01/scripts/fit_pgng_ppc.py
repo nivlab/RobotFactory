@@ -38,7 +38,7 @@ data['outcome'] = np.where(data.valence, (data.outcome > 5).astype(int), (data.o
 N = len(data)
 J = np.unique(data.subject, return_inverse=True)[-1]
 K = np.unique(data.stimulus, return_inverse=True)[-1]
-M = np.unique(data.runsheet, return_inverse=True)[-1]
+M = np.unique(data.block, return_inverse=True)[-1]
 
 ## Define data.
 Y = data.choice.values.astype(int)
@@ -128,7 +128,7 @@ data['k_u'] = ku.round(6)
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
 
 ## Restrict DataFrame to columns of interest.
-cols = ['subject','session','block','runsheet','trial','exposure','stimulus','valence','action',
+cols = ['subject','session','block','trial','exposure','stimulus','valence','action',
         'robot','choice','accuracy','rt','outcome','Y_hat','Y_pred','pwaic','k_u','loo']
 data = data[cols]
 
