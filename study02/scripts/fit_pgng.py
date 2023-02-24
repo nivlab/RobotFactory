@@ -83,13 +83,13 @@ cols = np.concatenate([
     samples.filter(regex='__').columns,
     
     ## Regression effects (population-level).
-    samples.filter(regex='[a,b][0-9]_mu').columns,
+    samples.filter(regex='[a,b,c][0-9]_mu').columns,
         
     ## Variances (group-level).
     samples.filter(regex='sigma').columns,
     
     ## Regression effects (group-level).
-    samples.filter(regex='[a,b][0-9]\[').columns,
+    samples.filter(regex='[a,b,c][0-9]\[').columns,
     
 ])
         

@@ -20,16 +20,17 @@ transformed data {
 parameters {
 
     // Participant parameters
-    vector[6]     theta_mu;                 // Population-level effects
-    matrix[6,NJ]  theta_pr;                 // Standardized subject-level effects
+    vector[7]     theta_mu;                 // Population-level effects
+    matrix[7,NJ]  theta_pr;                 // Standardized subject-level effects
     
     // Paramter variances
-    vector<lower=0>[6] sigma;               // Subject-level standard deviations
+    vector<lower=0>[7] sigma;               // Subject-level standard deviations
     
 }
 transformed parameters {
 
-    vector[NJ]  b1;                         // Inverse temperature
+    vector[NJ]  b1;                         // Inverse temperature (positive valence)
+    vector[NJ]  b2;                         // Inverse temperature (negative valence)
     vector[NJ]  b3;                         // Go bias (positive valence)
     vector[NJ]  b4;                         // Go bias (negative valence)
     vector[NJ]  a1;                         // Learning rate (positive valence)
@@ -40,15 +41,16 @@ transformed parameters {
     {
     
     // Rotate random effects
-    matrix[NJ,6] theta = transpose(diag_pre_multiply(sigma, theta_pr));
+    matrix[NJ,7] theta = transpose(diag_pre_multiply(sigma, theta_pr));
     
     // Construct random effects
     b1 = (theta_mu[1] + theta[,1]) * 10;
-    b3 = (theta_mu[2] + theta[,2]) * 5;
-    b4 = (theta_mu[3] + theta[,3]) * 5;
-    a1 = Phi_approx(theta_mu[4] + theta[,4]);
-    a2 = Phi_approx(theta_mu[5] + theta[,5]);
-    c1 = Phi_approx(-2.0 + theta_mu[6] + theta[,6]);
+    b2 = (theta_mu[2] + theta[,2]) * 10;
+    b3 = (theta_mu[3] + theta[,3]) * 5;
+    b4 = (theta_mu[4] + theta[,4]) * 5;
+    a1 = Phi_approx(theta_mu[5] + theta[,5]);
+    a2 = Phi_approx(theta_mu[6] + theta[,6]);
+    c1 = Phi_approx(-2.0 + theta_mu[7] + 0.5 * theta[,7]);
     
     }
 
@@ -63,7 +65,7 @@ model {
     for (n in 1:N) {
     
         // Assign trial-level parameters
-        real beta = b1[J[n]];
+        real beta = (V[n] == 1) ? b1[J[n]] : b2[J[n]];
         real tau  = (V[n] == 1) ? b3[J[n]] : b4[J[n]];
         real eta  = (V[n] == 1) ? a1[J[n]] : a2[J[n]];
         real xi   = c1[J[n]];
@@ -91,10 +93,11 @@ model {
 generated quantities {
 
     real  b1_mu = theta_mu[1] * 10;
-    real  b3_mu = theta_mu[2] * 5;
-    real  b4_mu = theta_mu[3] * 5;
-    real  a1_mu = Phi_approx(theta_mu[4]);
-    real  a2_mu = Phi_approx(theta_mu[5]);
-    real  c1_mu = Phi_approx(-2.0 + theta_mu[6]);
+    real  b2_mu = theta_mu[2] * 10;
+    real  b3_mu = theta_mu[3] * 5;
+    real  b4_mu = theta_mu[4] * 5;
+    real  a1_mu = Phi_approx(theta_mu[5]);
+    real  a2_mu = Phi_approx(theta_mu[6]);
+    real  c1_mu = Phi_approx(-2.0 + theta_mu[7]);
 
 }

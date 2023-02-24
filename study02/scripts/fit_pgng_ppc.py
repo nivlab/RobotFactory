@@ -59,12 +59,14 @@ b3 = StanFit.filter(regex='b3\[').values
 b4 = StanFit.filter(regex='b4\[').values
 a1 = StanFit.filter(regex='a1\[').values
 a2 = StanFit.filter(regex='a2\[').values
+c1 = StanFit.filter(regex='c1\[').values
 
 ## Handle missing parameters.
 if not np.any(b2): b2 = b1.copy()
 if not np.any(b3): b3 = np.zeros_like(b1)
 if not np.any(b4): b4 = b3.copy()
 if not np.any(a2): a2 = a1.copy()
+if not np.any(c1): c1 = np.zeros_like(b1)
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
 ### Posterior predictive check.
@@ -89,10 +91,11 @@ for n in tqdm(range(N)):
     beta = b1[:,J[n]] if V[n] else b2[:,J[n]]
     tau  = b3[:,J[n]] if V[n] else b4[:,J[n]]
     eta  = a1[:,J[n]] if V[n] else a2[:,J[n]]
+    xi   = c1[:,J[n]]
     
     ## Compute linear predictor.
     mu = beta * (Q[:,J[n],K[n],1] - Q[:,J[n],K[n],0]) + tau
-    p = inv_logit(mu)
+    p = (0.5 * xi) + (1-xi) * inv_logit(mu)
     
     ## Simulate choice.
     Y_hat[n] = np.random.binomial(1, p).mean(axis=0)
