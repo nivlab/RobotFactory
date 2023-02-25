@@ -14,8 +14,8 @@ ROOT_DIR = dirname(dirname(os.path.realpath(__file__)))
 stan_model = 'logit'
 
 ## Sampling parameters.
-iter_warmup   = 2000
-iter_sampling = 500
+iter_warmup   = 2500
+iter_sampling = 1250
 chains = 4
 thin = 1
 parallel_chains = 4

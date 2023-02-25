@@ -12,11 +12,10 @@ ROOT_DIR = dirname(dirname(os.path.realpath(__file__)))
 
 ## I/O parameters.
 stan_model = 'logit'
-ipw = int(sys.argv[1])
 
 ## Sampling parameters.
-iter_warmup   = 2000
-iter_sampling = 500
+iter_warmup   = 2500
+iter_sampling = 1250
 chains = 4
 thin = 1
 parallel_chains = 4
@@ -43,18 +42,8 @@ data['valence'] = data.valence.replace({'win': 0.5, 'lose': -0.5})
 data['exposure'] = normalize(data.exposure) - 0.5
 
 ## Define inverse-probability weighting (by rune set).
-if ipw:
-    
-    ## Calculate inverse-probability weights (i.e., number of participants exposed to rune set by session).
-    data['rune_w'] = data.groupby(['rune_set','session']).subject.transform(lambda x: 1. / x.nunique())
-    
-    ## Normalize weights (mean = 1).
-    data['rune_w'] = data.groupby('rune_set').rune_w.transform(lambda x: x / x.unique().mean())
-    
-else:
-    
-    ## Fix weights to one.
-    data['rune_w'] = 1
+data['rune_w'] = data.groupby(['rune_set','session']).subject.transform(lambda x: 1. / x.nunique())    
+data['rune_w'] = data.groupby('rune_set').rune_w.transform(lambda x: x / x.unique().mean())
 
 ## Define predictors.
 data['x11'] = 1
@@ -138,7 +127,7 @@ StanFit = StanModel.sample(data=dd, chains=chains, iter_warmup=iter_warmup, iter
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
 
 ## Define fout.
-fout = os.path.join(ROOT_DIR, 'stan_results', f'{stan_model}_m{ipw}')
+fout = os.path.join(ROOT_DIR, 'stan_results', f'{stan_model}')
     
 ## Extract summary and samples.
 summary = StanFit.summary(percentiles=(2.5, 50, 97.5), sig_figs=3)
