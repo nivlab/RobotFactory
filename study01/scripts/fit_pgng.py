@@ -15,9 +15,9 @@ session = sys.argv[2]
 
 ## Sampling parameters.
 iter_warmup   = 5000
-iter_sampling = 1250
+iter_sampling = 2500
 chains = 4
-thin = 1
+thin = 2
 parallel_chains = 4
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
