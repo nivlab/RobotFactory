@@ -34,7 +34,16 @@ elif pairing == 2:
 elif pairing == 3:
     a = read_csv(os.path.join(ROOT_DIR, 'data', 's2', 'pgng.csv'))
     b = read_csv(os.path.join(ROOT_DIR, 'data', 's3', 'pgng.csv'))
-
+elif pairing == 4:
+    a = read_csv(os.path.join(ROOT_DIR, 'data', 's1', 'pgng.csv'))
+    b = read_csv(os.path.join(ROOT_DIR, 'data', 's4', 'pgng.csv'))
+elif pairing == 5:
+    a = read_csv(os.path.join(ROOT_DIR, 'data', 's2', 'pgng.csv'))
+    b = read_csv(os.path.join(ROOT_DIR, 'data', 's4', 'pgng.csv'))
+elif pairing == 6:
+    a = read_csv(os.path.join(ROOT_DIR, 'data', 's3', 'pgng.csv'))
+    b = read_csv(os.path.join(ROOT_DIR, 'data', 's4', 'pgng.csv'))
+    
 ## Merge datasets.
 data = concat([a, b])
 
