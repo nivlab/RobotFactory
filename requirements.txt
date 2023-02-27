@@ -2,7 +2,7 @@
 numpy
 scipy
 pandas
-numba
+statsmodels
 tqdm
 
 ## Probabilistic programming libraries
