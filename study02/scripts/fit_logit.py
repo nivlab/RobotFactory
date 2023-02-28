@@ -65,7 +65,7 @@ J = np.unique(data.subject, return_inverse=True)[-1] + 1
 K = np.unique(data.session, return_inverse=True)[-1] + 1
 
 ## Define data.
-Y = data.accuracy.values.astype(int)
+Y = data.choice.values.astype(int)
 
 ## Define design matrix.
 X1 = data.filter(regex='x1[0-9]').values
@@ -82,7 +82,7 @@ def fit_mvlr(data, formula, method='lbfgs', maxiter=1000):
     return fit.params
     
 ## Define formula.
-formula = 'accuracy ~ ' + ' + '.join(data.filter(regex='x1').columns) + ' - 1'
+formula = 'choice ~ ' + ' + '.join(data.filter(regex='x1').columns) + ' - 1'
 
 ## Fit model (to each participant / session individually).
 order = [Categorical(data.subject), Categorical(data.session)]
