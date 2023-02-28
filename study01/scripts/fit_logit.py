@@ -63,7 +63,7 @@ J = np.unique(data.subject, return_inverse=True)[-1] + 1
 K = np.unique(data.session, return_inverse=True)[-1] + 1
 
 ## Define data.
-Y = data.accuracy.values.astype(int)
+Y = data.choice.values.astype(int)
 
 ## Define design matrix.
 X1 = data.filter(regex='x1[0-9]').values
