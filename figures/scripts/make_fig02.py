@@ -40,6 +40,14 @@ fig = plt.figure(figsize=(9,9))
 gs = fig.add_gridspec(3, 4, left=0.07, right=0.98, top=0.92, bottom=0.04, 
                       hspace=0.55, wspace=0.16)
 
+## Define convenience functions.
+def plot_comparison(x1, x2, y, color=labelcolor, lw=0.8, tickwidth=1e-2, annot=None, ax=None):
+    ax.plot([x1,x2], [y,y], color=color, lw=lw)
+    ax.plot([x1,x1], [y-tickwidth, y], color=color, lw=lw)
+    ax.plot([x2,x2], [y-tickwidth, y], color=color, lw=lw)
+    ax.text(x1 + (x2-x1)/2., y, annot,  ha='center', va='center', color=labelcolor, fontsize=10)
+    return ax
+
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
 ### Load and prepare data.
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
@@ -88,8 +96,9 @@ for i, session in enumerate(sessions):
     ## Adjust legend.
     if not i: 
         for color, label in zip(palette_1, robots): ax.plot([], [], color=color, label=label.upper(), lw=4)
-        ax.legend(loc=2, bbox_to_anchor=(0, 1.21), ncol=4, frameon=False, labelcolor=labelcolor, fontsize=10,
-                  borderpad=0, borderaxespad=0, handletextpad=0.5, handlelength=1.6, columnspacing=1.2)
+        ax.legend(loc=2, bbox_to_anchor=(0, 1.21), ncol=4, frameon=False, labelcolor=labelcolor,
+                  fontsize=10, borderpad=0, borderaxespad=0, handletextpad=0.5, handlelength=1.6,
+                  columnspacing=1.2)
         
     ## Modify ax spines.
     ax.yaxis.set_tick_params(pad=1)
@@ -122,12 +131,17 @@ for i, v in enumerate(pivot.median()):
     ax.text(i + 1e-3, v - 8e-3, '%0.1f%%' %(v*1e2), ha='center', va='top', 
             color='w' if not i else 'k', fontsize=9, zorder=10)    
     
+## Add pairwise comparisons.
+plot_comparison(0, 1, 0.98, tickwidth=1e-2, annot='**', ax=ax)
+plot_comparison(0, 2, 1.02, tickwidth=1e-2, annot='**', ax=ax)
+plot_comparison(0, 3, 1.06, tickwidth=1e-2, annot='**', ax=ax)
+    
 ## Adjust x-axis.
 ax.set(xlim=(-0.4,3.4), xticks=np.arange(len(labels)), xlabel='')
 ax.set_xticklabels(labels, color=tickcolor, fontsize=9)
 
 ## Adjust y-axis.
-ax.set(ylim=(0.5, 1), yticks=[], ylabel='')
+ax.set(ylim=(0.5, 1.10), yticks=[], ylabel='')
 
 ## Adjust title.
 ax.set_title('Correct responses', loc='left', color=tickcolor, fontsize=11)
@@ -163,18 +177,18 @@ for i, v in enumerate(pivot.median()):
     ax.text(i + 1e-3, v - 4e-3, '%0.1f%%' %(v*1e2), ha='center', va='top', 
             color='w' if not i else 'k', fontsize=9, zorder=10) 
 
-## Add significance annotations.
-# ax.annotate('**', (0,0), (0, 0.133 + 1e-3), 'data', ha='center', va='bottom', color='k', fontsize=11)
-# ax.annotate('**', (0,0), (1, 0.058 + 1e-3), 'data', ha='center', va='bottom', color='k', fontsize=11)
-# ax.annotate('**', (0,0), (2, 0.045 + 1e-3), 'data', ha='center', va='bottom', color='k', fontsize=11)
-# ax.annotate('**', (0,0), (3, 0.041 + 1e-3), 'data', ha='center', va='bottom', color='k', fontsize=11)
+## Add pairwise comparisons.
+plot_comparison(0, 1, 0.15, tickwidth=5e-3, annot='**', ax=ax)
+plot_comparison(0, 2, 0.17, tickwidth=5e-3, annot='**', ax=ax)
+plot_comparison(0, 3, 0.19, tickwidth=5e-3, annot='**', ax=ax)
+plot_comparison(1, 3, 0.21, tickwidth=5e-3, annot='**', ax=ax)
     
 ## Adjust x-axis.
 ax.set(xlim=(-0.4,3.4), xticks=np.arange(len(labels)), xlabel='')
 ax.set_xticklabels(labels, color=tickcolor, fontsize=9)
 
 ## Adjust y-axis.
-ax.set(ylim=(0.0, 0.25), yticks=[], ylabel='')
+ax.set(ylim=(0.0, 0.30), yticks=[], ylabel='')
 
 ## Adjust title.
 ax.set_title('Go bias', loc='left', color=tickcolor, fontsize=11)
@@ -209,19 +223,18 @@ for i, v in enumerate(pivot.median()):
     y = v - 4e-3 if v >= 2e-2 else (v - 3e-3 if v >= 1e-2 else 0.033)
     ax.text(i + 1e-3, y, '%0.1f%%' %(v*1e2), ha='center', va='top', 
             color='w' if not i else 'k', fontsize=9, zorder=10) 
-
-## Add significance annotations.
-# ax.annotate('**', (0,0), (0, 0.117 + 1e-3), 'data', ha='center', va='bottom', color='k', fontsize=11)
-# ax.annotate('**', (0,0), (1, 0.025 + 1e-3), 'data', ha='center', va='bottom', color='k', fontsize=11)
-# ax.annotate('**', (0,0), (2, 0.025 + 1e-3), 'data', ha='center', va='bottom', color='k', fontsize=11)
-# ax.annotate('**', (0,0), (3, 0.027 + 1e-3), 'data', ha='center', va='bottom', color='k', fontsize=11)
+    
+## Add pairwise comparisons.
+plot_comparison(0, 1, 0.13, tickwidth=5e-3, annot='**', ax=ax)
+plot_comparison(0, 2, 0.15, tickwidth=5e-3, annot='**', ax=ax)
+plot_comparison(0, 3, 0.17, tickwidth=5e-3, annot='**', ax=ax)
     
 ## Adjust x-axis.
 ax.set(xlim=(-0.4,3.4), xticks=np.arange(len(labels)), xlabel='')
 ax.set_xticklabels(labels, color=tickcolor, fontsize=9)
 
 ## Adjust y-axis.
-ax.set(ylim=(0.0, 0.25), yticks=[], ylabel='')
+ax.set(ylim=(0.0, 0.30), yticks=[], ylabel='')
 
 ## Adjust title.
 ax.set_title('Congruency effect', loc='left', color=tickcolor, fontsize=11)
@@ -257,6 +270,11 @@ for i, v in enumerate(pivot.median()):
     ax.text(i + 1e-3, v - 4e-3 if v >= 1e-2 else 0.031, '%0.1f%%' %(v*1e2), ha='center', va='top', 
             color='w' if not i else 'k', fontsize=9, zorder=10) 
 
+## Add pairwise comparisons.
+plot_comparison(0, 1, 0.13, tickwidth=5e-3, annot='**', ax=ax)
+plot_comparison(0, 2, 0.15, tickwidth=5e-3, annot='**', ax=ax)
+plot_comparison(0, 3, 0.17, tickwidth=5e-3, annot='**', ax=ax)
+    
 ## Adjust x-axis.
 ax.set(xlim=(-0.4,3.4), xticks=np.arange(len(labels)), xlabel='')
 ax.set_xticklabels(labels, color=tickcolor, fontsize=9)
