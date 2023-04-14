@@ -17,14 +17,14 @@ np.random.seed(47404)
 stan_model = 'pgng_m7'
 
 ## Define variable ordering.
-sessions = [1,2,3]
+sessions = [1,2,3,4]
 robots = ['gw','ngw','gal','ngal']
 
 ## Define palettes.
 palette = ['#234f81', '#8e9cb8', '#bf8a82', '#812623']
 
 ## Define labels.
-labels = ['Day 0', 'Day 3', 'Day 14']
+labels = ['Day 0', 'Day 3', 'Day 14', 'Day 28']
 
 ## Define axis styles.
 labelcolor = '#737373'
@@ -47,8 +47,8 @@ gs = fig.add_gridspec(2, 4, left=0.07, right=0.98, top=0.88, bottom=0.07,
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
 
 ## Load data.
-data = concat([read_csv(os.path.join(ROOT_DIR, 'study02', 'stan_results', session, f'{stan_model}_ppc.csv'))
-               for session in ['s1','s2','s3']])
+data = concat([read_csv(os.path.join(ROOT_DIR, 'study01', 'stan_results', session, f'{stan_model}_ppc.csv'))
+               for session in ['s1','s2','s3','s4']])
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
 ### Panels 1a-d: Learning curves.
@@ -73,8 +73,8 @@ for i, session in enumerate(sessions):
     ax.axhline(0.5, color='k', alpha=0.05, zorder=-1)
 
     ## Adjust x-axis.
-    ax.set(xlim=(0.7,12), xticks=[0.7,6,12])
-    ax.set_xticklabels([1,6,12], color=tickcolor, fontsize=9)
+    ax.set(xlim=(0.75,30), xticks=[0.75, 5, 10, 15, 20, 25, 30])
+    ax.set_xticklabels([1,5,10,15,20,25,30], color=tickcolor, fontsize=9)
     ax.set_xlabel('Trial', color=tickcolor, fontsize=9)
     
     ## Adjust y-axis.
@@ -172,4 +172,4 @@ for i, session in enumerate(sessions):
                           ha='left', va='bottom', color=labelcolor, fontsize=16)
     
 ## Save figure.
-plt.savefig(os.path.join(ROOT_DIR, 'figures', 'figS02.svg'), dpi=100)
+plt.savefig(os.path.join(ROOT_DIR, 'figures', 'figS01.svg'), dpi=100)
