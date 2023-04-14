@@ -43,22 +43,15 @@ r2_xticklabels = np.tile(['0{0}3'.format(u'\u2013'), '0{0}14'.format(u'\u2013'),
 r2_palette = np.repeat(['#234f81', '#812623'], 3)
 r2_markers = np.tile(['o', 'o', 'o'], 2)
 
-## Define row 3 styling.
-r3_titles = [r'Inverse temperature ($\beta$)', r'Go bias ($\tau$)', r'Learning rates ($\eta$)']
-r3_xticks = np.concatenate([np.linspace(-0.25,0.25,3) + i for i in range(2)])
-r3_xticklabels = np.tile(['0', '3', '14'], 2)
-r3_palette = np.repeat(['#234f81', '#812623'], 3)
-r3_markers = np.tile(['o', 'o', 'o'], 2)
-
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
 ### Initialize canvas.
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
 
 ## Initialize canvas.
-fig = plt.figure(figsize=(9,9))
+fig = plt.figure(figsize=(9,6))
 
 ## Initialize gridspec.
-gs = fig.add_gridspec(3, 3, left=0.09, right=0.98, top=0.94, bottom=0.05, 
+gs = fig.add_gridspec(2, 3, left=0.06, right=0.98, top=0.88, bottom=0.07,
                       hspace=0.70, wspace=0.20)
 
 ## Define convenience functions.
@@ -144,7 +137,7 @@ for i, (p1, p2, yticks, ylim, ylabel) in enumerate(zip(['b1','b3','a1'], ['b2','
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
 
 ## Iteratively plot.
-for i, (p1, p2, title) in enumerate(zip(['b1','b3','a1'], ['b2','b4','a2'], r3_titles)):
+for i, (p1, p2, title) in enumerate(zip(['b1','b3','a1'], ['b2','b4','a2'], r2_titles)):
     
     ## Initialize axis.
     ax = plt.subplot(gs[1,i])
@@ -206,72 +199,5 @@ for i, (p1, p2, title) in enumerate(zip(['b1','b3','a1'], ['b2','b4','a2'], r3_t
     if not i: ax.annotate('B. Test-retest reliability of model parameters', (0,0), (-0.11,1.24), 
                           'axes fraction', ha='left', va='bottom', color=labelcolor, fontsize=16)
 
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
-### Row 3: Split-half reliability.
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
-
-## Iteratively plot.
-for i, (p1, p2, title) in enumerate(zip(['b1','b3','a1'], ['b2','b4','a2'], r2_titles)):
-    
-    ## Initialize axis.
-    ax = plt.subplot(gs[2,i])
-
-    ## Iteratively plot.
-    for j, (y, lb, ub, x, fmt, color) in enumerate(zip(reliability.loc[('sh',[p1,p2]),'Mean'], 
-                                                       reliability.loc[('sh',[p1,p2]),'2.5%'], 
-                                                       reliability.loc[('sh',[p1,p2]),'97.5%'], 
-                                                       r3_xticks, r3_markers, r3_palette)):        
-        ax.errorbar(x=x, y=y, fmt=fmt, color=color, elinewidth=1.5)
-    
-    ## Plot averages.
-    ax.hlines(reliability.loc[('sh',p1),'Mean'].mean(), -0.25, 0.25, color='0.2', lw=1.2,
-              linestyle=(0, (1, 1)), zorder=-1)
-    ax.hlines(reliability.loc[('sh',p2),'Mean'].mean(),  0.75, 1.25, color='0.2', lw=1.2,
-              linestyle=(0, (1, 1)), zorder=-1)
-    
-    ## Add zero-line.
-    ax.axhline(0, linewidth=1, color=axiscolor, linestyle='--')
-    
-    ## Add fill.
-    x1, x2 = [-0.31, 1.31]
-    ax.fill_betweenx([0.7,1.05], x1, x2, color=axiscolor, edgecolor='none', alpha=0.18)
-    
-    ## Adjust x-axis.
-    ax.set(xlim=(x1, x2), xticks=r3_xticks, xticklabels=[])
-    ax.set_xticklabels(r3_xticklabels, color=tickcolor, fontsize=9)
-    ax.set_xlabel('Day', color=tickcolor, fontsize=9)
-
-    ## Adjust y-axis.
-    ax.set(ylim=(-0.08,1.05), yticks=np.linspace(0.0,1.0,6), yticklabels=[])
-    if not i:
-        ax.spines['left'].set(linewidth=1, color=axiscolor, position=('axes', -0.0))
-        ax.set_yticklabels(ax.get_yticks().round(1), color=tickcolor, fontsize=9)
-        ax.set_ylabel('Reliability', color=tickcolor, fontsize=9)
-    
-    ## Adjust title.
-    ax.set_title(title, loc='left', color=tickcolor, fontsize=11, pad=4)
-
-    ## Adjust legend.
-    if not i:
-        ax.errorbar([], [], fmt='o', color='#234f81', label='Win')
-        ax.errorbar([], [], fmt='o', color='#812623', label='Lose')
-        ax.errorbar([], [], color='0.2', label='Average', linestyle=(0, (1, 1)))
-        ax.legend(loc=2, bbox_to_anchor=(0, 1.21), ncol=3, frameon=False, labelcolor=labelcolor, fontsize=10,
-                  borderpad=0, borderaxespad=0, handletextpad=0.5, handlelength=1.6, columnspacing=1.2)
-
-    ## Modify ax spines.
-    ax.yaxis.set_tick_params(pad=1)
-    ax.spines['left'].set(linewidth=1, color=axiscolor)
-    if not i: 
-        sns.despine(ax=ax, left=False, right=True, top=True, bottom=True)
-        ax.tick_params(bottom=False, left=True, color=axiscolor, length=4, width=1)
-    else: 
-        sns.despine(ax=ax, left=True, right=True, top=True, bottom=True)
-        ax.tick_params(bottom=False, left=False, color=axiscolor, length=4, width=1)
-    
-    ## Add annotation.
-    if not i: ax.annotate('C. Split-half reliability of model parameters', (0,0), (-0.11,1.24), 
-                          'axes fraction', ha='left', va='bottom', color=labelcolor, fontsize=16)
-    
 ## Save figure.
 plt.savefig(os.path.join(ROOT_DIR, 'figures', 'fig03.svg'), dpi=100)
