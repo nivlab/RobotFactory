@@ -232,7 +232,7 @@ ax.set_xticklabels(labels, color=tickcolor, fontsize=9)
 ax.set(ylim=(0.0, 0.30), yticks=[], ylabel='')
 
 ## Adjust title.
-ax.set_title('Congruency effect', loc='left', color=tickcolor, fontsize=11)
+ax.set_title('Pavlovian bias', loc='left', color=tickcolor, fontsize=11)
 
 ## Modify ax spines.
 ax.yaxis.set_tick_params(pad=1)
@@ -333,7 +333,7 @@ for i, robot in enumerate(robots):
     
     ## Adjust legend.
     if not i:
-        scores = [r'$<60\%$', r'$\geq60\%$', r'$\geq90\%$']
+        scores = [r'$<60\%$', r'$\geq60\%$', r'$\geq90\%$ correct responses']
         for score, color in zip(scores, palette_3[::-1]): ax.bar(0, 0, color=color, label=score)
         ax.legend(loc=2, bbox_to_anchor=(0, 1.19), ncol=5, frameon=False, labelcolor=labelcolor, fontsize=10,
                   borderpad=0, borderaxespad=0, handletextpad=0.2, handlelength=1.6, columnspacing=1.1)
@@ -348,8 +348,9 @@ for i, robot in enumerate(robots):
         sns.despine(ax=ax, left=True, right=True, top=True, bottom=True)
     
     ## Add annotation.
-    if not i: ax.annotate('C. Distribution of proportion correct trials by session & trial type', (0,0), (-0.15,1.24), 'axes fraction', 
-                          ha='left', va='bottom', color=labelcolor, fontsize=16)
+    if not i: ax.annotate('C. Distribution of correct responses across participants', 
+                          (0,0), (-0.15,1.24), 'axes fraction', ha='left', va='bottom', 
+                          color=labelcolor, fontsize=16)
     
 ## Save figure.
 plt.savefig(os.path.join(ROOT_DIR, 'figures', 'fig04.svg'), dpi=100)

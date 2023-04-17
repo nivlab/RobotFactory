@@ -25,7 +25,7 @@ r1_xticks = np.concatenate([np.linspace(-0.3,0.3,3) + i for i in range(2)])
 r1_xticklabels = np.tile([0, 3, 14], 2)
 r1_ylims = [(0,50), (-0.1,3.1), (0.05,0.55)]
 r1_yticks = [np.linspace(0,50,6), np.linspace(0,3,4), np.linspace(0.1,0.5,5)]
-r1_ylabels = [r'Inverse temperature ($\beta$)', r'Go bias ($\tau$)', r'Learning rates ($\eta$)']
+r1_ylabels = [r'Outcome sensitivity ($\beta$)', r'Approach/avoidance bias ($\tau$)', r'Learning rates ($\eta$)']
 r1_palette = np.repeat(['#234f81', '#812623'], 3)
 r1_comparisons = {
     'b1': [(-0.3,0.3,20,'**'), (0.0,0.3,24,'**')],
@@ -37,7 +37,7 @@ r1_comparisons = {
 }
 
 ## Define row 2 styling.
-r2_titles = [r'Inverse temperature ($\beta$)', r'Go bias ($\tau$)', r'Learning rates ($\eta$)']
+r2_titles = [r'Outcome sensitivity ($\beta$)', r'Approach/avoidance bias ($\tau$)', r'Learning rates ($\eta$)']
 r2_xticks = np.concatenate([np.linspace(-0.25,0.25,3) + i for i in range(2)])
 r2_xticklabels = np.tile(['0{0}3'.format(u'\u2013'), '0{0}14'.format(u'\u2013'), '3{0}14'.format(u'\u2013')], 2)
 r2_palette = np.repeat(['#234f81', '#812623'], 3)
@@ -115,13 +115,13 @@ for i, (p1, p2, yticks, ylim, ylabel) in enumerate(zip(['b1','b3','a1'], ['b2','
     ## Adjust y-axis.
     ax.set(ylim=ylim, yticks=yticks)
     ax.set_yticklabels(ax.get_yticklabels(), color=tickcolor, fontsize=9)
-    ax.set_ylabel(ylabel, color=labelcolor, fontsize=10)
+    ax.set_ylabel(ylabel, color=labelcolor, fontsize=9)
 
     ## Adjust legend.
     if not i:
-        ax.errorbar([], [], fmt='o', color='#234f81', label='Win')
-        ax.errorbar([], [], fmt='o', color='#812623', label='Lose')
-        ax.legend(loc=2, bbox_to_anchor=(0, 1.11), ncol=2, frameon=False, labelcolor=labelcolor, fontsize=10,
+        ax.errorbar([], [], fmt='o', color='#234f81', label='Rewarding')
+        ax.errorbar([], [], fmt='o', color='#812623', label='Punishing')
+        ax.legend(loc=2, bbox_to_anchor=(0, 1.115), ncol=2, frameon=False, labelcolor=labelcolor, fontsize=10,
                   borderpad=0, borderaxespad=0, handletextpad=0.5, handlelength=1.6, columnspacing=1.2)
         
     ## Modify ax spines.
@@ -181,8 +181,8 @@ for i, (p1, p2, title) in enumerate(zip(['b1','b3','a1'], ['b2','b4','a2'], r2_t
 
     ## Adjust legend.
     if not i:
-        ax.errorbar([], [], fmt='o', color='#234f81', label='Win')
-        ax.errorbar([], [], fmt='o', color='#812623', label='Lose')
+        ax.errorbar([], [], fmt='o', color='#234f81', label='Rewarding')
+        ax.errorbar([], [], fmt='o', color='#812623', label='Punishing')
         ax.errorbar([], [], color='0.2', label='Average', linestyle=(0, (1, 1)))
         ax.legend(loc=2, bbox_to_anchor=(0, 1.21), ncol=3, frameon=False, labelcolor=labelcolor, fontsize=10,
                   borderpad=0, borderaxespad=0, handletextpad=0.5, handlelength=1.6, columnspacing=1.2)
