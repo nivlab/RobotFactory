@@ -1,0 +1,526 @@
+% set document class
+\documentclass[a4paper,12pt]{article}
+
+% load packages
+\usepackage[utf8]{inputenc}
+\usepackage[a4paper, margin=0.8in]{geometry}
+\usepackage[english]{babel}
+\usepackage{authblk}
+\usepackage[backend=biber,style=nature]{biblatex}    % citation management
+\usepackage[font=small, labelfont=it]{caption}       % figure/table captions
+\usepackage{float, graphicx, svg}                    % figure/table management
+\usepackage[pagewise]{lineno}                        % add line numbers for reviewers
+\usepackage{indentfirst}                             % for pretty paragraphs
+\usepackage{booktabs}                                % for pretty tables
+\usepackage{hyperref}                                % for pretty links
+\usepackage{amsmath}                                 % for pretty equations
+
+% setup references
+\defbibheading{main}{}
+\defbibheading{supp}{}
+\addbibresource[label=main]{main.bib}
+\addbibresource[label=supp]{supp.bib}
+\renewcommand*{\bibfont}{\small}
+
+% specify link style
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+    citecolor=blue
+}
+
+% set up author block
+\renewcommand{\baselinestretch}{1.2}
+\renewcommand*{\Authsep}{, }
+\renewcommand*{\Authand}{, }
+\renewcommand*{\Authands}{, }
+\renewcommand*{\Affilfont}{\normalsize}
+
+\setlength{\affilsep}{2em}   % set the space between author and affiliation
+\author[1,*]{Samuel Zorowitz}
+\author[1]{Gili Karni}
+\author[2]{Natalie Paredes}
+\author[1,3]{Nathaniel Daw}
+\author[1,3]{Yael Niv}
+\affil[1]{Princeton Neuroscience Institute, Princeton University, USA}
+\affil[2]{Department of Psychology, University of California, San Diego, USA}
+\affil[3]{Department of Psychology, Princeton University, USA}
+\affil[*]{Corresponding author (zorowitz@princeton.edu)}
+
+% specify title / suppress date
+\title{Improving the Reliability of the Pavlovian Go/No-Go Task}
+\date{}
+
+\begin{document}
+
+% title page
+\maketitle
+\thispagestyle{empty}          % remove page number
+{\bf Keywords:} tk
+
+% abstract page
+\break
+
+%TC:ignore
+\abstract{test test test}
+\thispagestyle{empty}          % remove page number
+%TC:endignore
+
+% manuscript start
+\break
+% \linenumbers                 % toggle to add line numbers
+\pagenumbering{arabic}         % reset page numbers
+\setlength{\parindent}{0em}    % remove paragraph indenting
+\setlength{\parskip}{1em}      % increase space between paragraphs
+\begin{refsection}[main]       % start manuscript reference section
+
+
+\section*{Introduction}
+
+% p1: Summary of Pavlovian biases. [steal language from other papers]
+
+Individual-differences in the expression of Pavlovian bias has been the focus of numerous published studies. Pavlovian biases have been observed to vary as a function of many psychiatric conditions. For example, a bias towards passive avoidance behavior has been observed for general and social anxiety \cite{mkrtchian2017modeling, peterburs2021impact}, but active avoidance is enhanced in individuals with a history of suicidal thoughts or behaviors \cite{millner2019suicidal}. Overall greater Pavlovian bias has been observed for trauma-exposure \cite{ousdal2018impact} and first-episode psychosis \cite{montagnese2020reinforcement}, but is attenuated in depression \cite{huys2016specificity} and schizophrenia \cite{albrecht2016reduction}. Pavlovian biases also vary across the lifespan as a function of age, with decreasing biases from childhood to young adulthood and recurs in older age \cite{raab2020adolescents, betts2020learning}. Pavlovian biases have been associated with individual differences in personality, such as impulsivity \cite{eisinger2020pavlovian}, and genetics \cite{richter2014valenced, richter2021motivational} (but not always; \cite{montagnese2020reinforcement}). Pavlovian biases also seem to be modulated by acute state effects, such as current mood \cite{weber2022effects}, anger \cite{wonderlich2020anger}, stress \cite{de2016acute}, and fear \cite{mkrtchian2017threat}. 
+
+To the best of our knowledge, none of the studies above investigated or reported the reliability of their behavioral measures. This is important because the reliability of a measure places an upper bound on the maximum observable correlation between itself and a second measure (e.g., symptom score). As an important corollary, as measure reliability decreases, so too does the power to detect individual-difference correlations \cite{Parsons2019-jw} thereby increasing the possibility of false-negative results (and simultaneously increasing the possibility of Type-S and -M errors; \cite{gelman2014beyond}). What studies do exist, however, unfortunately suggest that current behavioral measures from the Pavlovian go/no-go task are poor. Moutoussis and colleagues \cite{moutoussis2018change} investigated the psychometrics of the task in a large sample of adolescents and young adults. They found the test-retest reliability of model parameters to be poor. However, both their study population (adolescents) and retest intervals (6 - 18 mo) make it difficult to understand if the results reflect the study population, long retest intervals, or an interaction thereof. Recently, Pike and colleagues \cite{pike2022test} investigated the reliability of model parameters in an online adult sample. They too found poor estimates. Thus, the state of the current literature suggests that the task is poorly suited for investigating individual differences. 
+
+A second, no less important consideration is task repeatability, or that behavioral effects are robust to are repeated task administrations. One concern for task repeatability is practice effects, where participants’ performance on a task improves with repeated administrations. They might occur due to the attenuation of task-irrelevant nuisance factors (e.g., performance anxiety) and/or the learning of task-specific knowledge or strategies. Practice effects are relatively common for cognitive tasks [32, 33]. Practice effects are not inherently an issue for reliability — especially if an experimenter is only interested in the consistency, but not the absolute agreement, of participants’ performance over time — but they can become a pernicious issue if they are exhibited differentially across participants or if they are severe enough to induce ceiling effects. For example, Moutoussis and colleages report an overall reduction in the expression of Pavlovian biases in follow-up sessions. This may be a particular issue for studies investigating behavior change as a function of symptom change, either naturally or as part of treatment.
+
+% p5: Summary of paper.
+
+\section*{Experiment 1}
+
+\subsection*{Methods}
+
+\subsubsection*{Participants}
+
+A total of N=148 participants were recruited from Amazon Mechanical Turk (via CloudResearch; \cite{litman2017turkprime}) in May, 2020 to participate in an online behavioral experiment. Participants were eligible to participate if they were at least 18 years old and resided in the United States. Following best practice recommendations \cite{robinson2019tapped}, no other inclusion criteria were applied. This study was approved by the Institutional Review Board of Princeton University (\#5291), and all participants provided informed consent. Total study duration was 15-20 minutes. Participants received monetary compensation for their time (rate USD \$12/hr), plus an incentive-compatible bonus up to \$1.50 based on task performance. 
+
+Data from N=45 participants who completed the first session were excluded prior to analysis (see ``Exclusion criteria'' in the Supplementary Materials), leaving a final sample of N=103 participants. These participants were re-invited to complete a follow-up experiment 3, 14, and 28 days later. Once invited, participants were permitted 48 hours to complete the follow-up experiment. Retention was high for each follow-up session (Day 3: N=94 [91.3\%]; Day 14: N=92 [89.3\%]; Day 28: N=89 [86.4\%]). In addition to the performance bonus, participants received a retention bonus of \$1.00 for each completed follow-up session. Detailed demographic information is presented in Table \ref{tab:demographics}. The majority of participants identified as men (55 men; 47 women; 1 non-binary) and were 35.5 years old on average (range: 20--69 years).
+
+\subsubsection*{Experimental protocol}
+
+In each session, participants started by completing several self-report questionnaires (see Supplementary Materials for details). These measures were included for exploratory analyses that are not reported here. Next, participants completed a gamified version of the Pavlovian go/no-go task \cite{guitart2012go, swart2017catecholaminergic}. In the task, participants observed different `robot' stimuli (Figure \ref{fig:task_schematic}A). On every trial, a robot was shown traveling down a conveyer belt into a `scanner'. Once inside, participants had 1.5 seconds to decide to either `repair' the robot by pressing the space bar (go response) or press nothing (no-go response). Participants were told that they would see different types of robots (indicated by a symbol on the robots' chestplates), and that their goal was to learn the correct response (go, no-go) for each robot type based on feedback (points won/lost) following each action.
+
+The task involved four trial types that differed in their correct action (go, no-go) and outcome domain (reward, punishment; Figure \ref{fig:task_schematic}B). Specifically, the four trial types were: go to win points (GW); no-go to win points (NGW); go to avoid losing points (GAL); and no-go to avoid losing points (NGAL). Note that GW and NGAL trials are Pavlovian-instrumental `congruent' because there is a match between the correct response and the approach/avoidance biases for each, whereas NGW and GAL trials are Pavlovian-instrument `incongruent'. For the rewarding trials (GW, NGW), the possible outcomes were +10 or +1 points; for the punishing trials (GAL, NGAL), they were -1 or -10 points. The outcome domain of each robot was explicitly signaled to participants by a blue or orange `scanner light' (randomized across sessions). Outcomes were probabilistic such that participants received the better of the possible outcomes with 80\% chance if they made the correct action, and received the worse of the possible outcomes with 80\% chance if they made the incorrect action (Figure \ref{fig:task_schematic}C).
+
+Participants saw eight unique robots across the task. Each individual robot was presented for 30 trials (240 trials total; Figure \ref{fig:task_schematic}D). Trials were divided into two blocks with four robots (one of each trial type) per block. Prior to task start, participants were required to review instructions, correctly answer five comprehension questions, and complete several practice trials. Failing to correctly answer all comprehension items forced the participant to reread sections of the instructions. Participants were provided a break between blocks. The task was programmed in jsPsych \cite{de2015jspsych} and distributed using custom web-application software (see Code Availability). 
+
+%TC:ignore
+\begin{figure}[t]
+    \centerline{\includesvg[inkscapelatex=false,width=1.00\textwidth]{figures/fig01.svg}}
+    \caption{}
+    \label{fig:task_schematic}
+\end{figure}
+%TC:endignore
+
+\subsubsection*{Descriptive analyses}
+
+We first evaluated participants' choice behavior using five performance indices: overall percent correct responses; go bias, or the difference in correct responses between go and no-go trials; domain bias, or the difference in correct responses between rewarding and punishing trials; Pavlovian bias, or the difference in correct responses between Pavlovian congruent and incongruent trials; and feedback sensitivity, or the difference in correct responses between trials following veridical or sham feedback. Within each session, we tested if the median value across participants for each index was significantly different than zero (or 50\% for overall percent correct responses). We use the median due to the skew in the performance indices (see Results). We also tested if the median value of each index was significantly different between each pair of sessions. P-values were derived via permutation testing, where a null distribution of values were obtained by permuting the condition labels (for within-session tests) or day labels (for between-session tests) 5000 times. Within-session tests were not corrected for multiple comparisons because each test constitutes an individual hypothesis; between-session tests were corrected for multiple comparisons using the familywise error rate correction \cite{winkler2014permutation}.
+
+\subsubsection*{Reinforcement learning models}
+
+We fit a set of seven nested reinforcement learning (RL) models to participants' choice data. All models are variants of the Rescorla-Wagner model and have previously been used to predict choice behavior on this task \cite{guitart2012go, mkrtchian2017modeling}. In the base model (M1), the probability of choosing an action is determined by the difference in stimulus-action values, scaled an outcome sensitivity parameter ($\beta$), and passed through the logistic function. In turn, action values are learned via the Rescorla-Wagner update rule as governed by a learning rate ($\eta$). The next model (M2) is augmented with a static approach/avoidance parameter ($\tau$) that biases action towards go and no-go responses when $\tau > 0$ and $\tau < 0$, respectively. The next model (M3) has independent approach/avoidance parameters per outcome domain ($\tau_+$, $\tau_-$). The succeeding models have either independent outcome sensitivity  ($\beta_+$, $\beta_-$; M4) or learning rate parameters ($\eta_+$, $\eta_-$; M5) per outcome domain. The penultimate model (M6) separates all three parameter types by outcome domain. Finally, the most complex model (M7) adds a lapse rate ($\xi$). Full equations and model descriptions are provided in the Supplementary Materials.
+
+All models were estimated within a hierarchical Bayesian modeling framework using Hamiltonian Monte Carlo as implemented in Stan (v2.30; \cite{carpenter2017stan}). For each model, four separate chains with randomized start values each took 7,500 samples from the posterior. The first 5,000 samples, and every-other subsequent sample, from each chain were discarded. Thus, 5,000 post-warmup samples from the joint posterior were retained. The $\hat{R}$ values for all parameters were $\leq 1.01$, indicating acceptable convergence between chains, and there were no divergent transitions in any chain. Our choices of prior are detailed in the Supplementary Materials. Briefly, we specified diffuse and uninformative priors to avoid biasing parameter estimation.
+
+The fits of the models to the data were assessed using posterior predictive checks. Specifically, we inspected each model's ability to reproduce both group-averaged learning curves (by trial type) and each participant's proportion of go responses (by trial type). Model fits were compared using Bayesian leave-one out cross-validation (LOO; \cite{vehtari2017practical}). A credible improvement in model fit was defined as a difference in LOO values four times larger than its corresponding standard error \cite{Vehtari_undated-tc}.
+
+We investigated the reliability of the model parameters for the best-fitting model also using a Bayesian hierarchical modeling framework \cite{rouder2019psychometrics}. Briefly, the best-fitting model was fit to participants' choice data with partial-pooling over blocks within a session or over whole datasets between sessions. Split-half and test-retest reliability was respectively calculated as the Pearson correlation between model parameters estimated from each block and each pair of sessions. Complete details of the estimation procedure are reported in the Supplementary Materials.
+
+\subsection*{Results}
+
+\subsubsection*{Descriptive analyses}
+
+%TC:ignore
+\begin{figure}[hpt]
+    \centerline{\includesvg[inkscapelatex=false,width=1.00\textwidth]{figures/fig02.svg}}
+    \caption{Summary of behavior in Experiment 1. (A) Group-averaged learning curves for each trial type and session. Shaded regions indicate 95\% bootstrapped confidence intervals. (B) Group-averaged performance for each session. Performance indices from left-to-right: Correct responses, or overall accuracy; Go bias, or difference in accuracy between Go and No-Go trials; Congruency effect, or difference in accuracy between Pavlovian congruent (GW, NGAL) and incongruent (NGW, GAL) trials; and Feedback sensitivity, or the difference in accuracy on trials following veridical and sham feedback. Blue shading indicates significant differences in comparison to all other sessions. (C) The percentage of participants, for each session and trial type, exhibiting at- or below-chance performance ($< 60\%$ response accuracy; grey), moderate performance ($\geq 60\%$ response accuracy; light blue), or near-perfect performance ($\geq 90\%$ response accuracy; dark blue).}
+    \label{fig:exp01_behavior}
+\end{figure}
+%TC:endignore
+
+Trial-by-trial choice behavior for each session is presented in Figure \ref{fig:exp01_behavior}A. Performance in the first session qualitatively conformed to the expected pattern of results, namely worse performance on Pavlovian incongruent trials. This effect was seemingly diminished, however, in all follow-up sessions. We turn next to the descriptive analyses to formally evaluate these observations. 
+
+The group-averaged performance indices per session are summarized in Figure \ref{fig:exp01_behavior}B. On Day 0, the overall percent correct responses was 85.0\% ($d = 2.982$, $p < 0.001$, 95\% CI = [80.8, 87.9]). Performance improved in all subsequent sessions (Day 3: M = 92.9\%, $d = 6.947$, $p < 0.001$, 95\% CI = [90.4, 94.6]; Day 14: 94.6\%, $d = 10.310$, $p < 0.001$, 95\% CI = [93.1, 95.2]; Day 28: 94.6\%, $d=12.029$, $p < 0.001$, 95\% CI = [93.8, 95.8]). Pairwise comparisons confirmed that performance was indeed worse on Day 0 compared to each follow-up session (all $p < 0.001$); no other comparisons were significant. Participants' self-reported mood and anxiety were largely stable over the same period (Figure \ref{fig:figS05}), suggesting this shift in performance reflects practice effects and not changes in participants' state. 
+
+Across sessions, participants made more correct responses on go trials than no-go trials (Day 0: $\Delta$M = 0.117, $d = 1.049$, $p < 0.001$, 95\% CI = [0.108, 0.133]; Day 3: $\Delta$M = 0.050, $d = 1.156$, $p < 0.001$, 95\% CI = [0.042, 0.058]; Day 14: $\Delta$M = 0.042, $d = 1.124$, $p < 0.001$, 95\% CI = [0.029, 0.046]; Day 28: $\Delta$M = 0.033, $d = 0.899$, $p < 0.001$, 95\% CI = [0.025, 0.042]). The go bias was significantly reduced in all follow-up sessions compared to Day 0 (all $p < 0.001$); so too was the bias on Day 28 compared to Day 3 ($p < 0.001$). Similarly, participants made more correct responses on Pavlovian-congruent than incongruent trials (Day 0: $\Delta$M = 0.092, $d = 1.237$, $p < 0.001$, 95\% CI = [0.067, 0.117]; Day 3: $\Delta$M = 0.017, $d = 0.450$, $p < 0.001$, 95\% CI = [0.008, 0.025]; Day 14: $\Delta$M = 0.017, $d = 0.450$, $p < 0.001$, 95\% CI = [0.008, 0.025]; Day 28: $\Delta$M = 0.008, $d = 0.225$, $p < 0.001$, 95\% CI = [0.000, 0.017]). Again, the Pavlovian bias was significantly reduced in all follow-up sessions compared to Day 0 (all $p < 0.001$); no other comparisons were significant. Participants made marginally more correct responses on rewarding trials on Day 3 only ($\Delta$M = 0.008, $d=0.169$, $p = 0.017$, 95\% CI = [0.000, 0.025]).
+
+A similar pattern of results was observed for feedback sensitivity. Across sessions, participants made more correct responses following veridical compared to sham feedback (Day 0: $\Delta$M = 0.094, $d = 1.250$, $p < 0.001$, 95\% CI = [0.072, 0.115]; Day 3: $\Delta$M = 0.045, $d = 0.770$, $p < 0.001$, 95\% CI = [0.034, 0.062]; Day 14: $\Delta$M = 0.030, $d = 0.581$, $p < 0.001$, 95\% CI = [0.018, 0.047]; Day 28: $\Delta$M = 0.028, $d = 0.704$, $p < 0.001$, 95\% CI = [0.022, 0.043]). Feedback sensitivity was significantly less in all follow-up sessions compared to Day 0 (all $p < 0.001$); no other comparisons were significant.
+
+The results so far summarize group-averaged performance but do not provide much insight into individual variability. As such, the proportion of participants who exhibited chance-level ($<$60\% correct responses), intermediate ($\geq$60\%), or near-ceiling performance ($\geq$90\%) by session and trial type is presented in Figure \ref{fig:exp01_behavior}C. Excepting GW trials, the percentage of participants nearing ceiling-level performance increases from the minority on Day 0 to the majority in all follow-up sessions. Two-way chi-squared tests confirm this trend (GW: $\chi^2 (6) = 8.149$, $p = 0.227$; NGW: $\chi^2 (6) = 55.458$, $p < 0.001$; GAL: $\chi^2 (6) = 42.191$, $p < 0.001$; NGAL: $\chi^2 (6) = 39.287$, $p < 0.001$). In sum, the increases in task performance (and accompanying reductions in choice biases) with repeated testing observed at the group-level extends to the majority of participants. 
+
+\subsubsection*{Model comparison}
+
+The results of the model comparison are summarized in Table \ref{tab:exp1_mc_abbr}. Collapsing across sessions, the best-fitting model was the most complex one (i.e., independent parameters per outcome domain plus lapse rate; M7). Importantly, this was also the best-fitting model within each session (Table \ref{tab:exp1_mc_full}). Posterior predictive checks indicated that this model provided excellent fits to the choice data from each session (Figure \ref{fig:exp1_ppc}). 
+
+%TC:ignore
+\begin{table}[b!]
+    \centering
+    \begin{tabular}{clccr}
+        \toprule
+        Model & Parameters & Acc. (\%) & LOO & $\Delta$ LOO (se) \\
+        \midrule
+        1 & $\beta, \eta$ & 87.5 & -151457.9 & -5602.6 (68.3) \\
+        2 & $\beta, \tau, \eta$ & 89.0 & -154011.9 & -3048.6 (51.2) \\
+        3 & $\beta, \tau_+, \tau_-, \eta$ & 89.8 & -155817.8 & -1242.7 (31.3) \\
+        4 & $\beta_+, \beta_-, \tau_+, \tau_-, \eta$ & 89.8 & -156261.6 & -798.8 (22.6) \\
+        5 & $\beta, \tau_+, \tau_-, \eta_+, \eta_-$ & 89.9 & -156265.9 & -794.6 (20.7) \\
+        6 & $\beta_+, \beta_- \tau_+, \tau_-, \eta_+, \eta_-$ & 89.9 & -156401.8 & -658.6 (18.8) \\
+        7 & $\beta_+, \beta_- \tau_+, \tau_-, \eta_+, \eta_-, \xi$ & 90.1 & -157060.5 & \multicolumn{1}{c}{-} \\
+        \bottomrule
+\end{tabular}
+    \caption{Model comparison collapsing across sessions. Notes: Acc. = trial-level predictive accuracy between observed and model-predicted choice. LOO = Bayesian leave-one-out cross-validation scores presented in deviance scale (i.e., smaller numbers indicate better fit). $\Delta$LOO = difference in LOO values between each model and the best-fitting model (M7).}
+    \label{tab:exp1_mc_abbr}
+\end{table}
+%TC:endignore
+
+\subsubsection*{Model parameters}
+
+The estimated group-level parameters from the best-fitting model are presented in Figure \ref{fig:exp01_modeling}A. Consistent with the descriptive analyses, large shifts in the parameters were observed following Day 0. The reward and punishment sensitivity parameters exhibited an almost threefold increase between Days 0 and 3, and stabilized thereafter. The inverse pattern was observed for the positive learning rate. Crucially, the approach and avoidance bias parameters followed a similar pattern. The approach bias credibly decreased between Days 0 and 3, and qualitatively declined thereafter. In turn, the avoidance bias credibly increased between Days 0 and 3, but stabilized thereafter. That is, Pavlovian biases diminished in absolute and relative (i.e., compared to the outcome sensitivity parameters) terms with repeat testing. 
+
+The test-retest reliability estimates for each model parameter is presented in Figure \ref{fig:exp01_modeling}B. The results are mixed. Collapsing across session-pairs, acceptable test-retest reliability was observed for the reward sensitivity ($\bar{\rho} = 0.863$, 95\% CI = [0.837, 0.889]), punishment sensitivity ($\bar{\rho} = 0.973$, 95\% CI = [0.963, 0.981]), and negative learning rate ($\bar{\rho} = 0.846$, 95\% CI = [0.764, 0.886]) parameters. Conversely, low-to-moderate test-retest reliability was observed for the approach bias ($\bar{\rho} = 0.379$, 95\% CI = [0.270, 0.486]), avoidance bias ($\bar{\rho} = 0.502$, 95\% CI = [0.412, 0.583]), and positive learning rate ($\bar{\rho} = 0.446$, 95\% CI = [0.327, 0.555]) parameters. A similarly uneven pattern was observed for the split-half reliability estimates (Figure \ref{fig:figS04}A).
+
+%TC:ignore
+\begin{figure}[ht]
+    \centerline{\includesvg[inkscapelatex=false,width=1.00\textwidth]{figures/fig03.svg}}
+    \caption{Summary of reinforcement learning model parameters. (A) Group-level model parameters for each session. Error bars indicate 95\% HDIs. **Denotes pairwise comparison where 95\% HDI of the difference excludes zero. (B) Test-retest reliability estimates for each model parameter. Dotted lines indicates overall average. Shaded region indicates conventional range of acceptable reliability ($\rho \geq 0.7$).}
+    \label{fig:exp01_modeling}
+\end{figure}
+%TC:endignore
+
+\subsection*{Discussion}
+
+The objectives of this first experiment was to evaluate the stability and reliability of individual differences in performance on a gamified version of the Pavlovian go/no-go task. At both the group- and participant-levels, we observed significant practice effects on performance following the initial session. An increasing majority of participants exhibited near-ceiling performance, across trial types, with each additional task administration. Consequently, the magnitude of group-averaged behavioral effects including the go bias, Pavlovian bias, and feedback sensitivity were halved or more after the first session. Moreover, this pattern of results was reflected in the group-level parameters of an RL model fit to participants' choice data, which indicated that Pavlovian biases were credibly weakened in follow-up sessions. Relatedly, we found that the Pavlovian bias parameters exhibited poor-to-moderate test-retest reliability. This last result is perhaps unsurprising given that, by definition, low between-participants variability decreases reliability.  
+
+The results of Experiment 1 beg two questions: what engenders these practice effects and what can be done to prevent or mitigate them? With respect to the first question, one possibility is that, after the initial session, participants employ an alternative cognitive strategy to complete the task. Consider that, under the canonical design of the Pavlovian go/no-go task, there is an implicit dependence between stimuli: within an outcome domain, for every go stimulus (e.g., GW) there is always a corresponding no-go stimulus (e.g., NGW). That is, learning the correct action for one stimulus provides information about the correct action for its complement. Recognizing this, savvy participants may simply forego reinforcement learning in favor of a process-of-elimination strategy and thereby enhance their performance on the task. Indeed, feedback from some of our online participants in this study indicated that this sort of top-down strategy was at play.  
+
+This suggests that, in order to mitigate or prevent practice effects, there is a need for an alternative version of the Pavlovian go/no-go task without such an easily exploited structure. By eliminating this dependence between stimuli, motivated participants would have no other other option than to pay attention to each and every stimulus equally in order to maximize their performance. Furthermore, by minimizing practice effects (and thereby increasing between-participants variability), it is plausible that parameter reliability would also improve. In the next experiment, we investigated precisely this.
+
+\section*{Experiment 2}
+
+\subsection*{Methods}
+
+\subsubsection*{Participants}
+
+A total of N=156 participants were recruited from Amazon Mechanical Turk (via CloudResearch) in December, 2020 to participate in an online behavioral experiment. The inclusion criteria were the same as in Experiment 1. This study was approved by the Institutional Review Board of Princeton University (\#11968), and all participants provided informed consent. Total study duration was again 15-20 minutes per participant. Monetary compensation, including the performance bonus, was the same as in Experiment 1. 
+
+Data from N=46 participants who completed the first session were excluded prior to analysis (see ``Exclusion criteria'' in the Supplementary Materials), leaving a final sample of N=110 participants. These participants were re-invited to complete a follow-up experiment 3 and 14 days later. (There was no follow-up session at 28 days due to the Christmas holiday.) Once invited, participants were permitted 48 hours to complete the follow-up experiment. Participant retention was again high for each follow-up session (Day 3: N=97 [88.2\%]; Day 14: N=99 [90.0\%]). Participants again received a retention bonus of \$1.00 for each completed follow-up session. Detailed demographic information is presented in Table \ref{tab:demographics}. The majority of participants identified as men (65 men; 53 women; 1 non-binary individual; 1 rather not say) and were, on average, 39.6 years old (range: 23--69 years).
+
+\subsubsection*{Experimental protocol}
+
+The experimental protocol for Experiment 2 was almost identical to Experiment 1. In each session, participants started by completing several self-report questionnaires (see Supplementary Materials for details). Next, participants completed an alternative version of the gamified Pavlovian go/no-go task where the trial structure had been fundamentally altered (taking inspiration from \cite{wittmann2008striatal}). Instead of 8 unique robots each presented for 30 trials, participants now saw a total of 24 unique robots presented for 8, 10, or 12 trials each. The motivation for shortening the number of exposures to each stimulus was to measure participants' task performance primarily during learning, as opposed to asymptotic performance, where the expression of Pavlovian biases are typically largest (for similar discussion, see also \cite{zorowitzPLACEHOLDER}). The robots were presented to participants in batches, each composed of four robots totalling approximately 40 trials. Crucially, within a batch, all four trial types were not necessarily represented (see Figure \ref{fig:figS01} for an example). That is, at any point in the task, participants were not guaranteed to observe one of each type of robot. As such, participants could not utilize a process-of-elimination strategy in order to improve their task performance. The six batches were evenly divided into two blocks of 120 trials each (12 unique robots per block; three robots of each type; Figure \ref{fig:task_schematic}D).
+
+The task was unchanged visually except in two respects. First, the scanner colors were now blue and red (instead of blue and orange), and fixed such that they always indicated rewarding and punishing trials, respectively. Second, the symbols on the robots' chestplates were drawn from one of two Brussels Artificial Character Sets \cite{vidal2017bacs} or the English alphabet (randomized within participants across sessions). These new symbols were used in order to accommodate the need for three times the number of distinctly recognizable robots. Pairwise comparisons revealed no significant differences in percent correct responses by character set (all $p > 0.90$, corrected for multiple comparisons). The timing of the task was also unchanged except the response window was shortened (from 1.5 to 1.3 seconds) and the feedback window was lengthened (from 1.0 to 1.2 seconds). 
+
+\subsubsection*{Analyses}
+
+The analyses for Experiment 2 were identical to those for Experiment 1. 
+
+\subsection*{Results}
+
+\subsubsection*{Descriptive analyses}
+
+Trial-by-trial choice behavior for each session is presented in Figure \ref{fig:exp02_behavior}A. In contrast to Experiment 1, performance in each session qualitatively conformed to the expected pattern of results. The group-averaged performance indices per session are summarized in Figure \ref{fig:exp02_behavior}B. On Day 0, overall percent correct responses was 67.5\% ($d = 1.828$, $p < 0.001$, 95\% CI = [65.8, 69.0]). Performance improved in all subsequent sessions, but only marginally so (Day 3: M = 71.7\%, $d = 2.063$, $p < 0.001$, 95\% CI = [69.6, 74.6]; Day 14: 69.6\%, $d = 1.441$, $p < 0.001$, 95\% CI = [66.5, 73.8]). Pairwise comparisons confirmed that performance was significantly greater on Day 3 compared to Day 0 ($p = 0.009$); however, no other comparisons were significant.
+
+%TC:ignore
+\begin{figure}[hpt]
+    \centerline{\includesvg[inkscapelatex=false,width=1.00\textwidth]{figures/fig04.svg}}
+    \caption{Summary of behavior in Experiment 2. (A) Group-averaged learning curves for each trial type and session. Shaded regions indicate 95\% bootstrapped confidence intervals. (B) Group-averaged performance for each session. Performance indices from left-to-right: Correct responses, or overall accuracy; Go bias, or difference in accuracy between Go and No-Go trials; Congruency effect, or difference in accuracy between Pavlovian congruent (GW, NGAL) and incongruent (NGW, GAL) trials; and Feedback sensitivity, or the difference in accuracy on trials following veridical and sham feedback. Blue shading indicates significant differences in comparison to all other sessions. (C) The percentage of participants, for each session and trial type, exhibiting at- or below-chance performance ($< 60\%$ response accuracy; grey), moderate performance ($\geq 60\%$ response accuracy; light blue), or near-perfect performance ($\geq 90\%$ response accuracy; dark blue).}
+    \label{fig:exp02_behavior}
+\end{figure}
+%TC:endignore
+
+In all sessions, participants performed better on go trials than no-go trials (Day 0: $\Delta$M = 0.192, $d = 1.108$, $p < 0.001$, 95\% CI = [0.150, 0.225]; Day 3: $\Delta$M = 0.133, $d = 0.899$, $p < 0.001$, 95\% CI = [0.100, 0.150]; Day 14: $\Delta$M = 0.142, $d = 0.882$, $p < 0.001$, 95\% CI = [0.075, 0.175]). The go bias on Day 0 was significantly greater than that for all other sessions (all $p < 0.005$); no other comparisons were significant. Participants also performed better on Pavlovian congruent compared to incongruent trials in all sessions (Day 0: $\Delta$M = 0.125, $d = 1.065$, $p < 0.001$, 95\% CI = [0.100, 0.150]; Day 3: $\Delta$M = 0.083, $d = 0.843$, $p < 0.001$, 95\% CI = [0.067, 0.100]; Day 14: $\Delta$M = 0.075, $d = 0.867$, $p < 0.001$, 95\% CI = [0.050, 0.092]). The Pavlovian bias on Day 0 was significantly greater than that for all other sessions (both $p = 0.027$); no other comparisons were significant. In sum, group-averaged behavior showed evidence of practice effects but these were minor by comparison to those observed in Experiment 1. 
+
+A similar pattern of results was observed for feedback sensitivity. Across sessions, participants made more correct responses following veridical compared to sham feedback (Day 0: $\Delta$M = 0.282, $d = 2.254$, $p < 0.001$, 95\% CI = [0.257, 0.309]; Day 3: $\Delta$M = 0.294, $d = 2.142$, $p < 0.001$, 95\% CI = [0.247, 0.320]; Day 14: $\Delta$M = 0.268, $d = 2.267$, $p < 0.001$, 95\% CI = [0.241, 0.294]). No pairwise comparison was significant (all $p > 0.10$), suggesting that feedback sensitivity was largely conserved across sessions.
+
+Turning next to individual variation in performance, the proportion of participants who exhibited chance-level, intermediate, or near-ceiling performance by session and trial type is presented in Figure \ref{fig:exp02_behavior}C. In contrast to Experiment 1, the majority of participants now exhibited intermediate performance across all trial types and sessions with the only exception being for NGW trials on Day 0. Two-way chi-squared tests of independence confirmed that, with the exception of NGW trials, no significant shift in participants' performance across sessions was observed (GW: $\chi^2 (4) = 1.163$, $p = 0.884$; NGW: $\chi^2 (4) = 13.343$, $p = 0.010$; GAL: $\chi^2 (4) = 6.499$, $p = 0.165$; NGAL: $\chi^2 (4) = 5.097$, $p = 0.278$). Thus, the majority of participants exhibit and sustain performance in the dynamic range on the modified Pavlovian go/no-go task.
+
+\subsubsection*{Model comparison}
+
+The results of the model comparison are summarized in Table \ref{tab:exp2_mc_abbr}. It should be noted that trial-level predictive performance for all models were worse in Experiment 2 than in Experiment, which is to be expected insofar that the modified task samples more choice during learning (i.e., when choice behavior is most stochastic). As in Experiment 1, collapsing across sessions, the best-fitting model was the most complex one (i.e., independent parameters per outcome domain plus lapse rate; M7). This was also the best-fitting model within each session (Table \ref{tab:exp2_mc_full}). Posterior predictive checks indicated that this model provided excellent fits to the choice data from each session (Figure \ref{fig:exp2_ppc}). 
+
+%TC:ignore
+\begin{table}[b!]
+    \centering
+    \begin{tabular}{clcrr}
+        \toprule
+        Model & Parameters & Acc. (\%) & \multicolumn{1}{c}{LOO} & \multicolumn{1}{c}{$\Delta$ LOO (se)} \\
+        \midrule
+        1 & $\beta, \eta$ & 72.9 & -95806.3 & -6205.2 (73.2) \\
+        2 & $\beta, \tau, \eta$ & 76.5 & -99616.0 & -2395.5 (48.9) \\
+        3 & $\beta, \tau_+, \tau_-, \eta$ & 77.6 & -101283.0 & -728.5 (28.2) \\
+        4 & $\beta_+, \beta_-, \tau_+, \tau_-, \eta$ & 77.5 & -101422.4 & -589.0 (21.1) \\
+        5 & $\beta, \tau_+, \tau_-, \eta_+, \eta_-$ & 77.7 & -101519.0 & -492.4 (19.1) \\
+        6 & $\beta_+, \beta_- \tau_+, \tau_-, \eta_+, \eta_-$ & 77.8 & -101548.7 & -462.7 (17.2) \\
+        7 & $\beta_+, \beta_- \tau_+, \tau_-, \eta_+, \eta_-, \xi$ & 78.1 & -102011.4 & \multicolumn{1}{c}{-} \\
+        \bottomrule
+\end{tabular}
+    \caption{Model comparison collapsing across sessions. Notes: Acc. = trial-level classification accuracy between observed and model-predicted go responses. LOO = Bayesian leave-one-out cross-validation presented in deviance scale (i.e., smaller numbers indicate better fit). $\Delta$ LOO = difference in LOO values between models.}
+    \label{tab:exp2_mc_abbr}
+\end{table}
+%TC:endignore
+
+\subsubsection*{Model parameters}
+
+The estimated group-level parameters from the best-fitting model are presented in Figure \ref{fig:exp02_modeling}A. Small but credible shifts were observed for the reward and punishment sensitivity parameters. Reward sensitivity was credibly larger on Day 14 compared to Days 0 and 3, whereas punishment sensitivity was credibly larger on Days 3 and 14 compared to Day 0. The inverse pattern was observed for the reward and punishment learning rates. The approach bias was marginally but credibly larger on Day 0 compared to Days 3 and 14. No credible differences in the avoidance bias across sessions were observed. Therefore, though Pavlovian biases were somewhat diminished, in both absolute and relative (i.e., compared to the outcome sensitivity parameters) terms, they remain largely intact with repeat testing.   
+
+%TC:ignore
+\begin{figure}[b!]
+    \centerline{\includesvg[inkscapelatex=false,width=1.00\textwidth]{figures/fig05.svg}}
+    \caption{Summary of reinforcement learning model parameters. (A) Group-level model parameters for each session. Error bars indicate 95\% HDIs. **Denotes pairwise comparison where 95\% HDI of the difference excludes zero. (B) Test-retest reliability estimates for each model parameter. Filled circles denote estimates for Experiment 2; open circles denote estimates from Experiment 1. The grey vertical lines show the change in reliability across experiments. Dotted lines indicates average reliability for Experiment 2. Shaded region indicates conventional range of acceptable reliability ($\rho \geq 0.7$).}
+    \label{fig:exp02_modeling}
+\end{figure}
+%TC:endignore
+
+The estimated test-retest reliability of the model parameters is presented in Figure \ref{fig:exp02_modeling}B. In contrast to Experiment 1, collapsing across session-pairs, acceptable test-retest reliability was observed for essentially all parameters (reward sensitivity: $\bar{\rho} = 0.989$, 95\% CI = [0.984, 0.992]; punishment sensitivity: $\bar{\rho} = 0.963$, 95\% CI = [0.949, 0.973]; approach bias: $\bar{\rho} = 0.696$, 95\% CI = [0.622, 0.765]; avoidance bias: $\bar{\rho} = 0.729$, 95\% CI = [0.669, 0.778]; reward learning rate: $\bar{\rho} = 0.861$, 95\% CI = [0.817, 0.898]; punishment learning rate: $\bar{\rho} = 0.768$, 95\% CI = [0.710, 0.815]). Compared to Experiment 1, test-retest reliability was significantly improved for reward sensitivity ($\Delta\bar{\rho} = 0.125$, 95\% CI = [0.101, 0.152]), approach bias ($\Delta\bar{\rho} = 0.318$, 95\% CI = [0.185, 0.446]), avoidance bias ($\Delta\bar{\rho} = 0.227$, $95\% \ \text{CI} = [0.126, 0.315]$), and reward learning rate ($\Delta\bar{\rho} = 0.415$, 95\% CI = [0.294, 0.531]); no parameters showed significantly worse reliability. A similar pattern of results was observed for the split-half reliability estimates Figure \ref{fig:figS04}B.
+
+\section*{General Discussion}
+
+Our results constitute a marked improvement in parameter reliability over previous studies. Moutoussis and colleagues \cite{moutoussis2018change} first reported poor reliability of models parameters for hte Pavlovian go/no-go task. However, they studied performance in a developmental sample (14 - 24 yrs) over long retest intervals (6 mo, 18 mo), begging the question whether poor reliability reflected actual changes in the sample (with age), retest interval, or both. Recently, Pike and colleagues \cite{pike2022test} investigated reliability in an online sample of adults using a two-week retest interval and similarly found poor reliability, suggesting the issue is not specific. Our improved reliability likely reflect a confluence of factors. First, our task utilized gamification principles, which may have improved reliability by maximizing participant engagement and/or minimizing participant confusion. Gamification has previously been found to improve the reliability of cognitive tasks \cite{kucina2022solution, verdejo2021unified}. A second possibility is that previous studies suffered from practice effects, which can hamper reliability by minimizing between-participants variability and if changes are not uniform (e.g., interactions with age; \cite{anokhin2022age}). Indeed, by minimizing practice effects, we saw large improvements in reliability. A third possibility is use of method. Hierarchical Bayesian methods have been to minimize estimation noise and thereby improve reliability estimates \cite{brown2020improving, waltmann2022sufficient}. 
+
+We also found large practice effects in the original version of the task. We note that practice effects are common to cognitive tasks \cite{hausknecht2007retesting, scharfen2018retest}. More specifically, Moutoussis found evidence of practice even despite their long retest intervals \cite{moutoussis2018change}. Our solution was to redesign the task to prevent alternative strategies. By preventing participants from becoming aware of critical elements of the task design, one can improve the stability of behavior over time (and also improve reliability) \cite{mclean2018towards}. 
+
+% The current study is not without limitations. We have investigated the reliability of our modified Pavlovian go/no-go task only in a sample of online adult participants. Reliability is not constant, however, but can vary as a function of sample and setting. For example, our task may be adequately reliable for healthy adult participants, but that may not be the case for developmental or patient populations. Previous evidence suggests the task requires working memory, and our version of the task is more difficult, thus may be challenging. New studies are required. 
+
+The current study is not without limitations. Here we have investigated the psychometric properties of our modified Pavlovian go/no-go task only in a sample of online adult participants. The reliability of a task measure, however, is not absolute; reliability can vary as a function of participant demographics and the context in which the task is administered. For example, previous investigations have found that the reliability of task measures in healthy adults is not the same for psychiatric and developmental samples \cite{cooper2017role, arnon2020current}. To the extent that Pavlovian-instrumental interactions are modulated by executive functioning (i.e., working memory; \cite{swart2017catecholaminergic, chen2023effect}), it may be that the new version of this task proves too challenging for other subpopulations and diminish reliability. Additional studies are necessary to validate this modified version of the task in other populations. 
+
+
+A second limitation is that we only studied choice, not response times. Pavlovian biases extend into response times, and these two might be a reliable source of individual differences. Discuss one or two dstudies. Joint modeling may further improve reliability by virtue of improving parameter estimation. For example, the joint modeling of choice and response time has been found to improve the precision and reliability of estimated parameters in reinforcement learning \cite{ballard2019joint, shahar2019improving}.
+
+% is Hanneke's RT study out?
+
+% conclusion: tolerability.
+
+%TC:ignore
+\break
+\section*{Data availability}
+
+The data that support the findings of this study are openly available on Github at \url{https://github.com/nivlab/RobotFactory}.
+
+\section*{Code availability}
+
+All code for data cleaning and analysis associated with this study is available at \url{https://github.com/nivlab/RobotFactory}. The experiment code is available at the same link.  The custom web-software for serving online experiments is available at \url{https://github.com/nivlab/nivturk}. A playable demo of the task is available at \url{https://nivlab.github.io/jspsych-demos/tasks/pgng/experiment.html}.
+
+\section*{Acknowledgements}
+
+The research reported in this manuscript was supported in part by the National Center for Advancing Translational Sciences (NCATS), a component of the National Institute of Health (NIH), under award number UL1TR003017 (ND, YN). The content is solely the responsibility of the authors and does not necessarily represent the official views of the National Institutes of Health. SZ was supported by an NSF Graduate Research Fellowship. The funders had no role in study design, data collection and analysis, decision to publish or preparation of the manuscript.
+
+\section*{Competing Interests Statement}
+
+The authors declare no competing interests.
+
+\break
+\section*{References}
+\printbibliography[heading=main]
+\end{refsection}
+
+\break
+\begin{refsection}[supp]
+\section*{Supplementary materials}
+\setcounter{figure}{0}
+\setcounter{table}{0}
+\renewcommand{\thetable}{S\arabic{table}}
+\renewcommand{\thefigure}{S\arabic{figure}}
+
+\subsection*{Self-report measures}
+
+In Experiment 1, prior to starting the Pavlovian go/no-go task, participants completed the following self-report questionnaires: the 7-item generalized anxiety disorder scale (GAD-7; \cite{spitzer2006brief}); the 14-item manic and depressive tendencies scale (7-up/7-down; \cite{youngstrom20137}); and the abbreviated 12-item behavioral activation/inhibition scale (BIS/BAS; \cite{pagliaccio2016revising}). Participants also indicated their current mood using the affective slider \cite{betella2016affective}. Participants completed the 7-up/7-down and BIS/BAS scales twice, once on Day 0 and Day 28. Participants completed the GAD-7 and mood slider scales at the start of every session. 
+
+In Experiment 2, prior to starting the task, participants completed the same set of self-report questionnaires except that the 7-up/7-down was replaced with the 7-item depression subscale from the depression, anxiety, and stress scale (DASS; \cite{henry2005short}). Participants completed the BIS/BAS scale once, on Day 0 only. Participants completed the GAD-7, DASS, and mood slider scales at the start of every session. 
+
+\subsection*{Exclusion criteria}
+
+\subsection*{Reinforcement learning models}
+
+To better characterize participants' performance on the Pavlovian go/no-go task, we fit a nested set of reinforcement learning models to their choice data. Models were adapted from previous studies of this task. We start with the most complex model, in which all simpler models are nested. Under this model, the probability that a participant makes a Go response in response to stimulus $k$ is defined as:
+\begin{equation}
+    p(y_{k} = 1) = 0.5 \cdot \xi + (1 - \xi) \cdot \text{logit}^{-1} \left( \beta_{v_k} \cdot [Q_k(\text{Go}) - Q_k(\text{NoGo})] + \tau_{v_k} \right)
+\end{equation}
+where $Q_k(\text{Go})$ and $Q_k(\text{NoGo})$ are the current learned values of a Go and No-Go response, respectively; $\beta_{v_k}$  is the inverse temperature (choice sensitivity) parameter for stimuli of a particular valence (gain, loss); $\tau_{v_k}$ is the go bias for stimuli of a particular valence; and $\xi$ is the lapse rate. In turn, the value of a choice option is learned through feedback and a learning rule:
+\begin{equation}
+    Q_k(\text{action}) \leftarrow \eta_{v_k} \cdot \left[ r - Q_k(\text{action}) \right]
+\end{equation}
+where $r$ is the observed outcome on a particular trial; and $\eta_{v_k}$ is the learning rate for stimuli of a particular valence. For all models, outcomes were rescaled so that the better and worse of the two possible outcomes were equal to one and zero, respectively. Moreover, the Q-values are initialized at 0.5. Simplified versions of this model involved either fixing parameters to be equal regardless of the outcome domain (e.g., $\beta_{+} = \beta_-$) and/or fixing other parameters to zero (e.g., $\xi = 0$). 
+
+\subsection*{Reliability analyses}
+
+A primary objective of Study 2 was to measure the split-half reliability (within session 1) and test-retest reliability (between sessions 1 \& 2) of individual differences across model parameters (especially the asymmetry index, $\kappa$). To do so, we used a nested hierarchical modeling approach where parameters were pooled both within- and across-participants (see \cite{rouder2019psychometrics}). Briefly, for a particular parameter type, separate parameters were estimated per participant and session (in the case of test-retest reliability) or task-half (in the case of split-half reliability). Specifically, the parameters were estimated as follows:
+\begin{equation}
+\begin{split}
+    \theta_{i1} = \mu_1 + \theta_{ic} - \theta_{id} \\
+    \theta_{i2} = \mu_2 + \theta_{ic} + \theta_{id}
+\end{split}
+\end{equation}
+where $\theta_{i1}$ and $\theta_{i2}$ are some parameter (e.g., inverse temperature) for participant $i$ in sessions (or task-halves) 1 and 2, respectively; $\mu_1$ and $\mu_2$ are the group-averaged parameters for sessions (or task-halves) 1 and 2; $\theta_{ic}$ is the common effect for participant $i$ (i.e., the parameter component that is stable across sessions or task-halves); and $\theta_{id}$ is the difference effect for participant $i$ (i.e., the parameter component that varies across sessions or task-halves). The collection of $\theta_{ic}$ parameters across participants represents between-participants variability, whereas the collection of $\theta_{id}$ parameters represent within-participants variability. Both $\theta_{ic}$ and $\theta_{id}$ were assumed to be normally-distributed with zero means and independent, estimated variances. Split-half and test-retest reliability estimates were calculated by taking the Pearson correlation of $\theta_{i1}$ and $\theta_{i2}$ across task-halves and sessions, respectively.
+
+\break
+\subsection*{Example block of the modified Pavlovian go/no-go task}
+
+\begin{figure}[h]
+    \centerline{\includesvg[inkscapelatex=false,width=1.00\textwidth]{figures/figS01.svg}}
+    \caption{Caption}
+    \label{fig:figS01}
+\end{figure}
+
+\break
+\subsection*{Posterior predictive check for the best-fitting reinforcement learning model (Experiment 1)}
+
+\begin{figure}[h]
+    \centerline{\includesvg[inkscapelatex=false,width=1.00\textwidth]{figures/figS02.svg}}
+    \caption{Observed \& model-predicted choice behavior for Experiment 1. (A) Trial-by-trial choice behavior. Solid and dotted lines depict observed and model-predicted choice behavior, respectively. (B) Observed (x-axis) and model-predicted (y-axis) proportions of go responses for each trial type. Each point corresponds to one participant and condition. Notes: RMSE = root-mean-squared error between observed and model-predicted choice behavior. $\rho$ = Spearman's rank correlation between observed and model-predicted choice behavior.}
+    \label{fig:exp1_ppc}
+\end{figure}
+
+\clearpage
+\subsection*{Posterior predictive check for the best-fitting reinforcement learning model (Experiment 2)}
+
+\begin{figure}[h]
+    \centerline{\includesvg[inkscapelatex=false,width=1.00\textwidth]{figures/figS03.svg}}
+     \caption{Observed \& model-predicted choice behavior for Experiment 2. (A) Trial-by-trial choice behavior. Solid and dotted lines depict observed and model-predicted choice behavior, respectively. (B) Observed (x-axis) and model-predicted (y-axis) proportions of go responses for each trial type. Each point corresponds to one participant and condition. Notes: RMSE = root-mean-squared error between observed and model-predicted choice behavior. $\rho$ = Spearman's rank correlation between observed and model-predicted choice behavior.}
+    \label{fig:exp2_ppc}
+\end{figure}
+
+\clearpage
+\subsection*{Split-half reliability of model parameters}
+
+\begin{figure}[h]
+    \centerline{\includesvg[inkscapelatex=false,width=1.00\textwidth]{figures/figS04.svg}}
+    \caption{Caption}
+    \label{fig:figS04}
+\end{figure}
+
+\clearpage
+\subsection*{Comparative stability of self-report measures}
+
+\begin{figure}[h]
+    \centerline{\includesvg[inkscapelatex=false,width=1.00\textwidth]{figures/figS05.svg}}
+    \caption{Caption}
+    \label{fig:figS05}
+\end{figure}
+
+\clearpage
+\subsection*{Participant demographics}
+
+\begin{table}[h]
+    \centering
+    \begin{tabular*}{\textwidth}{lccc}
+    \toprule
+    Variable & \small Experment 1 (N=103) & \small Experiment 2 (N=110)  & p-value \\
+    \midrule
+    \textbf{Gender}, N (\%)                & & & 0.403 \\
+    \hspace{1em} Men                       & 55 (53.4\%) & 65 (59.1\%) & \\
+    \hspace{1em} Women                     & 47 (45.6\%) & 43 (39.1\%) & \\
+    \hspace{1em} Transgender or nonbinary         &   1  (1.0\%) &   1  (0.9\%) & \\
+    \hspace{1em} Rather not say            &   0  (0.0\%) &   1  (0.9\%) & \\
+    \midrule
+    \textbf{Age}, yrs                      & & & 0.006 \\
+    \hspace{1em} Mean (range)              & 35.5 (20 -- 69) & 39.6 (23 -- 69) & \\
+    \midrule
+    \textbf{Race \& Ethnicity}, N (\%)                  & & & 0.264 \\
+    \hspace{1em} White                     & 80 (77.7\%) &  97 (83.6\%) & \\ 
+    \hspace{1em} Black or African American &  9  (8.7\%) &  10  (8.6\%) & \\
+    \hspace{1em} Hispanic or Latino        &  9  (8.7\%) &  8  (7.3\%) & \\
+    \hspace{1em} Asian                     & 10  (9.7\%) &   3  (2.6\%) & \\
+    \hspace{1em} American Indian/Alaska Native & 0 (0.0\%) & 3 (2.6\%) & \\
+    \hspace{1em} Rather not say            &  4  (3.9\%) &  3  (2.6\%) & \\
+    \bottomrule
+    \end{tabular*}
+    \caption{Demographic characteristics of the participants in Experiments 1 and 2. Notes: Participants were able to select more than one ethnic and racial identity. Therefore, the participant counts and percentages in this section sum up to more than 100\%. The mean age of each sample was compared via the independent samples $t$-test ($df = 211$, $\alpha = 0.05$, two-sided). The proportion of participants in each sample identifying as men or white was compared via the two sample proportions $z$-test ($df = 211$, $\alpha = 0.05$, two-sided).}
+    \label{tab:demographics}
+\end{table}
+
+\clearpage
+\subsection*{Model comparison by session (Experiment 1)}
+
+\begin{table}[h!]
+    \centering
+    \small
+    \begin{tabular}{lcccr}
+        \toprule
+        Session & Model & Acc. (\%) & LOO & \multicolumn{1}{c}{$\Delta$ LOO} \\
+        \midrule
+         Day 0 & 1 & 82.2 & -37241.1 & -2050.3 (42.9) \\
+         & 2 & 84.1 & -38327.4 & -964.0 (30.7) \\
+         & 3 & 85.2 & -38992.9 & -298.5 (17.7) \\
+         & 4 & 85.2 & -39145.6 & -145.8 (11.1) \\
+         & 5 & 85.3 & -39129.9 & -161.5 (8.9) \\
+         & 6 & 85.4 & -39190.3 & -101.1 (6.7) \\
+         & 7 & 85.6 & -39291.4 & \multicolumn{1}{c}{-} \\
+         \midrule
+         Day 3 & 1 & 88.7 & -38446.8 & -1468.0 (34.0) \\
+         & 2 & 90.0 & -38979.3 & -935.5 (27.5) \\
+         & 3 & 90.8 & -39492.8 & -422.0 (17.7) \\
+         & 4 & 90.8 & -39644.9 & -269.9 (12.9) \\
+         & 5 & 90.8 & -39629.8 & -285.0 (12.3) \\
+         & 6 & 90.9 & -39666.1 & -248.7 (11.6) \\
+         & 7 & 91.0 & -39914.8 & \multicolumn{1}{c}{-} \\
+         \midrule
+         Day 14 & 1 & 90.1 & -38350.9 & -928.6 (26.5) \\
+         & 2 & 91.5 & -38777.0 & -502.5 (19.1) \\
+         & 3 & 91.5 & -38971.4 & -308.1 (14.7) \\
+         & 4 & 91.7 & -39066.7 & -212.8 (11.6) \\
+         & 5 & 91.7 & -39072.2 & -207.3 (11.3) \\
+         & 6 & 91.8 & -39093.8 & -185.7 (10.8) \\
+         & 7 & 91.9 & -39279.5 & \multicolumn{1}{c}{-} \\
+         \midrule
+         Day 28 & 1 & 89.4 & -37419.1 & -1155.6 (30.7) \\
+         & 2 & 91.0 & -37928.1 & -646.6 (23.5) \\
+         & 3 & 92.1 & -38360.7 & -214.1 (11.8) \\
+         & 4 & 92.1 & -38404.5 & -170.3 (9.3) \\
+         & 5 & 92.0 & -38434.0 & -140.7 (8.5) \\
+         & 6 & 92.1 & -38451.6 & -123.1 (7.6) \\
+         & 7 & 92.3 & -38574.7 & \multicolumn{1}{c}{-} \\
+         \bottomrule
+    \end{tabular}
+    \caption{Model comparison broken down by session. Notes: Acc. = trial-level classification accuracy between observed and model-predicted go responses. LOO = Bayesian leave-one-out cross-validation presented in deviance scale (i.e., smaller numbers indicate better fit). $\Delta$ LOO = difference in LOO values between models.}
+    \label{tab:exp1_mc_full}
+\end{table}
+
+\clearpage
+\subsection*{Model comparison by session (Experiment 2)}
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{lcccr}
+        \toprule
+        Session & Model & Acc. (\%) & LOO & \multicolumn{1}{c}{$\Delta$ LOO} \\
+        \midrule
+         Day 0 & 1 & 71.5 & -33517.7 & -2746.3 (48.6) \\
+         & 2 & 75.4 & -35145.3 & -1118.8 (33.1) \\
+         & 3 & 77.3 & -36002.4 & -261.6 (16.8) \\
+         & 4 & 77.2 & -36074.8 & -189.2 (12.0) \\
+         & 5 & 77.4 & -36117.1 & -147.0 (10.7) \\
+         & 6 & 77.4 & -36124.5 & -139.6 (9.1) \\
+         & 7 & 77.6 & -36264.1 & \multicolumn{1}{c}{-} \\
+         \midrule
+         Day 3 & 1 & 74.0 & -31023.5 & -1656.0 (38.0) \\
+         & 2 & 77.4 & -31996.2 & -683.3 (26.0) \\
+         & 3 & 78.1 & -32447.1 & -232.5 (15.7) \\
+         & 4 & 78.2 & -32513.7 & -165.9 (11.3) \\
+         & 5 & 78.1 & -32508.9 & -170.7 (10.6) \\
+         & 6 & 78.3 & -32543.9 & -135.7 (9.1) \\
+         & 7 & 78.7 & -32679.6 & \multicolumn{1}{c}{-} \\
+         \midrule
+         Day 14 & 1 & 73.3 & -31265.0 & -1802.8 (39.2) \\
+         & 2 & 76.8 & -32474.5 & -593.4 (24.8) \\
+         & 3 & 77.4 & -32833.5 & -234.3 (16.4) \\
+         & 4 & 77.3 & -32833.9 & -233.9 (13.1) \\
+         & 5 & 77.6 & -32893.1 & -174.7 (11.9) \\
+         & 6 & 77.6 & -32880.4 & -187.5 (11.3) \\
+         & 7 & 78.1 & -33067.8 & \multicolumn{1}{c}{-} \\
+         \bottomrule
+    \end{tabular}
+    \caption{Model comparison broken down by session. Notes: Acc. = trial-level classification accuracy between observed and model-predicted go responses. LOO = Bayesian leave-one-out cross-validation presented in deviance scale (i.e., smaller numbers indicate better fit). $\Delta$ LOO = difference in LOO values between models.}
+    \label{tab:exp2_mc_full}
+\end{table}
+
+\break
+\subsection*{Supplementary references}
+\printbibliography[heading=supp]
+\end{refsection}
+
+%TC:endignore
+\end{document}
