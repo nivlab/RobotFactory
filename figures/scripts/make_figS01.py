@@ -92,8 +92,8 @@ ax.invert_yaxis()
 ax.set(yticks=[], ylabel='')
 
 ## Adjust title.
-ax.set_title('  One example block of the modified Pavlovian Go/No-go Task', 
-             loc='left', color=labelcolor, fontsize=13)
+# ax.set_title('  One example block of the modified Pavlovian Go/No-go Task', 
+#              loc='left', color=labelcolor, fontsize=13)
 
 ## Adjust legends (set 1).
 m11, = plt.plot([], [], marker='o', mfc='w', mec=palette[0], ms=15, mew=1.8, lw=0)
@@ -140,5 +140,5 @@ ax.tick_params(bottom=False, left=False)
 sns.despine(ax=ax, left=True, right=True, top=True, bottom=True)
 
 ## Save figure.
-plt.subplots_adjust(left=0.01, right=0.86, bottom=0.04, top=0.93)
+plt.subplots_adjust(left=0.01, right=0.86, bottom=0.04, top=0.99)
 plt.savefig(os.path.join(ROOT_DIR, 'figures', 'figS01.svg'), dpi=100)
