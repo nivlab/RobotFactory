@@ -27,8 +27,8 @@ palette = ['#234f81', '#8e9cb8', '#bf8a82', '#812623']
 labels = ['Day 0', 'Day 3', 'Day 14']
 
 ## Define axis styles.
-labelcolor = '#737373'
-tickcolor = '#8a8a8a'
+labelcolor = '#505050'
+tickcolor = '#606060'
 axiscolor = '#d3d3d3'
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
@@ -172,4 +172,4 @@ for i, session in enumerate(sessions):
                           ha='left', va='bottom', color=labelcolor, fontsize=16)
     
 ## Save figure.
-plt.savefig(os.path.join(ROOT_DIR, 'figures', 'figS02.svg'), dpi=100)
+plt.savefig(os.path.join(ROOT_DIR, 'figures', 'figS03.svg'), dpi=100)

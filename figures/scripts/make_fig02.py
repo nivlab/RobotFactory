@@ -18,15 +18,15 @@ robots = ['gw','ngw','gal','ngal']
 
 ## Define palettes.
 palette_1 = ['#234f81', '#8e9cb8', '#bf8a82', '#812623']
-palette_2 = ['#234f81', '0.75', '0.75', '0.75']
+palette_2 = ['0.50', '0.75', '0.75', '0.75']
 palette_3 = ['#234f81', '#6d7b96', '#ababab']
 
 ## Define labels.
 labels = ['Day 0', 'Day 3', 'Day 14', 'Day 28']
 
 ## Define axis styles.
-labelcolor = '#737373'
-tickcolor = '#8a8a8a'
+labelcolor = '#505050'
+tickcolor = '#606060'
 axiscolor = '#d3d3d3'
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
@@ -220,7 +220,7 @@ sns.barplot(x='session', y='accuracy', data=gb, palette=palette_2, estimator=np.
 
 ## Add percentages.
 for i, v in enumerate(pivot.median()):
-    y = v - 4e-3 if v >= 2e-2 else (v - 3e-3 if v >= 1e-2 else 0.033)
+    y = v - 4e-3 if v >= 2e-2 else (v - 3e-3 if v >= 1e-2 else 0.037)
     ax.text(i + 1e-3, y, '%0.1f%%' %(v*1e2), ha='center', va='top', 
             color='w' if not i else 'k', fontsize=9, zorder=10) 
     

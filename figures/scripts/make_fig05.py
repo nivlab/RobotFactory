@@ -16,8 +16,8 @@ np.random.seed(47404)
 sessions = [1,2,3,4]
 
 ## Define axis styles.
-labelcolor = '#737373'
-tickcolor = '#8a8a8a'
+labelcolor = '#505050'
+tickcolor = '#606060'
 axiscolor = '#d3d3d3'
 
 ## Define row 1 styling.

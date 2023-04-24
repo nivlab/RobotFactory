@@ -24,8 +24,8 @@ palette_3 = ['#234f81', '#6d7b96', '#ababab']
 labels = ['Day 0', 'Day 3', 'Day 14']
 
 ## Define axis styles.
-labelcolor = '#737373'
-tickcolor = '#8a8a8a'
+labelcolor = '#505050'
+tickcolor = '#606060'
 axiscolor = '#d3d3d3'
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
@@ -166,7 +166,7 @@ pivot = pivot['go'] - pivot['no-go']
 gb = pivot.melt(ignore_index=False, value_name='accuracy')
 
 ## Plot changes.
-palette_2 = ['#234f81', '0.75', '0.75']
+palette_2 = ['0.50', '0.75', '0.75']
 sns.barplot(x='session', y='accuracy', data=gb, palette=palette_2, estimator=np.nanmedian,
             errorbar=('ci', 95), width=0.8, errwidth=1, capsize=0.15, zorder=5, ax=ax)
 
@@ -211,7 +211,7 @@ pivot = pivot['c'] - pivot['i']
 gb = pivot.melt(ignore_index=False, value_name='accuracy')
 
 ## Plot changes.
-palette_2 = ['#234f81', '0.75', '0.75']
+palette_2 = ['0.50', '0.75', '0.75']
 sns.barplot(x='session', y='accuracy', data=gb, palette=palette_2, estimator=np.nanmedian,
             errorbar=('ci', 95), width=0.8, errwidth=1, capsize=0.15, zorder=5, ax=ax)
 

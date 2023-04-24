@@ -15,8 +15,8 @@ np.random.seed(47404)
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
 
 ## Define axis styles.
-labelcolor = '#666666'
-tickcolor = '#8a8a8a'
+labelcolor = '#505050'
+tickcolor = '#606060'
 axiscolor = '#d3d3d3'
 
 ## Define point styles.
