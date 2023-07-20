@@ -132,9 +132,9 @@ for i, v in enumerate(pivot.median()):
             color='w' if not i else 'k', fontsize=9, zorder=10)    
     
 ## Add pairwise comparisons.
-plot_comparison(0, 1, 0.98, tickwidth=1e-2, annot='**', ax=ax)
-plot_comparison(0, 2, 1.02, tickwidth=1e-2, annot='**', ax=ax)
-plot_comparison(0, 3, 1.06, tickwidth=1e-2, annot='**', ax=ax)
+plot_comparison(0, 1, 0.98, tickwidth=1e-2, annot='***', ax=ax)
+plot_comparison(0, 2, 1.02, tickwidth=1e-2, annot='***', ax=ax)
+plot_comparison(0, 3, 1.06, tickwidth=1e-2, annot='***', ax=ax)
     
 ## Adjust x-axis.
 ax.set(xlim=(-0.4,3.4), xticks=np.arange(len(labels)), xlabel='')

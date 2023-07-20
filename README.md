@@ -9,9 +9,9 @@ Sam Zorowitz (zorowitz [at] princeton.edu)
 
 The code for this project is divided across four branches:
 
-    analysis (current branch)     <- all of the data and analysis code
-    study01-jspsych               <- software for Experiment 1
-    study02-jspsych               <- software for Experiment 2
+    analysis (current branch)       <- all of the data and analysis code
+    study01-jspsych                 <- software for Experiment 1
+    study02-jspsych                 <- software for Experiment 2
 
 The organization of the main branch (current branch) is as follows:
 
