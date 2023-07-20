@@ -2,9 +2,6 @@
 
 Code and data for Zorowitz et al. (in preparation), *Improving the Reliability of the Pavlovian Go/No-Go Task*.
 
-## Author
-Sam Zorowitz (zorowitz [at] princeton.edu)
-
 ## Project Organization
 
 The code for this project is divided across three branches:
@@ -19,6 +16,9 @@ The organization of the main branch (current branch) is as follows:
     ├── manuscript                  <- LaTeX code for the manuscript.
     ├── study01                     <- Data and code for Experiment 1.
     ├── study02                     <- Data and code for Experiment 2.
+
+## Contact
+Sam Zorowitz (zorowitz [at] princeton.edu)
 
 ## Acknowledgements
 
