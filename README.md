@@ -18,7 +18,7 @@ The organization of the main branch (current branch) is as follows:
     ├── study02                     <- Data and code for Experiment 2.
 
 ## Contact
-Sam Zorowitz (zorowitz [at] princeton.edu)
+[Sam Zorowitz](http://szorowi1.github.io/) (zorowitz [at] princeton.edu)
 
 ## Acknowledgements
 
