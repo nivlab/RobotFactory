@@ -1,13 +1,13 @@
 # Psychometrics of the Pavlovian go/no-go task
 
-Code and data for Zorowitz et al. (20XX), TK.
+Code and data for Zorowitz et al. (in preparation), *Improving the Reliability of the Pavlovian Go/No-Go Task*.
 
 ## Author
 Sam Zorowitz (zorowitz [at] princeton.edu)
 
 ## Project Organization
 
-The code for this project is divided across four branches:
+The code for this project is divided across three branches:
 
     analysis (current branch)       <- all of the data and analysis code
     study01-jspsych                 <- software for Experiment 1
