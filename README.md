@@ -1,6 +1,6 @@
 # Psychometrics of the Pavlovian go/no-go task
 
-Code and data for Zorowitz et al. (in preparation), *Improving the Reliability of the Pavlovian Go/No-Go Task*.
+Code and data for Zorowitz et al. (in preparation), *Improving the reliability of the Pavlovian go/no-go task*.
 
 ## Project Organization
 
@@ -18,7 +18,7 @@ The organization of the main branch (current branch) is as follows:
     ├── study02                     <- Data and code for Experiment 2.
 
 ## Contact
-[Sam Zorowitz](http://szorowi1.github.io/) (zorowitz [at] princeton.edu)
+[Sam Zorowitz](http://szorowi1.github.io/) (szorowi1 [at] gmail.com)
 
 ## Acknowledgements
 
