@@ -23,21 +23,21 @@ axiscolor = '#d3d3d3'
 ## Define row 1 styling.
 r1_xticks = np.concatenate([np.linspace(-0.3,0.3,4) + i for i in range(2)])
 r1_xticklabels = np.tile([0, 3, 14, 28], 2)
-r1_ylims = [(0,50), (-0.1,3.1), (0.05,0.55)]
-r1_yticks = [np.linspace(0,50,6), np.linspace(0,3,4), np.linspace(0.1,0.5,5)]
-r1_ylabels = [r'Outcome sensitivity ($\beta$)', r'Approach/avoidance bias ($\tau$)', r'Learning rates ($\eta$)']
+r1_ylims = [(0,50), (0.05,0.55), (-0.1,3.1)]
+r1_yticks = [np.linspace(0,50,6), np.linspace(0.1,0.5,5), np.linspace(0,3,4)]
+r1_ylabels = [r'Outcome sensitivity ($\beta$)', r'Learning rates ($\eta$)', r'Approach/avoidance bias ($\tau$)']
 r1_palette = np.repeat(['#234f81', '#812623'], 4)
 r1_comparisons = {
     'b1': [(-0.3,-0.1,43,'**'), (-0.3,0.1,46,'**'), (-0.3,0.3,49,'**')],
     'b2': [(0.7,0.9,43,'**'), (0.7,1.1,46,'**'), (0.7,1.3,49,'**')],
+    'a1': [(-0.3,-0.1,0.27,'**'), (-0.3,0.1,0.31,'**'), (-0.3,0.3,0.35,'**')],
+    'a2': [],
     'b3': [(-0.3,-0.1,2.3,'**'), (-0.3,0.1,2.5,'**'), (-0.3,0.3,2.7,'**')],
     'b4': [(0.7,0.9,0.800,'**'), (0.7,1.1,1.04,'**'), (0.7,1.3,1.28,'**')],
-    'a1': [(-0.3,-0.1,0.27,'**'), (-0.3,0.1,0.31,'**'), (-0.3,0.3,0.35,'**')],
-    'a2': []
 }
 
 ## Define row 2 styling.
-r2_titles = [r'Outcome sensitivity ($\beta$)', r'Approach/avoidance bias ($\tau$)', r'Learning rates ($\eta$)']
+r2_titles = [r'Outcome sensitivity ($\beta$)', r'Learning rates ($\eta$)', r'Approach/avoidance bias ($\tau$)']
 r2_xticks = np.concatenate([np.linspace(-0.25,0.25,3) + i for i in range(2)])
 r2_xticklabels = np.tile(['0{0}3'.format(u'\u2013'), '0{0}14'.format(u'\u2013'), '3{0}14'.format(u'\u2013')], 2)
 r2_palette = np.repeat(['#234f81', '#812623'], 3)
@@ -87,7 +87,7 @@ reliability = reliability.query('Group > 0').set_index(['Type','Param']).sort_in
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
     
 ## Iteratively plot.
-for i, (p1, p2, yticks, ylim, ylabel) in enumerate(zip(['b1','b3','a1'], ['b2','b4','a2'], r1_yticks, r1_ylims, r1_ylabels)):
+for i, (p1, p2, yticks, ylim, ylabel) in enumerate(zip(['b1','a1','b3'], ['b2','a2','b4'], r1_yticks, r1_ylims, r1_ylabels)):
     
     ## Initialize axis.
     ax = plt.subplot(gs[0,i])
@@ -137,7 +137,7 @@ for i, (p1, p2, yticks, ylim, ylabel) in enumerate(zip(['b1','b3','a1'], ['b2','
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
 
 ## Iteratively plot.
-for i, (p1, p2, title) in enumerate(zip(['b1','b3','a1'], ['b2','b4','a2'], r2_titles)):
+for i, (p1, p2, title) in enumerate(zip(['b1','a1','b3'], ['b2','a2','b4'], r2_titles)):
     
     ## Initialize axis.
     ax = plt.subplot(gs[1,i])
